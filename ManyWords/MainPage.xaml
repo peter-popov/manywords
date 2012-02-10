@@ -1,0 +1,64 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ManyWords.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+ 
+        <!--Panorama control-->
+        <controls:Panorama Title="my application">
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="PanoramaBackground.png"/>
+            </controls:Panorama.Background>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="from">
+                <ListBox Name="fromLng" Height="300">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="25" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="to">
+                <ListBox Name="toLng" Height="300">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="25" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="test...">
+                <StackPanel Orientation="Vertical">                   
+                    <TextBox Height="200" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="fromTxt" Text="Help me please" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
+                    <TextBox Height="200" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="toTxt" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Translate" Height="71" Width="160" Click="Button_Click" />
+                        <Button Content="Speak" Name ="btnSpeak" Height="71" Width="160" Click="btnSpeak_Click" />
+                    </StackPanel>
+                </StackPanel>
+
+            </controls:PanoramaItem>
+            
+        </controls:Panorama>
+        </Grid>
+</phone:PhoneApplicationPage>
