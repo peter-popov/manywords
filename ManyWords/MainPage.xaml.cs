@@ -23,12 +23,16 @@ namespace ManyWords
 
         ITranslator default_translator = TranslatorFactory.CreateInstance();
 
+        Language from = new Language { Code = "en", Name = "English" };
+        Language to = new Language { Code = "de", Name = "German" };
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
-            // Set the data context of the listbox control to the sample data
+            // Set the data context of the listbox control to the sample data           
+            DataContext = App.TrainingsViewModel;
 
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
@@ -36,28 +40,23 @@ namespace ManyWords
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+
             FrameworkDispatcher.Update();
 
             default_translator.TranslateComplete += TranslateCompleted;
             default_translator.SpeachReady += translator_SpeakCompleted;
-
-            fromLng.ItemsSource = default_translator.Languages;
-            toLng.ItemsSource = default_translator.Languages;
         }        
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Language from = fromLng.SelectedItem as Language;
-            Language to = toLng.SelectedItem as Language;
+
 
             default_translator.StartTranslate(fromTxt.Text, from, to); 
         }
 
         private void btnSpeak_Click(object sender, RoutedEventArgs e)
         {
-            Language to = toLng.SelectedItem as Language;
-
             default_translator.StartSpeach(toTxt.Text, to);
         }
 

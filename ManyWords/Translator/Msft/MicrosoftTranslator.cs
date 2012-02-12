@@ -30,7 +30,6 @@ namespace ManyWords.Translator.Msft
 
             translator_proxy.TranslateCompleted += translator_TranslateCompleted;
             translator_proxy.SpeakCompleted += translator_SpeakCompleted ;
-
         }
 
         public ICollection<Language> Languages { get { return languages; } }
@@ -40,6 +39,7 @@ namespace ManyWords.Translator.Msft
 
         public void StartTranslate(string text, Language from, Language to)
         {
+            //Todo: use all translations
             translator_proxy.TranslateAsync(APP_ID, text, from.Code, to.Code, "text/plain", "general");
         }
 
@@ -47,9 +47,6 @@ namespace ManyWords.Translator.Msft
         {
             translator_proxy.SpeakAsync(APP_ID, text, language.Code, "audio/wav", "");
         }
-
-
-
 
         private void translator_TranslateCompleted(object sender, TranslateCompletedEventArgs e)
         {

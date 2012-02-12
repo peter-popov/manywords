@@ -7,8 +7,8 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    d:DataContext="{d:DesignData Model/TestData.xml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -18,47 +18,48 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
  
-        <!--Panorama control-->
-        <controls:Panorama Title="my application">
-            <controls:Panorama.Background>
-                <ImageBrush ImageSource="PanoramaBackground.png"/>
-            </controls:Panorama.Background>
+        <controls:Panorama Title="ManyWords">
 
-            <!--Panorama item one-->
-            <controls:PanoramaItem Header="from">
-                <ListBox Name="fromLng" Height="300">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" FontSize="25" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </controls:PanoramaItem>
-
-            <!--Panorama item one-->
-            <controls:PanoramaItem Header="to">
-                <ListBox Name="toLng" Height="300">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" FontSize="25" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </controls:PanoramaItem>
-
-            <!--Panorama item one-->
-            <controls:PanoramaItem Header="test...">
-                <StackPanel Orientation="Vertical">                   
-                    <TextBox Height="200" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="fromTxt" Text="Help me please" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
-                    <TextBox Height="200" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="toTxt" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Translate" Height="71" Width="160" Click="Button_Click" />
-                        <Button Content="Speak" Name ="btnSpeak" Height="71" Width="160" Click="btnSpeak_Click" />
+            <!--**********************************************************-->
+            <!--Add new word-->
+            <controls:PanoramaItem Header="new word">
+                <StackPanel Orientation="Vertical">
+                    <TextBox Height="100" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="fromTxt" Text="Help me please" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
+                    <TextBox Height="160" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="toTxt" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
+                    <StackPanel Orientation="Horizontal" Margin="0,100,0,0">
+                        <Button Content="Translate" Height="71" Click="Button_Click" />
+                        <Button Content="Speak" Name ="btnSpeak" Height="71" Click="btnSpeak_Click" />
+                        <Button Content="Learn" Name ="btnLearn" Height="71" />
                     </StackPanel>
                 </StackPanel>
 
             </controls:PanoramaItem>
-            
+            <!--**********************************************************-->
+            <!--trainings-->
+            <controls:PanoramaItem Header="training">
+                <!--Double line list with image placeholder and text wrapping-->
+                <ListBox Name="lstTrainings" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                
+                                <Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
+                                <StackPanel Width="311">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <!--**********************************************************-->
+            <!--progress-->
+            <controls:PanoramaItem Header="progress">
+            </controls:PanoramaItem>
+
+
         </controls:Panorama>
         </Grid>
 </phone:PhoneApplicationPage>

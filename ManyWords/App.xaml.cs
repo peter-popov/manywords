@@ -12,11 +12,48 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ManyWords.Model;
 
 namespace ManyWords
 {
     public partial class App : Application
     {
+        private static WordStorage.Storage wordStorgae = null;
+
+        /// <summary>
+        /// A static word storage used to access words database.
+        /// </summary>
+        /// <returns>The MainViewModel object.</returns>
+        public static WordStorage.Storage WordStorage
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (wordStorgae == null)
+                    wordStorgae = new WordStorage.Storage();
+
+                return wordStorgae;
+            }
+        }            
+
+        private static TrainingsViewModel trainingViewModel = null;
+        
+        /// <summary>
+        /// A static ViewModel used by the views to bind against.
+        /// </summary>
+        /// <returns>The MainViewModel object.</returns>
+        public static TrainingsViewModel TrainingsViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (trainingViewModel == null)
+                    trainingViewModel = new TrainingsViewModel();
+
+                return trainingViewModel;
+            }
+        }
+
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.

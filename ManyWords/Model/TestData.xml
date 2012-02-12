@@ -1,0 +1,14 @@
+﻿<local:TrainingsViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ManyWords.Model">
+
+  <local:TrainingsViewModel.Items>
+    <local:TrainingsListItemModel Title="Test 1" Status="it's ok"/>
+    <local:TrainingsListItemModel Title="Test 3" Status="no status"/>
+    <local:TrainingsListItemModel Title="Test 4" Status="hello"/>
+    <local:TrainingsListItemModel Title="Test 5" Status="ha ha ha"/>
+  </local:TrainingsViewModel.Items>
+
+
+</local:TrainingsViewModel>
