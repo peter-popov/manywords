@@ -12,6 +12,25 @@
         
         <!-- Localization Resources -->
         <Resources:LocalizedStrings x:Key="LocalizedStrings" />
+
+        <Style TargetType="ListBoxItem" x:Key="ListBoxWordViewStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                            <TextBlock Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

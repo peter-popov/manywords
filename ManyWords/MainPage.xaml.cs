@@ -72,5 +72,21 @@ namespace ManyWords
             SoundEffect se = SoundEffect.FromStream(e.Result);
             se.Play();
         }
+
+        private void btnWords_Click(object sender, RoutedEventArgs e)
+        {
+            Uri uri = new Uri("/Views/WordsView.xaml", UriKind.Relative);
+            System.Diagnostics.Debug.WriteLine(uri.ToString());
+            NavigationService.Navigate(uri);
+        }
+
+       
+        private void btnLearn_Click(object sender, RoutedEventArgs e)
+        {
+            using(  WordStorage.Storage storage = new WordStorage.Storage() )
+            {
+                storage.StoreWord(new WordStorage.Word { Spelling = fromTxt.Text, Translation = toTxt.Text });
+            }
+        }
     }
 }

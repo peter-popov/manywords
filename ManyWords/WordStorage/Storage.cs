@@ -11,42 +11,51 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using System.Linq;
 
 namespace ManyWords.WordStorage
 {
 
-    public class LearnStatistics
-    {
-        public bool Learned;
-        public int Translated;
-        public int TranslatedCorrectly;
-    };
-
     public class Word
     {
+        public string Id;
         public string Spelling;
-        public List<string> Translations;
-        public string SpeachId;
-        public LearnStatistics Satistics;
+        public string Translation;        
     };
 
 
-    public class Storage
+    public class Storage:IDisposable 
     {
+        WordsDB wordsDB;
+
         public Storage()
         {
+            // Create the database if it does not exist.
+            wordsDB = new WordsDB(WordsDB.DBConnectionString);
+            if (wordsDB.DatabaseExists() == false)
+            {
+                //Create the database
+                wordsDB.CreateDatabase();
+            }            
         }
 
-        public ObservableCollection<string> Tags;
+        private List<Word> list = new List<Word>();
+
+
+        public IEnumerable<Word> Words
+        {
+            get
+            {
+                //TODO: Why can't I create List in linq select-new?
+                return from WordItem w in wordsDB.Words
+                          select new Word{ Spelling = w.Spelling, Translation = w.Translation };
+            }
+        }
 
         public IEnumerable<Word> Find(string word, bool look_in_translation = false)
         {
-            return new List<Word>();
-        }
-
-        public IEnumerable<Word> FindTag(string tag)
-        {
-            return new List<Word>();
+            return list;
         }
 
         public Stream GetSpeachAudioStream(Word w)
@@ -54,9 +63,29 @@ namespace ManyWords.WordStorage
             return null;
         }
 
-        public void StoreWord(Word w, Stream speach)
+        public void StoreWord(Word newWord)
         {
+            var exists = from WordItem w in wordsDB.Words
+                         where w.Spelling == newWord.Spelling 
+                         select w;
+
+            if (exists.Count<WordItem>() > 0)
+            {
+                MessageBox.Show("Word already exists in the database");
+                return;
+            }
+
+            WordItem item = new WordItem { Spelling = newWord.Spelling, Translation = newWord.Translation };            
+            wordsDB.Words.InsertOnSubmit(item);
+            wordsDB.SubmitChanges();
+            
             return;
+        }
+
+        public void Dispose()
+        {
+            if (wordsDB != null)
+                wordsDB.Dispose();
         }
     }
 }

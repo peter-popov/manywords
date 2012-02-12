@@ -52,6 +52,7 @@
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="system.data.linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows" />
@@ -70,6 +71,7 @@
     </Compile>
     <Compile Include="Model\ChoiceCorrectTrainingModel.cs" />
     <Compile Include="Model\TrainingsListItemModel.cs" />
+    <Compile Include="Model\WordsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,7 +90,11 @@
     <Compile Include="Views\ChoiceCorrectTrainingView.xaml.cs">
       <DependentUpon>ChoiceCorrectTrainingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WordsView.xaml.cs">
+      <DependentUpon>WordsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WordStorage\Storage.cs" />
+    <Compile Include="WordStorage\WordsDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -100,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChoiceCorrectTrainingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WordsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,6 +130,9 @@
     <None Include="Service References\TranslatorService\soap3.xsd" />
     <None Include="Service References\TranslatorService\SoapService.wsdl" />
     <DesignData Include="Model\TestData.xml">
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
+    <DesignData Include="Model\TestData1.xml">
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
     <Content Include="ServiceReferences.ClientConfig" />
