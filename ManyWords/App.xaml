@@ -23,9 +23,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                            <TextBlock Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>    
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>

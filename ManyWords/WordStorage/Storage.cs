@@ -13,13 +13,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Linq;
+using System.IO.IsolatedStorage;
 
 namespace ManyWords.WordStorage
 {
 
     public class Word
     {
-        public string Id;
+        public int Id;
         public string Spelling;
         public string Translation;        
     };
@@ -47,9 +48,10 @@ namespace ManyWords.WordStorage
         {
             get
             {
+                
                 //TODO: Why can't I create List in linq select-new?
                 return from WordItem w in wordsDB.Words
-                          select new Word{ Spelling = w.Spelling, Translation = w.Translation };
+                          select new Word{ Id=w.WordId, Spelling = w.Spelling, Translation = w.Translation };
             }
         }
 
@@ -58,12 +60,26 @@ namespace ManyWords.WordStorage
             return list;
         }
 
-        public Stream GetSpeachAudioStream(Word w)
+
+        string IdToFilename(Int64 id)
         {
+            return id.ToString().Trim() + ".wav";
+        }
+
+        public Stream GetSpeachAudioStream(Word word)
+        {
+            var exists = from WordItem w in wordsDB.Words
+                         where w.Spelling == word.Spelling
+                         select w;
+
+            var word_item = exists.First();
+
+            return LoadAudio(IdToFilename(word_item.WordId));
+
             return null;
         }
 
-        public void StoreWord(Word newWord)
+        public void StoreWord(Word newWord, Stream audio)
         {
             var exists = from WordItem w in wordsDB.Words
                          where w.Spelling == newWord.Spelling 
@@ -78,7 +94,10 @@ namespace ManyWords.WordStorage
             WordItem item = new WordItem { Spelling = newWord.Spelling, Translation = newWord.Translation };            
             wordsDB.Words.InsertOnSubmit(item);
             wordsDB.SubmitChanges();
-            
+
+            if (audio != null )
+                SaveAudio(IdToFilename(item.WordId), audio);
+
             return;
         }
 
@@ -86,6 +105,37 @@ namespace ManyWords.WordStorage
         {
             if (wordsDB != null)
                 wordsDB.Dispose();
+        }
+
+
+        private Stream LoadAudio(string filename)
+        {
+            // Obtain the virtual store for the application.
+            IsolatedStorageFile myStore = IsolatedStorageFile.GetUserStoreForApplication();
+
+            // Create a new folder and call it "MyFolder".
+            if (!myStore.DirectoryExists("Audio")) return null;
+
+            if (!myStore.FileExists("Audio\\" + filename)) return null;
+
+            // Specify the file path and options.
+            return new IsolatedStorageFileStream("Audio\\" + filename, FileMode.Open, FileAccess.Read, FileShare.Read, myStore);
+        }
+
+        private void SaveAudio(string filename, Stream audio)
+        {
+            // Obtain the virtual store for the application.
+            IsolatedStorageFile myStore = IsolatedStorageFile.GetUserStoreForApplication();
+
+            // Create a new folder and call it "MyFolder".
+            if (!myStore.DirectoryExists("Audio"))
+                myStore.CreateDirectory("Audio");
+
+            // Specify the file path and options.
+            using (var isoFileStream = new IsolatedStorageFileStream("Audio\\" + filename, FileMode.OpenOrCreate, myStore))
+            {
+                audio.CopyTo(isoFileStream);
+            }
         }
     }
 }

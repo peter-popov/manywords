@@ -18,11 +18,14 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}">
+        <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" DoubleTap="Pivot_DoubleTap">
             <!--Pivot item one-->
             <controls:PivotItem Header="all">
-                <ListBox Margin="0,0,0,0" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}"/>
-            </controls:PivotItem>
+                <StackPanel Orientation="Vertical">
+                    <Button Content="Play" Click="Button_Click" />
+                    <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" SelectionChanged="ListBox_SelectionChanged" />                    
+                </StackPanel>
+                </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem Header="learning">
@@ -35,6 +38,7 @@
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
+
 
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>

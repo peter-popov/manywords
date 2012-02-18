@@ -27,6 +27,11 @@ namespace ManyWords.Model
 
         private Word word;
 
+        public Word Word
+        {
+            get { return word; }
+        }
+
         public string Spelling
         {
             get
@@ -57,6 +62,11 @@ namespace ManyWords.Model
                     NotifyPropertyChanged("Translations");
                 }
             }
+        }
+
+        void Play(object sender, RoutedEventArgs args)
+        {
+            MessageBox.Show("Play " + Spelling);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

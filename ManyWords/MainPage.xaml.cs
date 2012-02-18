@@ -67,10 +67,25 @@ namespace ManyWords
             toTxt.Text = e.Result;
         }
 
+
+        bool is_save_mode = false;
+
         void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
         {
-            SoundEffect se = SoundEffect.FromStream(e.Result);
-            se.Play();
+            if (!is_save_mode)
+            {
+                SoundEffect se = SoundEffect.FromStream(e.Result);
+                se.Play();
+            }
+            else
+            {
+                using (WordStorage.Storage storage = new WordStorage.Storage())
+                {
+                    storage.StoreWord(new WordStorage.Word { Spelling = fromTxt.Text, Translation = toTxt.Text }, e.Result);
+                }
+            }
+
+            is_save_mode = false;
         }
 
         private void btnWords_Click(object sender, RoutedEventArgs e)
@@ -83,10 +98,8 @@ namespace ManyWords
        
         private void btnLearn_Click(object sender, RoutedEventArgs e)
         {
-            using(  WordStorage.Storage storage = new WordStorage.Storage() )
-            {
-                storage.StoreWord(new WordStorage.Word { Spelling = fromTxt.Text, Translation = toTxt.Text });
-            }
+            is_save_mode = true;
+            default_translator.StartSpeach(toTxt.Text, to);
         }
     }
 }
