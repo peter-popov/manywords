@@ -46,7 +46,7 @@ namespace ManyWords.Translator
     {
         ICollection<Language> Languages { get; }
 
-        event EventHandler<TranslatedEventArgs<string>> TranslateComplete;
+        event EventHandler<TranslatedEventArgs<List<string>>> TranslateComplete;
         event EventHandler<TranslatedEventArgs<Stream>> SpeachReady;
 
         void StartTranslate(string text, Language from, Language to);

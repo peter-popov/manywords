@@ -30,17 +30,26 @@ namespace ManyWords.Translator.Msft
 
             translator_proxy.TranslateCompleted += translator_TranslateCompleted;
             translator_proxy.SpeakCompleted += translator_SpeakCompleted ;
+            translator_proxy.GetTranslationsCompleted += translator_TranslateAllCompleted;
         }
 
         public ICollection<Language> Languages { get { return languages; } }
 
-        public event EventHandler<TranslatedEventArgs<string>> TranslateComplete;
+        public event EventHandler<TranslatedEventArgs<List<string>>> TranslateComplete;
         public event EventHandler<TranslatedEventArgs<Stream>> SpeachReady;
 
         public void StartTranslate(string text, Language from, Language to)
-        {
-            //Todo: use all translations
-            translator_proxy.TranslateAsync(APP_ID, text, from.Code, to.Code, "text/plain", "general");
+        {            
+            //IF we have more than one word use only best translation
+            if (text.Split(new char[] { ' ' }).Length > 1)
+            {
+                translator_proxy.TranslateAsync(APP_ID, text, from.Code, to.Code, "text/plain", "general");
+            }
+            else
+            {
+                translator_proxy.GetTranslationsAsync(APP_ID, text, from.Code, to.Code, 4,
+                    new TranslateOptions { Category = "general", ContentType = "text/plain" });
+            }
         }
 
         public void StartSpeach(string text, Language language)
@@ -50,8 +59,22 @@ namespace ManyWords.Translator.Msft
 
         private void translator_TranslateCompleted(object sender, TranslateCompletedEventArgs e)
         {
-            TranslateComplete(this, new TranslatedEventArgs<string>(e.Result, true));
+            TranslateComplete(this, new TranslatedEventArgs<List<string>>(new List<string>{ e.Result }, true));
         }
+
+        private void translator_TranslateAllCompleted(object sender, GetTranslationsCompletedEventArgs e)
+        {
+            List<string> list = new List<string>();
+            
+            foreach (TranslationMatch match in e.Result.Translations)
+            {                
+                if ( !list.Contains(match.TranslatedText) )
+                    list.Add(match.TranslatedText);
+            }
+
+            TranslateComplete(this, new TranslatedEventArgs<List<string>>(list, true));
+        }
+
 
         private void translator_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
