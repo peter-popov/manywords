@@ -18,14 +18,6 @@ using System.IO.IsolatedStorage;
 namespace ManyWords.WordStorage
 {
 
-    public class Word
-    {
-        public int Id;
-        public string Spelling;
-        public string Translation;        
-    };
-
-
     public class Storage:IDisposable 
     {
         WordsDB wordsDB;
@@ -47,11 +39,17 @@ namespace ManyWords.WordStorage
         public IEnumerable<Word> Words
         {
             get
+            {                
+                return from Word w in wordsDB.Words select w;
+            }
+        }
+
+
+        public IEnumerable<Translation> Translations
+        {
+            get
             {
-                
-                //TODO: Why can't I create List in linq select-new?
-                return from WordItem w in wordsDB.Words
-                          select new Word{ Id=w.WordId, Spelling = w.Spelling, Translation = w.Translation };
+                return from Translation t in wordsDB.Translations select t;
             }
         }
 
@@ -68,35 +66,43 @@ namespace ManyWords.WordStorage
 
         public Stream GetSpeachAudioStream(Word word)
         {
-            var exists = from WordItem w in wordsDB.Words
+            var exists = from Word w in wordsDB.Words
                          where w.Spelling == word.Spelling
                          select w;
 
             var word_item = exists.First();
 
-            return LoadAudio(IdToFilename(word_item.WordId));
-
-            return null;
+            return LoadAudio(IdToFilename(word_item.WordID));
         }
 
-        public void StoreWord(Word newWord, Stream audio)
+        public void StoreWord(string spelling, string[] translation, Stream audio)
         {
-            var exists = from WordItem w in wordsDB.Words
-                         where w.Spelling == newWord.Spelling 
+            var exists = from Word w in wordsDB.Words
+                         where w.Spelling == spelling 
                          select w;
 
-            if (exists.Count<WordItem>() > 0)
+            if (exists.Count<Word>() > 0)
             {
                 MessageBox.Show("Word already exists in the database");
                 return;
             }
 
-            WordItem item = new WordItem { Spelling = newWord.Spelling, Translation = newWord.Translation };            
-            wordsDB.Words.InsertOnSubmit(item);
+            Word item = new Word { Spelling = spelling };
+            //wordsDB.Words.InsertOnSubmit(item);
+            //wordsDB.SubmitChanges();
+            
+            foreach (string s in translation)
+            {
+                if (s.Trim() == "") continue;
+                Translation tr = new Translation { Spelling = s, Word = item };
+                wordsDB.Translations.InsertOnSubmit(tr);
+            }
+
+            
             wordsDB.SubmitChanges();
 
             if (audio != null )
-                SaveAudio(IdToFilename(item.WordId), audio);
+                SaveAudio(IdToFilename(item.WordID), audio);
 
             return;
         }

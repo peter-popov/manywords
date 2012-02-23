@@ -12,18 +12,58 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace ManyWords.WordStorage
 {
-    
-    [Table]
-    public class WordItem : INotifyPropertyChanged, INotifyPropertyChanging
+    public class NotifyPropertyMembers: INotifyPropertyChanged, INotifyPropertyChanging
     {
-        // Define ID: private field, public property and database column.
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Used to notify the page that a data context property changed
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        // Used to notify the data context that a data context property is about to change
+        protected void NotifyPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Table(Name = "Words")]
+    public class Word : NotifyPropertyMembers
+    {
+        private EntitySet<Translation> translations;
+        public Word()
+		{
+            this.translations = new EntitySet<Translation>(new Action<Translation>(this.attach_translation), 
+                                                           new Action<Translation>(this.detach_translation));
+		}
+
         private int wordId;
-        [Column(IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public int WordId
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int WordID
         {
             get
             {
@@ -33,16 +73,16 @@ namespace ManyWords.WordStorage
             {
                 if (wordId != value)
                 {
-                    NotifyPropertyChanging("WordId");
+                    NotifyPropertyChanging("WordID");
                     wordId = value;
-                    NotifyPropertyChanged("WordId");
+                    NotifyPropertyChanged("WordID");
                 }
             }
         }
 
 
         private string spelling;
-        [Column(IsPrimaryKey = true, CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public string Spelling
         {
             get
@@ -61,55 +101,75 @@ namespace ManyWords.WordStorage
         }
 
 
-        private string translation;
-        [Column]
+        [Association(Storage = "translations", OtherKey = "wordID", ThisKey = "WordID")]
+        public EntitySet<Translation> Translations
+        {
+            get { return this.translations; }
+            set { this.translations.Assign(value); }
+        }
+
         public string Translation
         {
             get
             {
-                return translation;
-            }
-            set
-            {
-                if (translation != value)
+                if (translations != null)
                 {
-                    NotifyPropertyChanging("Translation");
-                    translation = value;
-                    NotifyPropertyChanged("Translation");
+                    string s = "";
+                    foreach (Translation t in translations)
+                    {
+                        s += t.Spelling + "; ";
+                    }
+                    return s;
                 }
-            }
+                else
+                    return "";
+            }            
         }
 
 
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Used to notify the page that a data context property changed
-        private void NotifyPropertyChanged(string propertyName)
+        private void attach_translation(Translation entity)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            NotifyPropertyChanging("Translation");
+            entity.Word = this;
         }
 
-        #endregion
-
-        #region INotifyPropertyChanging Members
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        // Used to notify the data context that a data context property is about to change
-        private void NotifyPropertyChanging(string propertyName)
+        private void detach_translation(Translation entity)
         {
-            if (PropertyChanging != null)
+            NotifyPropertyChanging("Translation");
+            entity.Word = null;
+        }
+    }
+
+
+    [Table(Name = "Translations")]
+    public class Translation : NotifyPropertyMembers
+    {
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int ID;
+
+        [Column]
+        public string Spelling;
+
+        [Column]
+        public int wordID;
+
+        
+        private EntityRef<Word> word;
+        [Association(Storage = "word", ThisKey = "wordID", OtherKey = "WordID", IsForeignKey = true)]
+        public Word Word
+        {
+            get { return this.word.Entity; }
+            set 
             {
-                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+                NotifyPropertyChanging("Word");
+                this.word.Entity = value;
+                if (value != null)
+                {
+                    wordID = value.WordID;
+                }
+                NotifyPropertyChanged("Word");
             }
         }
-
-        #endregion
     }
 
 
@@ -124,6 +184,7 @@ namespace ManyWords.WordStorage
         { }
 
         // Specify a single table for the to-do items.
-        public Table<WordItem> Words;
+        public Table<Word> Words;
+        public Table<Translation> Translations;
     }
 }

@@ -26,7 +26,24 @@ namespace ManyWords.Views
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            WordStorage.Storage storage = App.WordStorage;
 
+            System.Diagnostics.Debug.WriteLine("DUMP WORD");
+            foreach (WordStorage.Word w in storage.Words)
+            {
+                System.Diagnostics.Debug.WriteLine("Id = {0}, Spelling = {1}", w.WordID, w.Spelling);
+                //w.Translations.Load();
+                foreach (WordStorage.Translation t in w.Translations)
+                {
+                    System.Diagnostics.Debug.WriteLine("\tId = {0}, Spelling = {1}, Word = {2}", t.ID, t.Spelling, t.wordID);
+                }
+            }
+
+            System.Diagnostics.Debug.WriteLine("DUMP TRANSLATIONS");
+            foreach (WordStorage.Translation t in storage.Translations)
+            {
+                System.Diagnostics.Debug.WriteLine("Id = {0}, Spelling = {1}, Word = {2}", t.ID, t.Spelling, t.wordID);
+            }
         }
 
         private void Pivot_DoubleTap(object sender, GestureEventArgs e)

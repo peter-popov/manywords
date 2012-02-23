@@ -23,9 +23,9 @@ namespace ManyWords
 
         ITranslator default_translator = TranslatorFactory.CreateInstance();
 
-        Language from = new Language { Code = "en", Name = "English" };
-        Language to = new Language { Code = "de", Name = "German" };
-
+        Language from = new Language { Code = "de", Name = "German" };
+        Language to = new Language { Code = "ru", Name = "Russian" };
+        
         // Constructor
         public MainPage()
         {
@@ -57,14 +57,16 @@ namespace ManyWords
 
         private void btnSpeak_Click(object sender, RoutedEventArgs e)
         {
-            default_translator.StartSpeach(toTxt.Text, to);
+            default_translator.StartSpeach(fromTxt.Text, from);
         }
+        
 
 
-
-        void TranslateCompleted(object sender, TranslatedEventArgs<string> e)
+        void TranslateCompleted(object sender, TranslatedEventArgs<List<string>> e)
         {
-            toTxt.Text = e.Result;
+            toTxt.Text = "";
+            foreach( string s in e.Result)
+                toTxt.Text += s + "\n";
         }
 
 
@@ -74,14 +76,17 @@ namespace ManyWords
         {
             if (!is_save_mode)
             {
-                SoundEffect se = SoundEffect.FromStream(e.Result);
-                se.Play();
+                //SoundEffect se = SoundEffect.FromStream(e.Result);
+                //se.Play();
             }
             else
             {
                 using (WordStorage.Storage storage = new WordStorage.Storage())
                 {
-                    storage.StoreWord(new WordStorage.Word { Spelling = fromTxt.Text, Translation = toTxt.Text }, e.Result);
+                    WordStorage.Word new_word = new WordStorage.Word { Spelling = fromTxt.Text };
+                    
+
+                    storage.StoreWord(fromTxt.Text, toTxt.Text.Split(new char[]{'\n'}), e.Result);
                 }
             }
 

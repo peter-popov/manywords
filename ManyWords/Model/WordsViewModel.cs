@@ -54,14 +54,6 @@ namespace ManyWords.Model
             {
                 return word.Translation;
             }
-            set
-            {
-                if (value != word.Translation)
-                {
-                    word.Translation = value;
-                    NotifyPropertyChanged("Translations");
-                }
-            }
         }
 
         void Play(object sender, RoutedEventArgs args)

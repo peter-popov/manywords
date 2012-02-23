@@ -67,8 +67,11 @@ namespace ManyWords.Translator.Msft
             List<string> list = new List<string>();
             
             foreach (TranslationMatch match in e.Result.Translations)
-            {                
-                if ( !list.Contains(match.TranslatedText) )
+            {
+                if (match.TranslatedText.Trim() == "")
+                    continue;
+
+                if (!list.Contains(match.TranslatedText))
                     list.Add(match.TranslatedText);
             }
 
