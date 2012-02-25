@@ -6,14 +6,16 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:ManyWords.Views"
     d:DataContext="{d:DesignData ../Model/TestData1.xml}"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    local:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -21,11 +23,8 @@
         <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" DoubleTap="Pivot_DoubleTap">
             <!--Pivot item one-->
             <controls:PivotItem Header="all">
-                <StackPanel Orientation="Vertical">
-                    <Button Content="Play" Click="Button_Click" />
-                    <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" SelectionChanged="ListBox_SelectionChanged" />                    
-                </StackPanel>
-                </controls:PivotItem>
+                <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" SelectionChanged="ListBox_SelectionChanged" />                    
+            </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem Header="learning">

@@ -90,6 +90,7 @@
     <Compile Include="Views\ChoiceCorrectTrainingView.xaml.cs">
       <DependentUpon>ChoiceCorrectTrainingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TiltEffect.cs" />
     <Compile Include="Views\WordsView.xaml.cs">
       <DependentUpon>WordsView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +152,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Sound_dark_small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

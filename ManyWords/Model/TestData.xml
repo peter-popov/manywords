@@ -11,11 +11,4 @@
     <model:TrainingsListItemModel Title="Test 5" Status="ha ha ha"/>
   </model:TrainingsViewModel.Items>
 
-  <model:WordsViewModel.All>
-    <model:WordListItemModel Spelling="Hello"/>
-    <model:WordListItemModel Spelling="World"/>
-    <model:WordListItemModel Spelling="Abend"/>
-    <model:WordListItemModel Spelling="Hund"/>
-  </model:WordsViewModel.All>
-
 </model:TrainingsViewModel>

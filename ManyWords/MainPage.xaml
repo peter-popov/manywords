@@ -28,7 +28,15 @@
                     <TextBox Height="160" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="toTxt" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
                     <StackPanel Orientation="Horizontal" Margin="0,100,0,0">
                         <Button Content="Translate" Height="71" Click="Button_Click" />
-                        <Button Content="Speak" Name ="btnSpeak" Height="71" Click="btnSpeak_Click" />
+                        <Button Name ="btnSpeak"  BorderThickness="0"  Height="71" Click="btnSpeak_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
+                                        <Image Source="/Sound_dark_small.png" Height="60" Width="60" Stretch="Fill" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                         <Button Content="Learn" Name ="btnLearn" Height="71" Click="btnLearn_Click" />
                     </StackPanel>
                     <Button Content="words list" Name ="btnWords" Height="71" Click="btnWords_Click" />

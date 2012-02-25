@@ -18,8 +18,25 @@ using System.Linq.Expressions;
 namespace ManyWords.Model
 {
 
+    public class PlaySound : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            MessageBox.Show("Imagine I'm playin sound");
+        }
+    }
+
     public class WordListItemModel : INotifyPropertyChanged
     {
+        private static PlaySound playCmd = new PlaySound();
+
         public WordListItemModel(Word w)
         {
             this.word = w;
@@ -56,10 +73,11 @@ namespace ManyWords.Model
             }
         }
 
-        void Play(object sender, RoutedEventArgs args)
+        public ICommand PlaySound
         {
-            MessageBox.Show("Play " + Spelling);
+            get { return playCmd; }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -79,8 +97,15 @@ namespace ManyWords.Model
 
         public WordsViewModel()
         {
+            All = new List<WordListItemModel>();
+            All.AddRange(from Word w in storage.Words
+                         select new WordListItemModel(w));
         }
-       
+
+
+        public List<WordListItemModel> All { get; private set; }
+
+        /*
         public IEnumerable<WordListItemModel> All
         {
             get
@@ -88,7 +113,7 @@ namespace ManyWords.Model
                 return from Word w in storage.Words
                        select new WordListItemModel(w);
             }
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

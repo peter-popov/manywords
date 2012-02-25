@@ -9,7 +9,7 @@
 
     <!--Application Resources-->
     <Application.Resources>
-        
+
         <!-- Localization Resources -->
         <Resources:LocalizedStrings x:Key="LocalizedStrings" />
 
@@ -23,12 +23,29 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>    
-                        </StackPanel>
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+
+                            <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
