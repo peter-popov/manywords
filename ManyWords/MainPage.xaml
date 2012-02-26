@@ -38,6 +38,7 @@
                             </Button.Template>
                         </Button>
                         <Button Content="Learn" Name ="btnLearn" Height="71" Click="btnLearn_Click" />
+                        <Button Content="Button" Height="51" Name="button1" Width="73" Click="button1_Click" />
                     </StackPanel>
                     <Button Content="words list" Name ="btnWords" Height="71" Click="btnWords_Click" />
                 </StackPanel>

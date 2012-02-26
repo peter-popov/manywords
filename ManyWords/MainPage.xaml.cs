@@ -106,5 +106,12 @@ namespace ManyWords
             is_save_mode = true;
             default_translator.StartSpeach(toTxt.Text, to);
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Uri uri = new Uri("/Views/WordEditor.xaml", UriKind.Relative);
+            System.Diagnostics.Debug.WriteLine(uri.ToString());
+            NavigationService.Navigate(uri);
+        }
     }
 }
