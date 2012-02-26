@@ -13,7 +13,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
-    local:TiltEffect.IsTiltEnabled="True">
+    local:TiltEffect.IsTiltEnabled="True" Loaded="WordEditor_Loaded">
 
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -43,8 +43,8 @@
 
             <!--Word section-->
 
-            <TextBox Grid.Row="0" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" />
-            <Button Grid.Row="0" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0">
+            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" />
+            <Button Grid.Row="0" Name="btnSpeak" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0" Click="btnSpeak_Click">
                 <Button.Template>
                     <ControlTemplate>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
@@ -56,9 +56,9 @@
 
 
             <!--Translation-->
-            <TextBlock Grid.Row="1" Text="Translations:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>            
-            <TextBox Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Right" Height="140" Width="456"/>
-            <Button Grid.Row="2" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0">
+            <TextBlock Grid.Row="1" Text="Translations:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="140" Width="456"/>
+            <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click">
                 <Button.Template>
                     <ControlTemplate>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
@@ -70,13 +70,13 @@
 
             <!--Association-->
             <StackPanel Grid.Row="3" Orientation ="Vertical">
-                <TextBlock Text="Association:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+                <TextBlock Name="txtAssociation" Text="Association:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
                 <TextBox TextWrapping="Wrap" HorizontalAlignment="Right" Height="200" Width="456"/>
             </StackPanel>
 
             <!--Buttons-->
             <StackPanel Grid.Row="4" Orientation ="Horizontal">
-                <Button Margin="180,0,0,0" Content="Learn" HorizontalAlignment="Center" FlowDirection="LeftToRight"></Button>
+                <Button Margin="180,0,0,0" Name="btnDone" Content="Learn" HorizontalAlignment="Center" FlowDirection="LeftToRight" Click="btnDone_Click"></Button>
             </StackPanel>
 
         </Grid>

@@ -7,43 +7,20 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
     d:DataContext="{d:DesignData Model/TestData.xml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False" Loaded="PhoneApplicationPage_Loaded">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
  
         <controls:Panorama Title="ManyWords">
 
-            <!--**********************************************************-->
-            <!--Add new word-->
-            <controls:PanoramaItem Header="new word">
-                <StackPanel Orientation="Vertical">
-                    <TextBox Height="100" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="fromTxt" Text="Help me please" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
-                    <TextBox Height="160" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="toTxt" Text="" VerticalAlignment="Top" HorizontalContentAlignment="Left" />
-                    <StackPanel Orientation="Horizontal" Margin="0,100,0,0">
-                        <Button Content="Translate" Height="71" Click="Button_Click" />
-                        <Button Name ="btnSpeak"  BorderThickness="0"  Height="71" Click="btnSpeak_Click">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
-                                        <Image Source="/Sound_dark_small.png" Height="60" Width="60" Stretch="Fill" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Content="Learn" Name ="btnLearn" Height="71" Click="btnLearn_Click" />
-                        <Button Content="Button" Height="51" Name="button1" Width="73" Click="button1_Click" />
-                    </StackPanel>
-                    <Button Content="words list" Name ="btnWords" Height="71" Click="btnWords_Click" />
-                </StackPanel>
 
-            </controls:PanoramaItem>
             <!--**********************************************************-->
             <!--trainings-->
             <controls:PanoramaItem Header="training">
@@ -72,4 +49,12 @@
 
         </controls:Panorama>
         </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Minimized">
+            <shell:ApplicationBarIconButton IconUri="/Sould_light_small.png" Text="Add word" Click="ApplicationBarButtonAddWord_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Sould_light_small.png" Text="Words list" Click="ApplicationBarButtonWordsList_Click"/>            
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
