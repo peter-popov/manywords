@@ -1,0 +1,11 @@
+syntax: glob
+*.orig
+*.cache
+*.pdb
+*.dll
+*.cachefile
+*.user
+*.suo
+*/obj/
+*/bin/
+*/Bin/
