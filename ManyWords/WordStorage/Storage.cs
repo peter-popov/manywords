@@ -75,7 +75,7 @@ namespace ManyWords.WordStorage
             return LoadAudio(IdToFilename(word_item.WordID));
         }
 
-        public void StoreWord(string spelling, string[] translation, Stream audio)
+        public void StoreWord(string spelling, IEnumerable<string> translation, Stream audio)
         {
             var exists = from Word w in wordsDB.Words
                          where w.Spelling == spelling 

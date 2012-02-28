@@ -52,9 +52,9 @@
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Minimized">
-            <shell:ApplicationBarIconButton IconUri="/Sould_light_small.png" Text="Add word" Click="ApplicationBarButtonAddWord_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Sould_light_small.png" Text="Words list" Click="ApplicationBarButtonWordsList_Click"/>            
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Default">
+            <shell:ApplicationBarIconButton IconUri="/appbar_addword.png" Text="Add word" Click="ApplicationBarButtonAddWord_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/appbar_wordslist.png" Text="Words list" Click="ApplicationBarButtonWordsList_Click"/>            
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

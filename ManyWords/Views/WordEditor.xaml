@@ -43,7 +43,7 @@
 
             <!--Word section-->
 
-            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" />
+            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" KeyDown="txtWord_KeyDown" />
             <Button Grid.Row="0" Name="btnSpeak" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0" Click="btnSpeak_Click">
                 <Button.Template>
                     <ControlTemplate>
@@ -57,8 +57,8 @@
 
             <!--Translation-->
             <TextBlock Grid.Row="1" Text="Translations:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
-            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="140" Width="456"/>
-            <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click">
+            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="140" Width="456" TextChanged="txtTranslations_TextChanged" KeyDown="txtTranslations_KeyDown" />
+            <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click" IsEnabled="True">
                 <Button.Template>
                     <ControlTemplate>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
@@ -76,7 +76,7 @@
 
             <!--Buttons-->
             <StackPanel Grid.Row="4" Orientation ="Horizontal">
-                <Button Margin="180,0,0,0" Name="btnDone" Content="Learn" HorizontalAlignment="Center" FlowDirection="LeftToRight" Click="btnDone_Click"></Button>
+                <Button Margin="180,0,0,0" Name="btnDone" Content="Learn" HorizontalAlignment="Center" FlowDirection="LeftToRight" Click="btnDone_Click" IsEnabled="False"></Button>
             </StackPanel>
 
         </Grid>

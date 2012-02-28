@@ -34,12 +34,12 @@ namespace ManyWords
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void ApplicationBarButtonAddWord_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/WordEditor.xaml", UriKind.Relative));   
+            NavigationService.Navigate(new Uri("/Views/WordEditor.xaml?mode=new", UriKind.Relative));   
         }
 
         private void ApplicationBarButtonWordsList_Click(object sender, EventArgs e)

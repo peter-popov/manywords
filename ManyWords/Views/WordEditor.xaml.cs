@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using ManyWords.Translator;
 using System.IO;
@@ -40,14 +41,67 @@ namespace ManyWords.Views
             txtWord.TextInput += txtWord_TextChanged;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (NavigationContext.QueryString.ContainsKey("mode"))
+            {
+                if (NavigationContext.QueryString["mode"].ToLower() == "edit")
+                {                    
+                    this.PageTitle.Text = "edit word";
+                    btnDone.Content = "Update";
+                }
+                else if (NavigationContext.QueryString["mode"].ToLower() == "new")
+                {
+                    this.PageTitle.Text = "new word";
+                    btnDone.Content = "Add";
+                }
+                else
+                {
+                    System.Diagnostics.Debug.Assert(false, "wrong mode for page");
+                }
+            }
+        }
+
+        string clearWord(string s)
+        {
+            return s.Trim(new char[] { ' ', '.', '\\', '/', '\n' });
+        }
+
+        void doTranslate(string text)
+        {
+            if ( text.Length > 0 )
+                default_translator.StartTranslate(text, from, to);         
+        }
+
+        bool isEnabled()
+        {
+            return clearWord(txtWord.Text).Length > 0 && clearWord(txtTranslations.Text).Length > 0;
+        }
+
         private void txtWord_TextChanged(object sender, RoutedEventArgs e)
         {
-            default_translator.StartTranslate(txtWord.Text, from, to);     
+            btnDone.IsEnabled = isEnabled();
+            doTranslate( clearWord(txtWord.Text) );
+        }
+
+        private void txtWord_KeyDown(object sender, KeyEventArgs e)
+        {
+            btnDone.IsEnabled = isEnabled();            
+        }
+
+        private void txtTranslations_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            btnDone.IsEnabled = isEnabled();
+        }
+
+        private void txtTranslations_KeyDown(object sender, KeyEventArgs e)
+        {
+            btnDone.IsEnabled = isEnabled();
         }
 
         private void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            default_translator.StartTranslate(txtWord.Text, from, to); 
+            doTranslate(clearWord(txtWord.Text));
         }
 
         void translator_TranslateCompleted(object sender, TranslatedEventArgs<List<string>> e)
@@ -69,7 +123,7 @@ namespace ManyWords.Views
 
         void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
         {
-            if (e.IsOk == false)
+            if (e.IsOk == false )
             {
                 //Do something
                 return;
@@ -81,10 +135,13 @@ namespace ManyWords.Views
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
+            var wordText = clearWord(txtWord.Text);           
+            var translations = txtTranslations.Text.Split(new char[]{'\n'}, StringSplitOptions.RemoveEmptyEntries );
+            var clear_translations = from string s in translations
+                                     where clearWord(s).Length > 0
+                                     select clearWord(s);
 
+            App.WordStorage.StoreWord( wordText, clear_translations, null);            
         }
-
-
-
     }
 }
