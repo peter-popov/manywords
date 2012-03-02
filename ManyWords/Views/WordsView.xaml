@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ManyWords.Views"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     d:DataContext="{d:DesignData ../Model/TestData1.xml}"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -17,13 +18,60 @@
     shell:SystemTray.IsVisible="True"
     local:TiltEffect.IsTiltEnabled="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <Style TargetType="ListBoxItem" x:Key="ListBoxWordViewStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="Transparent">
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu Width="300">
+                                    <toolkit:MenuItem Header="Edit" Click="Edit_MenuItem_Click"/>
+                                    <toolkit:MenuItem Header="Delete" Click="Delete_MenuItem_Click"/>
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+
+                            <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image Source="/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" DoubleTap="Pivot_DoubleTap">
+        <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}">
             <!--Pivot item one-->
             <controls:PivotItem Header="all">
-                <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" SelectionChanged="ListBox_SelectionChanged" />                    
+                <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" />
             </controls:PivotItem>
 
             <!--Pivot item two-->
@@ -39,6 +87,7 @@
     </Grid>
 
 
+
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
@@ -50,5 +99,5 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
-    
+
 </phone:PhoneApplicationPage>

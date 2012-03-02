@@ -5,7 +5,9 @@
     xmlns:Resources="clr-namespace:ManyWords"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    >
 
     <!--Application Resources-->
     <Application.Resources>
@@ -13,43 +15,7 @@
         <!-- Localization Resources -->
         <Resources:LocalizedStrings x:Key="LocalizedStrings" />
 
-        <Style TargetType="ListBoxItem" x:Key="ListBoxWordViewStyle">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Top"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Grid Background="Transparent">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="60"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-
-                            <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image Source="/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

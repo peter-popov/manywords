@@ -93,19 +93,13 @@ namespace ManyWords.Model
 
     public class WordsViewModel: INotifyPropertyChanged
     {
-        WordStorage.Storage storage = new WordStorage.Storage();
+        WordStorage.Storage storage = App.WordStorage;
 
         public WordsViewModel()
         {
-            All = new List<WordListItemModel>();
-            All.AddRange(from Word w in storage.Words
-                         select new WordListItemModel(w));
+            
         }
-
-
-        public List<WordListItemModel> All { get; private set; }
-
-        /*
+        
         public IEnumerable<WordListItemModel> All
         {
             get
@@ -113,7 +107,16 @@ namespace ManyWords.Model
                 return from Word w in storage.Words
                        select new WordListItemModel(w);
             }
-        }*/
+        }
+
+        public void Remove(WordListItemModel item)
+        {
+            if (item != null)
+            {
+                storage.RemoveWord(item.Word);
+                NotifyPropertyChanged("All");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

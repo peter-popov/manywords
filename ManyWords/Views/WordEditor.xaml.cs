@@ -22,6 +22,9 @@ namespace ManyWords.Views
     {
         ITranslator default_translator = TranslatorFactory.CreateInstance();
 
+        private bool isSave = false;
+        private int wordId = -1;
+
         Language from = new Language { Code = "de", Name = "German" };
         Language to = new Language { Code = "ru", Name = "Russian" };
 
@@ -41,17 +44,36 @@ namespace ManyWords.Views
             txtWord.TextInput += txtWord_TextChanged;
         }
 
+        private void loadWord(int Id)
+        {
+            WordStorage.Word w = App.WordStorage.Find(Id);
+            if (w == null) return;
+
+            txtWord.Text = w.Spelling;
+            wordId = Id;
+
+            txtTranslations.Text = "";
+            foreach (WordStorage.Translation t in w.Translations)
+                txtTranslations.Text += t.Spelling + "\n";
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (NavigationContext.QueryString.ContainsKey("mode"))
             {
                 if (NavigationContext.QueryString["mode"].ToLower() == "edit")
-                {                    
+                {
+                    if (NavigationContext.QueryString.ContainsKey("id"))
+                    {
+                        loadWord(int.Parse(NavigationContext.QueryString["id"]));
+                    }
+                    isSave = true;
                     this.PageTitle.Text = "edit word";
                     btnDone.Content = "Update";
                 }
                 else if (NavigationContext.QueryString["mode"].ToLower() == "new")
                 {
+                    isSave = false;
                     this.PageTitle.Text = "new word";
                     btnDone.Content = "Add";
                 }
@@ -141,7 +163,17 @@ namespace ManyWords.Views
                                      where clearWord(s).Length > 0
                                      select clearWord(s);
 
-            App.WordStorage.StoreWord( wordText, clear_translations, null);            
+
+            if (isSave)
+            {
+                App.WordStorage.StoreWord(wordId, wordText, clear_translations, null);                            
+            }
+            else
+            {
+                App.WordStorage.StoreWord(wordText, clear_translations, null);
+            }
+
+            NavigationService.GoBack();
         }
     }
 }

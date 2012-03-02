@@ -32,10 +32,7 @@ namespace ManyWords.WordStorage
                 wordsDB.CreateDatabase();
             }            
         }
-
-        private List<Word> list = new List<Word>();
-
-
+       
         public IEnumerable<Word> Words
         {
             get
@@ -53,9 +50,18 @@ namespace ManyWords.WordStorage
             }
         }
 
-        public IEnumerable<Word> Find(string word, bool look_in_translation = false)
+        public Word Find(int id)
         {
-            return list;
+            return (from Word w in wordsDB.Words
+                    where w.WordID == id
+                    select w).FirstOrDefault();
+        }
+
+        public Word Find(string spelling)
+        {
+            return (from Word w in wordsDB.Words
+                    where w.Spelling.ToLower().Trim() == spelling.ToLower().Trim()
+                    select w).FirstOrDefault();
         }
 
 
@@ -65,35 +71,76 @@ namespace ManyWords.WordStorage
         }
 
         public Stream GetSpeachAudioStream(Word word)
-        {
-            var exists = from Word w in wordsDB.Words
-                         where w.Spelling == word.Spelling
-                         select w;
-
-            var word_item = exists.First();
+        {            
+            var word_item = Find(word.Spelling);
 
             return LoadAudio(IdToFilename(word_item.WordID));
         }
 
+        public void RemoveWord(int id)
+        {
+            Word word = Find( id);
+            if (word != null)
+            {
+                foreach (Translation t in word.Translations)
+                    wordsDB.Translations.DeleteOnSubmit(t);
+                wordsDB.Words.DeleteOnSubmit(word);
+                wordsDB.SubmitChanges();
+            }
+        }
+
+        public void RemoveWord(Word w)
+        {
+            RemoveWord(w.WordID);
+        }
+
+        public void StoreWord(int id, string spelling, IEnumerable<string> translation, Stream audio)
+        {
+            Word w = Find(id);
+
+            if (w == null)
+            {
+                StoreWord(spelling, translation, audio);
+                return;
+            }
+
+            w.Spelling = spelling;
+
+            //remove old translations
+            foreach (Translation t in w.Translations)
+            {
+                wordsDB.Translations.DeleteOnSubmit(t);                
+            }
+            w.Translations.Clear();
+
+            // add new translations            
+            foreach (string s in translation)
+            {                
+                Translation tr = new Translation { Spelling = s, Word = w };
+                wordsDB.Translations.InsertOnSubmit(tr);
+            }
+
+            wordsDB.SubmitChanges();
+
+            if (audio != null)
+                SaveAudio(IdToFilename(w.WordID), audio);
+
+            return;
+        }
+
         public void StoreWord(string spelling, IEnumerable<string> translation, Stream audio)
         {
-            var exists = from Word w in wordsDB.Words
-                         where w.Spelling == spelling 
-                         select w;
-
-            if (exists.Count<Word>() > 0)
+            if (Find(spelling) != null)
             {
                 MessageBox.Show("Word already exists in the database");
                 return;
             }
 
             Word item = new Word { Spelling = spelling };
-            //wordsDB.Words.InsertOnSubmit(item);
-            //wordsDB.SubmitChanges();
+            wordsDB.Words.InsertOnSubmit(item);
             
             foreach (string s in translation)
             {
-                if (s.Trim() == "") continue;
                 Translation tr = new Translation { Spelling = s, Word = item };
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
