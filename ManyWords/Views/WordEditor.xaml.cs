@@ -21,6 +21,7 @@ namespace ManyWords.Views
     public partial class WordEditor : PhoneApplicationPage
     {
         ITranslator default_translator = TranslatorFactory.CreateInstance();
+        WordStorage.Storage storage = App.WordStorage;
 
         private bool isSave = false;
         private int wordId = -1;
@@ -46,7 +47,7 @@ namespace ManyWords.Views
 
         private void loadWord(int Id)
         {
-            WordStorage.Word w = App.WordStorage.Find(Id);
+            WordStorage.Word w = storage.Find(Id);
             if (w == null) return;
 
             txtWord.Text = w.Spelling;
@@ -166,11 +167,11 @@ namespace ManyWords.Views
 
             if (isSave)
             {
-                App.WordStorage.StoreWord(wordId, wordText, clear_translations, null);                            
+                storage.StoreWord(wordId, wordText, clear_translations, null);                            
             }
             else
             {
-                App.WordStorage.StoreWord(wordText, clear_translations, null);
+                storage.StoreWord(wordText, clear_translations, null);
             }
 
             NavigationService.GoBack();

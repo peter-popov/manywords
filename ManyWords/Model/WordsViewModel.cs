@@ -14,6 +14,8 @@ using ManyWords.WordStorage;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using ManyWords.WordStorage;
+
 
 namespace ManyWords.Model
 {
@@ -46,7 +48,19 @@ namespace ManyWords.Model
 
         public Word Word
         {
-            get { return word; }
+            get
+            {
+                return word;
+            }
+            set
+            {
+                //if (value != word)
+                {
+                    word = value;
+                    NotifyPropertyChanged("Spelling");
+                    NotifyPropertyChanged("Translation");
+                }
+            }
         }
 
         public string Spelling
@@ -91,15 +105,15 @@ namespace ManyWords.Model
     }
 
 
-    public class WordsViewModel: INotifyPropertyChanged
+    public class WordsViewModel : INotifyPropertyChanged
     {
         WordStorage.Storage storage = App.WordStorage;
 
         public WordsViewModel()
         {
-            
+
         }
-        
+
         public IEnumerable<WordListItemModel> All
         {
             get
@@ -107,15 +121,29 @@ namespace ManyWords.Model
                 return from Word w in storage.Words
                        select new WordListItemModel(w);
             }
+
         }
 
         public void Remove(WordListItemModel item)
         {
+
             if (item != null)
             {
                 storage.RemoveWord(item.Word);
                 NotifyPropertyChanged("All");
             }
+
+        }
+
+        public void UpdateItem(WordListItemModel item)
+        {
+
+            Word w = storage.Find(item.Word.WordID);
+            if (w != null)
+            {
+                item.Word = w;
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

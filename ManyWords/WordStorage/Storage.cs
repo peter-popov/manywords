@@ -117,11 +117,13 @@ namespace ManyWords.WordStorage
             foreach (string s in translation)
             {                
                 Translation tr = new Translation { Spelling = s, Word = w };
+                w.Translations.Add(tr);
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
 
             wordsDB.SubmitChanges();
 
+            wordsDB.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, w);
             if (audio != null)
                 SaveAudio(IdToFilename(w.WordID), audio);
 
@@ -142,9 +144,9 @@ namespace ManyWords.WordStorage
             foreach (string s in translation)
             {
                 Translation tr = new Translation { Spelling = s, Word = item };
+                item.Translations.Add(tr);
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
-
             
             wordsDB.SubmitChanges();
 

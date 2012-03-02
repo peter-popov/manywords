@@ -20,11 +20,23 @@ namespace ManyWords.Views
     {
         private Model.WordsViewModel wordsModel;
 
+        Model.WordListItemModel editedWordItem = null;
+
         public WordsView()
         {
             InitializeComponent();
             wordsModel = new Model.WordsViewModel();
             DataContext = wordsModel;
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (editedWordItem != null)
+            {
+                wordsModel.UpdateItem(editedWordItem);
+                editedWordItem = null;
+            }
         }
 
         private void Edit_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -41,6 +53,8 @@ namespace ManyWords.Views
             {
                 var url = string.Format("/Views/WordEditor.xaml?mode=edit&id={0}", wordItem.Word.WordID);
                 NavigationService.Navigate(new Uri(url, UriKind.Relative));
+
+                editedWordItem = wordItem;
             }            
         }
 

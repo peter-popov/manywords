@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using Microsoft.Phone.Data.Linq.Mapping;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 
@@ -51,9 +52,10 @@ namespace ManyWords.WordStorage
     /// <summary>
     /// 
     /// </summary>
+    [Index(Columns = "Spelling ASC")]
     [Table(Name = "Words")]
     public class Word : NotifyPropertyMembers
-    {
+    {       
         private EntitySet<Translation> translations;
         public Word()
 		{
@@ -82,7 +84,7 @@ namespace ManyWords.WordStorage
 
 
         private string spelling;
-        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]        
         public string Spelling
         {
             get
