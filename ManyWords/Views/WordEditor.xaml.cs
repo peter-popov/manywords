@@ -20,20 +20,26 @@ namespace ManyWords.Views
 {
     public partial class WordEditor : PhoneApplicationPage
     {
+
+        #region State
         ITranslator default_translator = TranslatorFactory.CreateInstance();
         WordStorage.Storage storage = App.WordStorage;
 
         private bool isSave = false;
         private int wordId = -1;
 
+        byte[] audioCache = null;
+        string lastText = null;
+
         Language from = new Language { Code = "de", Name = "German" };
         Language to = new Language { Code = "ru", Name = "Russian" };
+        #endregion
 
+        #region Initialization
         public WordEditor()
         {
             InitializeComponent();
         }
-
 
         private void WordEditor_Loaded(object sender, RoutedEventArgs e)
         {
@@ -84,21 +90,13 @@ namespace ManyWords.Views
                 }
             }
         }
+        #endregion
 
-        string clearWord(string s)
-        {
-            return s.Trim(new char[] { ' ', '.', '\\', '/', '\n' });
-        }
-
+        #region Translation
         void doTranslate(string text)
         {
-            if ( text.Length > 0 )
-                default_translator.StartTranslate(text, from, to);         
-        }
-
-        bool isEnabled()
-        {
-            return clearWord(txtWord.Text).Length > 0 && clearWord(txtTranslations.Text).Length > 0;
+            if (text.Length > 0)
+                default_translator.StartTranslate(text, from, to);
         }
 
         private void txtWord_TextChanged(object sender, RoutedEventArgs e)
@@ -137,24 +135,32 @@ namespace ManyWords.Views
             txtTranslations.Text = "";
             e.Result.ForEach( s => txtTranslations.Text += s + "\n" );            
         }
-        
+        #endregion
+
+
+        void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
+        {            
+            if (e.IsOk == false )
+            {
+                //MessageBox.Show("Audio is not available at the moment");
+                return;
+            }
+            cacheSpeech(e.Result);
+            playBuffer(new MemoryStream(audioCache));
+        }
 
         private void btnSpeak_Click(object sender, RoutedEventArgs e)
         {
-            default_translator.StartSpeach(txtWord.Text, from);
-        }
-
-        void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
-        {
-            if (e.IsOk == false )
+            if (lastText != null && lastText == clearWord(txtWord.Text) && audioCache != null)
             {
-                //Do something
-                return;
+                playBuffer(new MemoryStream(audioCache));                
             }
-            SoundEffect se = SoundEffect.FromStream(e.Result);
-            se.Play();            
+            else
+            {
+                default_translator.StartSpeach(clearWord(txtWord.Text), from);
+                lastText = clearWord(txtWord.Text);
+            }
         }
-
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
@@ -164,17 +170,47 @@ namespace ManyWords.Views
                                      where clearWord(s).Length > 0
                                      select clearWord(s);
 
+            Stream audioToStore = null;
+            if (lastText == wordText && audioCache != null)
+            {
+                audioToStore = new MemoryStream(audioCache);
+            }
 
             if (isSave)
             {
-                storage.StoreWord(wordId, wordText, clear_translations, null);                            
+                storage.StoreWord(wordId, wordText, clear_translations, audioToStore);                            
             }
             else
             {
-                storage.StoreWord(wordText, clear_translations, null);
+                storage.StoreWord(wordText, clear_translations, audioToStore);
             }
 
             NavigationService.GoBack();
         }
+
+        #region helreps
+        string clearWord(string s)
+        {
+            return s.Trim(new char[] { ' ', '.', '\\', '/', '\n' });
+        }
+
+        bool isEnabled()
+        {
+            return clearWord(txtWord.Text).Length > 0 && clearWord(txtTranslations.Text).Length > 0;
+        }
+
+        void playBuffer(Stream s)
+        {
+            SoundEffect se = SoundEffect.FromStream(s);
+            se.Play();
+        }
+
+        void cacheSpeech(Stream s)
+        {
+            audioCache = new byte[s.Length];
+            MemoryStream ms = new MemoryStream(audioCache);
+            s.CopyTo(ms);
+        }
+        #endregion
     }
 }
