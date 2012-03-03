@@ -14,16 +14,27 @@ using ManyWords.WordStorage;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
-using ManyWords.WordStorage;
-
+using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using ManyWords.Translator;
 
 namespace ManyWords.Model
 {
 
     public class PlaySound : ICommand
     {
+        TextToSpeech tts;
+        WordListItemModel item;
+        public PlaySound(WordListItemModel item, TextToSpeech tts)
+        {
+            this.tts = tts;
+            this.item = item;
+        }
+
         public event EventHandler CanExecuteChanged;
 
+        
         public bool CanExecute(object parameter)
         {
             return true;
@@ -31,17 +42,18 @@ namespace ManyWords.Model
 
         public void Execute(object parameter)
         {
-            MessageBox.Show("Imagine I'm playin sound");
+            tts.Speak(item.Word);
         }
     }
 
     public class WordListItemModel : INotifyPropertyChanged
     {
-        private static PlaySound playCmd = new PlaySound();
+        private PlaySound playCmd;
 
-        public WordListItemModel(Word w)
+        public WordListItemModel(Word w, TextToSpeech tts)
         {
             this.word = w;
+            playCmd = new PlaySound(this, tts);
         }
 
         private Word word;
@@ -54,12 +66,9 @@ namespace ManyWords.Model
             }
             set
             {
-                //if (value != word)
-                {
-                    word = value;
-                    NotifyPropertyChanged("Spelling");
-                    NotifyPropertyChanged("Translation");
-                }
+                word = value;
+                NotifyPropertyChanged("Spelling");
+                NotifyPropertyChanged("Translation");
             }
         }
 
@@ -108,10 +117,12 @@ namespace ManyWords.Model
     public class WordsViewModel : INotifyPropertyChanged
     {
         WordStorage.Storage storage = App.WordStorage;
+        TextToSpeech tts;
 
         public WordsViewModel()
         {
-
+            tts = new TextToSpeech(new Language { Code = "de", Name = "German" },
+                                                Translator.TranslatorFactory.CreateInstance());
         }
 
         public IEnumerable<WordListItemModel> All
@@ -119,7 +130,7 @@ namespace ManyWords.Model
             get
             {
                 return from Word w in storage.Words
-                       select new WordListItemModel(w);
+                       select new WordListItemModel(w, tts);
             }
 
         }

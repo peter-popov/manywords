@@ -73,8 +73,10 @@ namespace ManyWords.WordStorage
         public Stream GetSpeachAudioStream(Word word)
         {            
             var word_item = Find(word.Spelling);
-
-            return LoadAudio(IdToFilename(word_item.WordID));
+            if (word_item != null)
+                return LoadAudio(IdToFilename(word_item.WordID));
+            else
+                return null;
         }
 
         public void RemoveWord(int id)

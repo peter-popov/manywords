@@ -13,8 +13,6 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using ManyWords.Translator;
 using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ManyWords.Views
 {
@@ -23,13 +21,11 @@ namespace ManyWords.Views
 
         #region State
         ITranslator default_translator = TranslatorFactory.CreateInstance();
+        Model.TextToSpeech textToSpeech;
         WordStorage.Storage storage = App.WordStorage;
 
         private bool isSave = false;
         private int wordId = -1;
-
-        byte[] audioCache = null;
-        string lastText = null;
 
         Language from = new Language { Code = "de", Name = "German" };
         Language to = new Language { Code = "ru", Name = "Russian" };
@@ -39,14 +35,12 @@ namespace ManyWords.Views
         public WordEditor()
         {
             InitializeComponent();
+            textToSpeech = new Model.TextToSpeech(from, default_translator);
         }
 
         private void WordEditor_Loaded(object sender, RoutedEventArgs e)
-        {
-            FrameworkDispatcher.Update();
-
-            default_translator.TranslateComplete += translator_TranslateCompleted;
-            default_translator.SpeachReady += translator_SpeakCompleted;
+        {           
+            default_translator.TranslateComplete += translator_TranslateCompleted;            
 
             txtWord.TextInput += txtWord_TextChanged;
         }
@@ -76,7 +70,7 @@ namespace ManyWords.Views
                     }
                     isSave = true;
                     this.PageTitle.Text = "edit word";
-                    btnDone.Content = "Update";
+                    btnDone.Content = "Save";
                 }
                 else if (NavigationContext.QueryString["mode"].ToLower() == "new")
                 {
@@ -137,29 +131,9 @@ namespace ManyWords.Views
         }
         #endregion
 
-
-        void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
-        {            
-            if (e.IsOk == false )
-            {
-                //MessageBox.Show("Audio is not available at the moment");
-                return;
-            }
-            cacheSpeech(e.Result);
-            playBuffer(new MemoryStream(audioCache));
-        }
-
         private void btnSpeak_Click(object sender, RoutedEventArgs e)
         {
-            if (lastText != null && lastText == clearWord(txtWord.Text) && audioCache != null)
-            {
-                playBuffer(new MemoryStream(audioCache));                
-            }
-            else
-            {
-                default_translator.StartSpeach(clearWord(txtWord.Text), from);
-                lastText = clearWord(txtWord.Text);
-            }
+            textToSpeech.Speak(txtWord.Text);
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
@@ -170,11 +144,7 @@ namespace ManyWords.Views
                                      where clearWord(s).Length > 0
                                      select clearWord(s);
 
-            Stream audioToStore = null;
-            if (lastText == wordText && audioCache != null)
-            {
-                audioToStore = new MemoryStream(audioCache);
-            }
+            Stream audioToStore = textToSpeech.GetAudioStream(txtWord.Text);            
 
             if (isSave)
             {
@@ -197,19 +167,6 @@ namespace ManyWords.Views
         bool isEnabled()
         {
             return clearWord(txtWord.Text).Length > 0 && clearWord(txtTranslations.Text).Length > 0;
-        }
-
-        void playBuffer(Stream s)
-        {
-            SoundEffect se = SoundEffect.FromStream(s);
-            se.Play();
-        }
-
-        void cacheSpeech(Stream s)
-        {
-            audioCache = new byte[s.Length];
-            MemoryStream ms = new MemoryStream(audioCache);
-            s.CopyTo(ms);
         }
         #endregion
     }

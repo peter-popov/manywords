@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Translator\Msft\MicrosoftTranslator.cs" />
     <Compile Include="Translator\ITranslator.cs" />
+    <Compile Include="Model\TextToSpeech.cs" />
     <Compile Include="Translator\TranslatorFactory.cs" />
     <Compile Include="Views\ChoiceCorrectTrainingView.xaml.cs">
       <DependentUpon>ChoiceCorrectTrainingView.xaml</DependentUpon>
