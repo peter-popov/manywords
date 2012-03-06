@@ -130,6 +130,7 @@ namespace ManyWords.Model
             get
             {
                 return from Word w in storage.Words
+                       orderby w.Spelling ascending
                        select new WordListItemModel(w, tts);
             }
 

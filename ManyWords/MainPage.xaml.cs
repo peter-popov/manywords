@@ -46,5 +46,10 @@ namespace ManyWords
         {
             NavigationService.Navigate(new Uri("/Views/WordsView.xaml", UriKind.Relative));
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/MultichoiceTraining.xaml", UriKind.Relative));
+        }
     }
 }

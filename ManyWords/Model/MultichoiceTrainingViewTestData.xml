@@ -1,0 +1,17 @@
+﻿<model:MultichoiceTrainingModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:model="clr-namespace:ManyWords.Model">
+
+  <model:MultichoiceTrainingModel.Word>
+    <model:WordListItemModel Spelling="Hello" Translation="Hallo"/>
+  </model:MultichoiceTrainingModel.Word>
+
+  <model:MultichoiceTrainingModel.Answers>    
+    <model:AnswerItemModel Text="Short"/>
+    <model:AnswerItemModel Text="Not so short"/>
+    <model:AnswerItemModel Text="word"/>
+    <model:AnswerItemModel Text="hello"/>
+  </model:MultichoiceTrainingModel.Answers>
+
+</model:MultichoiceTrainingModel>

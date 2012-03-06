@@ -5,10 +5,10 @@
 
 
   <model:TrainingsViewModel.Items>
-    <model:TrainingsListItemModel Title="Test 1" Status="it's ok"/>
-    <model:TrainingsListItemModel Title="Test 3" Status="no status"/>
-    <model:TrainingsListItemModel Title="Test 4" Status="hello"/>
-    <model:TrainingsListItemModel Title="Test 5" Status="ha ha ha"/>
+    <model:TrainingsListItemModel Title="Auto" Status="it's ok"/>
+    <model:TrainingsListItemModel Title="Direct" Status="from foreing language to your langude"/>
+    <model:TrainingsListItemModel Title="Reverse" Status="from your language to foreing langude"/>
+    <model:TrainingsListItemModel Title="Audio" Status="train your ear"/>
   </model:TrainingsViewModel.Items>
 
 </model:TrainingsViewModel>

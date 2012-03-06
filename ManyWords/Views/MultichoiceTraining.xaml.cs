@@ -13,11 +13,12 @@ using Microsoft.Phone.Controls;
 
 namespace ManyWords.Views
 {
-    public partial class ChoiceCorrectTraining : PhoneApplicationPage
+    public partial class MultichoiceTraining : PhoneApplicationPage
     {
-        public ChoiceCorrectTraining()
+        public MultichoiceTraining()
         {
             InitializeComponent();
+            DataContext = new Model.MultichoiceTrainingModel();
         }
     }
 }
