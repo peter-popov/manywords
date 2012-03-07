@@ -49,20 +49,41 @@ namespace ManyWords.WordStorage
         #endregion
     }
 
+
+    public enum TrainingType
+    {
+        Unknown = 0,
+        Multichoice = 1,
+        Spelling = 2,
+        Audio = 3
+    }
+
+    public enum State
+    {
+        Unknown = 0,
+        New = 1,
+        Learning = 2,
+        Lerned = 3
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    [Index(Columns = "Spelling ASC")]
+    [Index(Columns = "Spelling ASC, Added ASC")]
     [Table(Name = "Words")]
     public class Word : NotifyPropertyMembers
     {       
-        private EntitySet<Translation> translations;
+        
         public Word()
 		{
             this.translations = new EntitySet<Translation>(new Action<Translation>(this.attach_translation), 
                                                            new Action<Translation>(this.detach_translation));
 		}
 
+        [Column(IsVersion = true)]
+        private Binary version;
+
+        #region BasicInfo
         private int wordId;
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int WordID
@@ -81,7 +102,6 @@ namespace ManyWords.WordStorage
                 }
             }
         }
-
 
         private string spelling;
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]        
@@ -102,13 +122,39 @@ namespace ManyWords.WordStorage
             }
         }
 
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public DateTime Added
+        { get; set; }
 
+        private EntitySet<Translation> translations;
         [Association(Storage = "translations", OtherKey = "wordID", ThisKey = "WordID")]
         public EntitySet<Translation> Translations
         {
             get { return this.translations; }
             set { this.translations.Assign(value); }
         }
+        #endregion
+
+        #region LearnStatistics
+
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]                
+        public TrainingType LastTrainingType
+        { get; set; }
+
+
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public bool LastTrainingResult
+        { get; set; }
+        
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public State State
+        { get; set; }
+
+        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int Completion
+        { get; set; }
+        
+        #endregion
 
         public string Translation
         {
@@ -143,9 +189,13 @@ namespace ManyWords.WordStorage
     }
 
 
+    [Index(Columns = "Spelling ASC")]
     [Table(Name = "Translations")]
     public class Translation : NotifyPropertyMembers
     {
+        [Column(IsVersion = true)]
+        private Binary version;
+
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int ID;
 

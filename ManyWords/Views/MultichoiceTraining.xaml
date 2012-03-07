@@ -15,7 +15,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True" 
-    local:TiltEffect.IsTiltEnabled="True">
+    local:TiltEffect.IsTiltEnabled="True" Loaded="PhoneApplicationPage_Loaded">
 
     <phone:PhoneApplicationPage.Resources>
 
@@ -84,7 +84,7 @@
                      ItemContainerStyle="{StaticResource ListBoxAnswersViewStyle}" Margin="0,0,0,0"/>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Button Name="btnNext" Content="Next"/>
+                <Button Name="btnNext" Content="Next" Click="btnNext_Click" />
             </StackPanel>
 
             

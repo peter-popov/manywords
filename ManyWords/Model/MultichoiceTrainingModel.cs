@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using ManyWords.WordStorage;
+using System.Collections.Generic;
 
 namespace ManyWords.Model
 {
@@ -47,19 +48,44 @@ namespace ManyWords.Model
 
     public class MultichoiceTrainingModel: INotifyPropertyChanged
     {
+        private WordsSelector wordSelector = new WordsSelector(App.WordStorage);
+        private List<Word> trainingSet;
+        private int wordsCount = 0;
+        private int wordIndex = 0;
+        
+
         public MultichoiceTrainingModel()
         {
             answers = new ObservableCollection<AnswerItemModel>();
-            answers.Add(new AnswerItemModel { Text = "Fuck" });
-            answers.Add(new AnswerItemModel { Text = "You" });
-            answers.Add(new AnswerItemModel { Text = "zzz" });
-            answers.Add(new AnswerItemModel { Text = "one more" });
-
-            currentWord = new WordListItemModel(new WordStorage.Word { Spelling = "Fuuuuck" }, null);
+            trainingSet = new List<Word>();
+            trainingSet.AddRange(wordSelector.SelectWordsForTraining(10));
+            wordIndex = -1;
         }
 
-        private WordListItemModel currentWord;
 
+        public bool Next()
+        {
+            wordIndex++;
+            if (wordIndex < trainingSet.Count)
+            {
+                Word = new WordListItemModel(trainingSet[wordIndex], null);
+
+                var translations = wordSelector.SelectTranslations(trainingSet[wordIndex], 3);
+                answers.Clear();
+
+                answers.Add(new AnswerItemModel { Text = trainingSet[wordIndex].Translations[0].Spelling });
+                foreach (Translation t in translations)
+                {
+                    answers.Add(new AnswerItemModel { Text = t.Spelling });                    
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+
+        private WordListItemModel currentWord;
         public WordListItemModel Word
         {
             get

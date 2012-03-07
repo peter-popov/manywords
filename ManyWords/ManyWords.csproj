@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="WordStorage\Storage.cs" />
     <Compile Include="WordStorage\WordsDB.cs" />
+    <Compile Include="WordStorage\WordsSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -136,9 +137,6 @@
     <DesignData Include="Model\MultichoiceTrainingViewTestData.xml">
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Content Include="question.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Translate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

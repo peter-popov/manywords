@@ -20,7 +20,7 @@ namespace ManyWords.WordStorage
 
     public class Storage:IDisposable 
     {
-        WordsDB wordsDB;
+        internal WordsDB wordsDB;
 
         public Storage()
         {
@@ -140,7 +140,9 @@ namespace ManyWords.WordStorage
                 return;
             }
 
-            Word item = new Word { Spelling = spelling };
+            Word item = new Word { Spelling = spelling, Added = DateTime.Now };
+            item.State = State.New;
+
             wordsDB.Words.InsertOnSubmit(item);
             
             foreach (string s in translation)

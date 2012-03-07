@@ -15,10 +15,44 @@ namespace ManyWords.Views
 {
     public partial class MultichoiceTraining : PhoneApplicationPage
     {
+        Model.MultichoiceTrainingModel trainingModel;
         public MultichoiceTraining()
         {
             InitializeComponent();
-            DataContext = new Model.MultichoiceTrainingModel();
+            
+        }
+
+
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+        }
+
+
+        object oldDataContext = null;
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            trainingModel = new Model.MultichoiceTrainingModel();
+            if (trainingModel.Next())
+            {
+                oldDataContext = DataContext;
+                DataContext = trainingModel;
+            }
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (!trainingModel.Next())
+            {
+                DataContext = oldDataContext;
+            }
         }
     }
 }
