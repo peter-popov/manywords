@@ -53,7 +53,7 @@
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image Source="/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
+                                            <Image Source="/Images/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
                                         </Border>
                                     </ControlTemplate>
                                 </Button.Template>

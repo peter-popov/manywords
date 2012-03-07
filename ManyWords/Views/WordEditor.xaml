@@ -48,7 +48,7 @@
                 <Button.Template>
                     <ControlTemplate>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
-                            <Image Source="/Sound_light_small.png" Height="60" Width="60" Stretch="Fill" />
+                            <Image Source="/Images/Sound_light_small.png" Height="60" Width="60" Stretch="Fill" />
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
@@ -62,7 +62,7 @@
                 <Button.Template>
                     <ControlTemplate>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
-                            <Image Source="/Translate.png" Height="60" Width="60" Stretch="Fill" />
+                            <Image Source="/Images/Translate.png" Height="60" Width="60" Stretch="Fill" />
                         </Border>
                     </ControlTemplate>
                 </Button.Template>

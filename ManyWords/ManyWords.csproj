@@ -128,18 +128,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="appbar_addword.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="appbar_wordslist.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <DesignData Include="Model\MultichoiceTrainingViewTestData.xml">
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Content Include="Translate.png">
+    <Content Include="Images\appbar_addword.png" />
+    <Content Include="Images\appbar_wordslist.png" />
+    <Content Include="Images\ApplicationIcon.png" />
+    <Content Include="Images\Background.png" />
+    <EmbeddedResource Include="Images\PanoramaBackground.png" />
+    <Content Include="Images\Sound_dark_small.png" />
+    <Content Include="Images\Sound_light_small.png" />
+    <SplashScreen Include="Images\SplashScreenImage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </SplashScreen>
+    <Content Include="Images\Translate.png" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\TranslatorService\ManyWords.TranslatorService.GetTranslationsResponse.datasource">
@@ -163,26 +165,12 @@
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="PanoramaBackground.png" />
     <None Include="Service References\TranslatorService\configuration91.svcinfo" />
     <None Include="Service References\TranslatorService\configuration.svcinfo" />
     <None Include="Service References\TranslatorService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Sound_dark_small.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sound_light_small.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
