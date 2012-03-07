@@ -50,7 +50,6 @@ namespace ManyWords.Model
     {
         private WordsSelector wordSelector = new WordsSelector(App.WordStorage);
         private List<Word> trainingSet;
-        private int wordsCount = 0;
         private int wordIndex = 0;
         
 
@@ -68,15 +67,34 @@ namespace ManyWords.Model
             wordIndex++;
             if (wordIndex < trainingSet.Count)
             {
-                Word = new WordListItemModel(trainingSet[wordIndex], null);
+                
 
-                var translations = wordSelector.SelectTranslations(trainingSet[wordIndex], 3);
+                Translation translation = trainingSet[wordIndex].Translations[0];
                 answers.Clear();
 
-                answers.Add(new AnswerItemModel { Text = trainingSet[wordIndex].Translations[0].Spelling });
-                foreach (Translation t in translations)
+                if (wordIndex % 2 == 0)
                 {
-                    answers.Add(new AnswerItemModel { Text = t.Spelling });                    
+                    Word = new AnswerItemModel{Text = trainingSet[wordIndex].Spelling};
+                    
+                    var translations = wordSelector.SelectTranslations(trainingSet[wordIndex], 3);
+                    
+                    answers.Add(new AnswerItemModel { Text = translation.Spelling });
+                    foreach (Translation t in translations)
+                    {
+                        answers.Add(new AnswerItemModel { Text = t.Spelling });
+                    }
+                }
+                else
+                {
+                    Word = new AnswerItemModel { Text = translation.Spelling };
+
+                    var words = wordSelector.SelectWordsForTranslation(translation, 3);
+
+                    answers.Add(new AnswerItemModel { Text = trainingSet[wordIndex].Spelling });
+                    foreach (Word w in words)
+                    {
+                        answers.Add(new AnswerItemModel { Text = w.Spelling });
+                    }
                 }
 
                 return true;
@@ -85,8 +103,8 @@ namespace ManyWords.Model
         }
 
 
-        private WordListItemModel currentWord;
-        public WordListItemModel Word
+        private AnswerItemModel currentWord;
+        public AnswerItemModel Word
         {
             get
             {

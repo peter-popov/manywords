@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,8 +43,20 @@ namespace ManyWords.WordStorage
             int mask = rnd.Next(10000, int.MaxValue);
 
             var res = from Translation t in storage.wordsDB.Translations
-                      where t.Spelling != main && t.wordID != w.WordID && (((t.ID + offset) ^ mask) % 10 > 5)
+                      where t.Spelling != main && t.ID != w.WordID && (((t.ID + offset) ^ mask) % 10 > 5)
                       select t;
+
+            return res.Take(count);
+        }
+
+        public IEnumerable<Word> SelectWordsForTranslation(Translation t, int count)
+        {
+            int offset = rnd.Next(1, int.MaxValue / 2);
+            int mask = rnd.Next(10000, int.MaxValue);
+
+            var res = from Word w in storage.wordsDB.Words
+                      where w.WordID != t.ID && (((w.WordID + offset) ^ mask) % 10 > 5)
+                      select w;
 
             return res.Take(count);
         }
