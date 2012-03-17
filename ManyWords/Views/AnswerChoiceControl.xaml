@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="ManyWords.Views.AnswerChoiceControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:ManyWords.Views"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData ../Model/MultichoiceTrainingViewTestData.xml}"    
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <UserControl.Resources>
+
+        <local:StatusToOpacityConverter x:Key="booleanConverter"/>
+        <local:StatusToImageConverter x:Key="statusToImage"/>
+
+        <Style TargetType="ListBoxItem" x:Key="ListBoxAnswersViewStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Common">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation To="1" Duration="0:00:00" Storyboard.TargetName="itemBackground" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                            <DoubleAnimation To="1" Duration="0:00:00" Storyboard.TargetName="itemText" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Faded">
+                                        <Storyboard>
+                                            <DoubleAnimation To="0.5" Duration="0:00:00.5" Storyboard.TargetName="itemBackground" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                            <DoubleAnimation To="0.5" Duration="0:00:00.5" Storyboard.TargetName="itemText" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                            <DoubleAnimation To="{Binding Path=IsCorrect, Converter={StaticResource booleanConverter}}" Duration="0:00:00.5" Storyboard.TargetName="itemIcon" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected">
+                                        <Storyboard>
+                                            <DoubleAnimation To="0" Duration="0:00:00" Storyboard.TargetName="itemIcon" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                            </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation To="1" Duration="0:00:00.5" Storyboard.TargetName="itemIcon" Storyboard.TargetProperty="(UIElement.Opacity)" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Rectangle 
+                                x:Name="itemBackground"
+                                Height="80"
+                                Width="400"
+                                HorizontalAlignment="Center" 
+                                Margin="0,5,0,5"
+                                Stroke="{StaticResource PhoneAccentBrush}" 
+                                StrokeThickness="1" 
+                                VerticalAlignment="Center"                                  
+                                Fill="{StaticResource PhoneAccentBrush}" RadiusX="10" RadiusY="10">
+                           </Rectangle>
+                            
+                                <TextBlock x:Name="itemText"
+                                           Text="{Binding Text}"
+                                           Margin="70,0,0,5"
+                                           TextWrapping="Wrap" 
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+
+                            <Rectangle x:Name="itemIcon" Opacity="0" 
+                                       HorizontalAlignment="Right" Width="60" Height="60" Margin="0,0,45,0" 
+                                       Fill="{Binding Path=IsCorrect, Converter={StaticResource statusToImage}}"/>
+                                 
+                            
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Name="txtWord" Text="{Binding Word.Text}" Margin="0,10,0,20"
+                       FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" />
+        </Grid>
+
+        <ListBox Grid.Row="1" Name="lstAnswers" ItemsSource="{Binding Answers}" 
+                     ItemContainerStyle="{StaticResource ListBoxAnswersViewStyle}" Margin="0,0,0,0" Tap="lstAnswers_Tap" SelectionChanged="lstAnswers_SelectionChanged" />
+    </Grid>
+</UserControl>

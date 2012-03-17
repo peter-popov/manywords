@@ -35,6 +35,8 @@ namespace ManyWords.Model
             }
         }
 
+        public bool IsCorrect { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
@@ -66,9 +68,7 @@ namespace ManyWords.Model
         {
             wordIndex++;
             if (wordIndex < trainingSet.Count)
-            {
-                
-
+            {                
                 Translation translation = trainingSet[wordIndex].Translations[0];
                 answers.Clear();
 
@@ -78,10 +78,10 @@ namespace ManyWords.Model
                     
                     var translations = wordSelector.SelectTranslations(trainingSet[wordIndex], 3);
                     
-                    answers.Add(new AnswerItemModel { Text = translation.Spelling });
+                    answers.Add(new AnswerItemModel { Text = translation.Spelling, IsCorrect = true });
                     foreach (Translation t in translations)
                     {
-                        answers.Add(new AnswerItemModel { Text = t.Spelling });
+                        answers.Add(new AnswerItemModel { Text = t.Spelling, IsCorrect = false });
                     }
                 }
                 else
@@ -90,10 +90,10 @@ namespace ManyWords.Model
 
                     var words = wordSelector.SelectWordsForTranslation(translation, 3);
 
-                    answers.Add(new AnswerItemModel { Text = trainingSet[wordIndex].Spelling });
+                    answers.Add(new AnswerItemModel { Text = trainingSet[wordIndex].Spelling, IsCorrect = true });
                     foreach (Word w in words)
                     {
-                        answers.Add(new AnswerItemModel { Text = w.Spelling });
+                        answers.Add(new AnswerItemModel { Text = w.Spelling, IsCorrect = false });
                     }
                 }
 
@@ -121,7 +121,6 @@ namespace ManyWords.Model
         }
 
         private ObservableCollection<AnswerItemModel> answers;
-
         public ObservableCollection<AnswerItemModel> Answers
         {
             get

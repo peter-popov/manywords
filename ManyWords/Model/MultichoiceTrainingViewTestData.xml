@@ -4,7 +4,7 @@
     xmlns:model="clr-namespace:ManyWords.Model">
 
   <model:MultichoiceTrainingModel.Word>
-    <model:WordListItemModel Spelling="Hello" Translation="Hallo"/>
+    <model:AnswerItemModel Text="Hello"/>
   </model:MultichoiceTrainingModel.Word>
 
   <model:MultichoiceTrainingModel.Answers>    

@@ -19,7 +19,7 @@ namespace ManyWords.Views
         public MultichoiceTraining()
         {
             InitializeComponent();
-            
+            choiceControl.AnswerSelected += AnswerSelected;
         }
 
 
@@ -43,7 +43,7 @@ namespace ManyWords.Views
             if (trainingModel.Next())
             {
                 oldDataContext = DataContext;
-                DataContext = trainingModel;
+                choiceControl.DataContext = trainingModel;
             }
         }
 
@@ -51,8 +51,18 @@ namespace ManyWords.Views
         {
             if (!trainingModel.Next())
             {
-                DataContext = oldDataContext;
+                choiceControl.DataContext = oldDataContext;
             }
         }
+
+        private void AnswerSelected(object sender, AnswerChoiceControl.AnswerSelectedEventArgs args)
+        {
+            System.Diagnostics.Debug.WriteLine("Selected answer: {0}", args.Index);
+            if (!trainingModel.Next())
+            {
+                choiceControl.DataContext = oldDataContext;
+            }
+        }
+
     }
 }
