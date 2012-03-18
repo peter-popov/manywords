@@ -104,9 +104,13 @@
 
             <TextBlock Grid.Column="0" Name="txtWord" Text="{Binding Word.Text}" Margin="0,10,0,20"
                        FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" />
+            
         </Grid>
 
         <ListBox Grid.Row="1" Name="lstAnswers" ItemsSource="{Binding Answers}" 
-                     ItemContainerStyle="{StaticResource ListBoxAnswersViewStyle}" Margin="0,0,0,0" Tap="lstAnswers_Tap" SelectionChanged="lstAnswers_SelectionChanged" />
+                     ItemContainerStyle="{StaticResource ListBoxAnswersViewStyle}" Margin="0,0,0,0" SelectionChanged="lstAnswers_SelectionChanged" />
+
+        <Rectangle Grid.Row="1" x:Name="rectHidden" Opacity="0.0" Fill="White" Visibility="Collapsed" Stroke="Transparent" Width="Auto" Height="800"/>
+
     </Grid>
 </UserControl>

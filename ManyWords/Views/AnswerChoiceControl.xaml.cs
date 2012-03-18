@@ -87,25 +87,33 @@ namespace ManyWords.Views
         public AnswerChoiceControl()
         {
             InitializeComponent();
+            rectHidden.Tap += tapAfterSelection;
         }
+        
+        private void tapAfterSelection(object sender, GestureEventArgs e)
+        {           
+            if (AnswerSelected != null && lstAnswers.SelectedIndex >= 0)
+            {
+                AnswerSelected(this, new AnswerSelectedEventArgs(lstAnswers.SelectedIndex));
 
+                rectHidden.Visibility = System.Windows.Visibility.Collapsed;
 
-        private void lstAnswers_Tap(object sender, GestureEventArgs e)
-        {
-            //if (AnswerSelected != null && lstAnswers.SelectedIndex >= 0)
-            //{
-            //    AnswerSelected(this, new AnswerSelectedEventArgs(lstAnswers.SelectedIndex));
-            //}
+                lstAnswers.SelectedIndex = -1;
+            }
         }
 
         private void lstAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (object item in lstAnswers.Items)
             {
+                
                 if (e.AddedItems.Contains(item)) continue;
-                ListBoxItem listBoxItem = this.lstAnswers.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;                
+
+                ListBoxItem listBoxItem = this.lstAnswers.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
                 VisualStateManager.GoToState(listBoxItem, "Faded", false);
             }
+
+            rectHidden.Visibility = System.Windows.Visibility.Visible;            
         }
     }
 }
