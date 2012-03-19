@@ -21,19 +21,6 @@ using ManyWords.Translator;
 namespace ManyWords
 {
 
-    public class ImageSourceConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return new ImageBrush { ImageSource = new BitmapImage(new Uri(value.ToString(), UriKind.Relative)) }; ;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return "";
-        }
-    }
-
     public partial class MainPage : PhoneApplicationPage
     {
 
@@ -41,10 +28,7 @@ namespace ManyWords
         public MainPage()
         {
             InitializeComponent();
-
-            // Set the data context of the listbox control to the sample data           
-            //DataContext = App.TrainingsViewModel;
-
+            lstVocabulary.DataContext = new Model.VocabularyViewModel();
         }
 
 

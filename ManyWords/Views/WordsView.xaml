@@ -46,8 +46,8 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" Style="{StaticResource PhoneTextSubtleStyle}"/>
 
                             <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
                                 <Button.Template>

@@ -21,8 +21,6 @@
 
     <phone:PhoneApplicationPage.Resources>
 
-        <local:ImageSourceConverter x:Key="imageSourceConverter"/>
-        
         <Style TargetType="Button" x:Key="ActionButtonStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -43,6 +41,29 @@
                                            Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                             </Grid>
                         </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="ListBoxVocabularyViewStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="{Binding Text}" 
+                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>                            
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -90,6 +111,9 @@
             <!--**********************************************************-->
             <!--progress-->
             <controls:PanoramaItem Header="vocabs">
+                <ListBox Margin="0,0,0,0" Name="lstVocabulary" 
+                         ItemsSource="{Binding All}" 
+                         ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" />
 
             </controls:PanoramaItem>
 

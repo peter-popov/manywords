@@ -19,7 +19,7 @@ namespace ManyWords.WordStorage
             var appSettings = IsolatedStorageSettings.ApplicationSettings;
             if (!appSettings.Contains("db_copy"))
             {
-                System.Diagnostics.Debug.WriteLine("Copying rederence database...");
+                System.Diagnostics.Debug.WriteLine("Copying reference database...");
                 DateTime from = DateTime.Now;
                 MoveReferenceDatabase();
                 System.Diagnostics.Debug.WriteLine("Finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);

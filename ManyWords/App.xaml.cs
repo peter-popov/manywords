@@ -36,24 +36,6 @@ namespace ManyWords
             }
         }            
 
-        private static TrainingsViewModel trainingViewModel = null;
-        
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static TrainingsViewModel TrainingsViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (trainingViewModel == null)
-                    trainingViewModel = new TrainingsViewModel();
-
-                return trainingViewModel;
-            }
-        }
-
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
