@@ -104,6 +104,18 @@
     <Compile Include="Views\WordsView.xaml.cs">
       <DependentUpon>WordsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WordStorage\db\NotifyPropertyMembers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WordStorage\db\Translation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WordStorage\db\Vocabulary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WordStorage\db\Word.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WordStorage\Storage.cs" />
     <Compile Include="WordStorage\WordsDB.cs" />
     <Compile Include="WordStorage\WordsSelector.cs" />
@@ -135,9 +147,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Words.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <DesignData Include="Model\MultichoiceTrainingViewTestData.xml">
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
+    <Content Include="Images\AddWord.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\appbar_addword.png" />
     <Content Include="Images\appbar_wordslist.png" />
     <Content Include="Images\ApplicationIcon.png" />
@@ -149,6 +167,9 @@
     <SplashScreen Include="Images\SplashScreenImage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </SplashScreen>
+    <Content Include="Images\Training.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Translate.png" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />

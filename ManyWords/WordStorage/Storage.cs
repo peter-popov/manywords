@@ -11,16 +11,69 @@ namespace ManyWords.WordStorage
     public class Storage:IDisposable 
     {
         internal WordsDB wordsDB;
+        private Vocabulary defaultVocabulary = null;
 
         public Storage()
         {
-            // Create the database if it does not exist.
+            //If it's a very first run copy database to the isolated storage
+            var appSettings = IsolatedStorageSettings.ApplicationSettings;
+            if (!appSettings.Contains("db_copy"))
+            {
+                System.Diagnostics.Debug.WriteLine("Copying rederence database...");
+                DateTime from = DateTime.Now;
+                MoveReferenceDatabase();
+                System.Diagnostics.Debug.WriteLine("Finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
+                
+                appSettings["db_copy"] = "1";
+            }
+
+            // Now open database
             wordsDB = new WordsDB(WordsDB.DBConnectionString);
             if (wordsDB.DatabaseExists() == false)
             {
                 //Create the database
                 wordsDB.CreateDatabase();
-            }            
+            }
+
+            //
+            // Hack!!!
+            // To be removed, create default vocabulary
+            defaultVocabulary = (from Vocabulary v in wordsDB.Vocabularies
+              where v.IsDefault
+              select v).FirstOrDefault();
+            if (defaultVocabulary == null)
+            {
+                // If not found need to create
+                defaultVocabulary = new Vocabulary { Description = "Default", IsDefault = true, FromLanguage = "de", ToLanguage = "en" };
+
+                wordsDB.Vocabularies.InsertOnSubmit(defaultVocabulary);
+            }
+        }
+
+        
+
+        public static void MoveReferenceDatabase()
+        {
+            // Obtain the virtual store for the application.
+            IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication();
+
+            // Create a stream for the file in the installation folder.
+            using (Stream input = Application.GetResourceStream(new Uri("Words.sdf", UriKind.Relative)).Stream)
+            {
+                // Create a stream for the new file in isolated storage.
+                using (IsolatedStorageFileStream output = iso.CreateFile("Words.sdf"))
+                {
+                    // Initialize the buffer.
+                    byte[] readBuffer = new byte[4096];
+                    int bytesRead = -1;
+
+                    // Copy the file from the installation folder to isolated storage. 
+                    while ((bytesRead = input.Read(readBuffer, 0, readBuffer.Length)) > 0)
+                    {
+                        output.Write(readBuffer, 0, bytesRead);
+                    }
+                }
+            }
         }
        
         public IEnumerable<Word> Words
@@ -132,6 +185,7 @@ namespace ManyWords.WordStorage
 
             Word item = new Word { Spelling = spelling, Added = DateTime.Now };
             item.State = State.New;
+            defaultVocabulary.Words.Add(item);
 
             wordsDB.Words.InsertOnSubmit(item);
             

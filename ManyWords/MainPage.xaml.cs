@@ -13,11 +13,27 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-
+using System.Windows.Data;
+using System.Globalization;
+using System.Windows.Media.Imaging;
 using ManyWords.Translator;
 
 namespace ManyWords
 {
+
+    public class ImageSourceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return new ImageBrush { ImageSource = new BitmapImage(new Uri(value.ToString(), UriKind.Relative)) }; ;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return "";
+        }
+    }
+
     public partial class MainPage : PhoneApplicationPage
     {
 
@@ -27,7 +43,7 @@ namespace ManyWords
             InitializeComponent();
 
             // Set the data context of the listbox control to the sample data           
-            DataContext = App.TrainingsViewModel;
+            //DataContext = App.TrainingsViewModel;
 
         }
 
