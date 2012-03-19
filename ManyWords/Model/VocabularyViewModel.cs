@@ -34,7 +34,37 @@ namespace ManyWords.Model
             }
         }
 
+        public int Count
+        {
+            get 
+            {
+                return vocabulary.Words.Count; 
+            }
+        }
 
+        public int LearningCount
+        {
+            get
+            {
+                return vocabulary.Words.Count(w => w.State == State.Learning);
+            }
+        }
+
+        public int LearnedCount
+        {
+            get
+            {
+                return vocabulary.Words.Count(w => w.State == State.Learned);
+            }
+        }
+
+        public string Status
+        {
+            get
+            {
+                return string.Format("started: {0}/{1}, lerned: {2}", LearningCount, Count, LearnedCount);
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

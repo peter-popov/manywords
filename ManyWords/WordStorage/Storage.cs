@@ -24,7 +24,8 @@ namespace ManyWords.WordStorage
                 MoveReferenceDatabase();
                 System.Diagnostics.Debug.WriteLine("Finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
                 
-                appSettings["db_copy"] = "1";
+                appSettings.Add("db_copy", "1");
+                appSettings.Save();
             }
 
             // Now open database

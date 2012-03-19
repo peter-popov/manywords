@@ -59,10 +59,17 @@
                         <Grid Background="Transparent">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Text="{Binding Text}" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>                            
+                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>       
+                            
+                            <StackPanel Grid.Row="1"  Orientation="Vertical">
+                                <TextBlock Text="{Binding Status}" Margin="25,0,0,0" 
+                                           Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                            
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

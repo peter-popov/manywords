@@ -185,12 +185,6 @@
     <None Include="Service References\TranslatorService\soap2.xsd" />
     <None Include="Service References\TranslatorService\soap3.xsd" />
     <None Include="Service References\TranslatorService\SoapService.wsdl" />
-    <DesignData Include="Model\TestData.xml">
-      <Generator>MSBuild:Compile</Generator>
-    </DesignData>
-    <DesignData Include="Model\TestData1.xml">
-      <Generator>MSBuild:Compile</Generator>
-    </DesignData>
     <Content Include="Images\wrong.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>

@@ -19,7 +19,7 @@ namespace ManyWords.WordStorage
         Unknown = 0,
         New = 1,
         Learning = 2,
-        Lerned = 3
+        Learned = 3
     }
 
     /// <summary>
