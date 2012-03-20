@@ -1,17 +1,17 @@
-﻿<model:MultichoiceTrainingModel
+﻿<model:DirectChoiceExercise
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:model="clr-namespace:ManyWords.Model">
 
-  <model:MultichoiceTrainingModel.Word>
-    <model:AnswerItemModel Text="Hello"/>
-  </model:MultichoiceTrainingModel.Word>
+  <model:DirectChoiceExercise.Question>
+    <model:ChoiceQuestion Text="Hello"/>
+  </model:DirectChoiceExercise.Question>
 
-  <model:MultichoiceTrainingModel.Answers>    
-    <model:AnswerItemModel Text="Short"/>
-    <model:AnswerItemModel Text="Not so short"/>
-    <model:AnswerItemModel Text="word"/>
-    <model:AnswerItemModel Text="hello"/>
-  </model:MultichoiceTrainingModel.Answers>
+  <model:DirectChoiceExercise.Answers>
+    <model:ChoiceAnswer Text="Short"/>
+    <model:ChoiceAnswer Text="Not so short"/>
+    <model:ChoiceAnswer Text="word"/>
+    <model:ChoiceAnswer Text="hello"/>
+  </model:DirectChoiceExercise.Answers>
 
-</model:MultichoiceTrainingModel>
+</model:DirectChoiceExercise>

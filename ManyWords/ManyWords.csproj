@@ -72,7 +72,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\MultichoiceTrainingModel.cs" />
+    <Compile Include="Model\BackwardChoiceExercise.cs" />
+    <Compile Include="Model\ChoiceExercise.cs" />
+    <Compile Include="Model\DirectChoiceExercise.cs" />
     <Compile Include="Model\VocabularyViewModel.cs" />
     <Compile Include="Model\WordsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +89,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Training\TrainingController.cs" />
+    <Compile Include="Training\WordsSelector.cs" />
     <Compile Include="Translator\Msft\MicrosoftTranslator.cs" />
     <Compile Include="Translator\ITranslator.cs" />
     <Compile Include="Model\TextToSpeech.cs" />
@@ -118,7 +122,6 @@
     </Compile>
     <Compile Include="WordStorage\Storage.cs" />
     <Compile Include="WordStorage\WordsDB.cs" />
-    <Compile Include="WordStorage\WordsSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

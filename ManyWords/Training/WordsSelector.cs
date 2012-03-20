@@ -29,8 +29,7 @@ namespace ManyWords.WordStorage
         {
 
             return ( from Word w in storage.wordsDB.Words
-                      where ( w.State == State.New || w.State == State.Learning )
-                      orderby w.Completion descending
+                      where ( w.State == State.New || w.State == State.Learning )                     
                       orderby w.Added
                       select w ).Take(count);
         }

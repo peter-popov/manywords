@@ -6,20 +6,12 @@ using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
-    public enum TrainingType
-    {
-        Unknown = 0,
-        Multichoice = 1,
-        Spelling = 2,
-        Audio = 3
-    }
 
     public enum State
     {
-        Unknown = 0,
-        New = 1,
-        Learning = 2,
-        Learned = 3
+        New = 0,
+        Learning = 1,
+        Learned = 2
     }
 
     /// <summary>
@@ -94,20 +86,11 @@ namespace ManyWords.WordStorage
         #region LearnStatistics
 
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public TrainingType LastTrainingType
-        { get; set; }
-
-
-        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public bool LastTrainingResult
+        public uint Level
         { get; set; }
 
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public State State
-        { get; set; }
-
-        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public int Completion
         { get; set; }
 
         #endregion

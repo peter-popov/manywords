@@ -16,7 +16,7 @@ namespace ManyWords.WordStorage
         public Storage()
         {
             //If it's a very first run copy database to the isolated storage
-            var appSettings = IsolatedStorageSettings.ApplicationSettings;
+            /*var appSettings = IsolatedStorageSettings.ApplicationSettings;
             if (!appSettings.Contains("db_copy"))
             {
                 System.Diagnostics.Debug.WriteLine("Copying reference database...");
@@ -26,7 +26,7 @@ namespace ManyWords.WordStorage
                 
                 appSettings.Add("db_copy", "1");
                 appSettings.Save();
-            }
+            }*/
 
             // Now open database
             wordsDB = new WordsDB(WordsDB.DBConnectionString);

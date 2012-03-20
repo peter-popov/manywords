@@ -110,7 +110,8 @@ namespace ManyWords.Views
                 if (e.AddedItems.Contains(item)) continue;
 
                 ListBoxItem listBoxItem = this.lstAnswers.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
-                VisualStateManager.GoToState(listBoxItem, "Faded", false);
+                if (listBoxItem != null)
+                    VisualStateManager.GoToState(listBoxItem, "Faded", false);
             }
 
             rectHidden.Visibility = System.Windows.Visibility.Visible;            

@@ -102,7 +102,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Name="txtWord" Text="{Binding Word.Text}" Margin="0,10,0,20"
+            <TextBlock Grid.Column="0" Name="txtWord" Text="{Binding Question.Text}" Margin="0,10,0,20"
                        FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" />
             
         </Grid>
