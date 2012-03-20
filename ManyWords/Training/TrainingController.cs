@@ -14,28 +14,31 @@ using ManyWords.WordStorage;
 namespace ManyWords.Training
 {
 
-    public struct ExerciseInfo
+    public struct ApplicabilityInterval
     {
         public uint MinLevel;
         public uint MaxLevel;
         public uint Increment;
     }
 
-    public struct Exercise
+    public class ExerciseInfo
     {
-        public ExerciseInfo Info;
+        public ApplicabilityInterval Info;
         public Type Model;
     }
 
 
     public class TrainingController
     {
+        public static uint MaxLevel = 100;
         private Random random = new Random((int)DateTime.Now.Ticks);
-        private List<Exercise> exercies;
+        private List<ExerciseInfo> exercies;
         private List<Word> words = new List<Word>();
+        private ExerciseInfo currentExercise = null;
+        private Model.Exercise currentExerciceModel = null;
         private int wordIndex = -1;
 
-        public TrainingController(List<Exercise> exercies)
+        public TrainingController(List<ExerciseInfo> exercies)
         {
             this.exercies = exercies;
         }
@@ -56,30 +59,42 @@ namespace ManyWords.Training
             }
             //
             //Need to select which exercise to use for current word
-            List<Exercise> possibleExercises = SelectExercies(words[wordIndex].Level);
-            if (possibleExercises.Count == 0)
-            {
-                //Something terrible should be done!!!
-                return null;
-            }
+            List<ExerciseInfo> possibleExercises = SelectExercies(words[wordIndex].Level);
+            System.Diagnostics.Debug.Assert(possibleExercises.Count != 0, "At least one exercie should be applicable");
             //
             //If have more than one use random
-            Exercise currentExercise = possibleExercises[0];
+            currentExercise = possibleExercises[0];
             if (possibleExercises.Count > 1)
             {
                 currentExercise = possibleExercises[random.Next(possibleExercises.Count)];
             }
             //
             // Create model
-            return Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] });
+            currentExerciceModel = Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] }) as Model.Exercise;
+            return currentExerciceModel;
         }
 
-
-
-        private List<Exercise> SelectExercies(uint level)
+        public void CheckResult()
         {
-            List<Exercise> res = new List<Exercise>();
-            foreach (Exercise ex in exercies)
+            if (currentExerciceModel == null || currentExercise == null || wordIndex == -1 || wordIndex >= words.Count)
+            {
+                return;
+            }
+
+            Word currentWord = words[wordIndex];
+            if (currentExerciceModel.Result)
+            {
+                currentWord.Level += currentExercise.Info.Increment;
+                currentWord.Level = Math.Min(MaxLevel, currentWord.Level);
+            }
+
+            currentWord.State = ( currentWord.Level == MaxLevel ? State.Learned : State.Learning );
+        }
+
+        private List<ExerciseInfo> SelectExercies(uint level)
+        {
+            List<ExerciseInfo> res = new List<ExerciseInfo>();
+            foreach (ExerciseInfo ex in exercies)
             {
                 if (ex.Info.MinLevel <= level && ex.Info.MaxLevel > level)
                 {

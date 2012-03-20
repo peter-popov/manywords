@@ -24,9 +24,9 @@ namespace ManyWords.Views
             choiceControl.AnswerSelected += AnswerSelected;
 
 
-            List<Exercise> exercises = new List<Exercise>();
-            exercises.Add(new Exercise{Info = new ExerciseInfo{MinLevel = 0, MaxLevel = 100, Increment = 25}, Model = typeof(DirectChoiceExercise)});
-            exercises.Add(new Exercise { Info = new ExerciseInfo { MinLevel = 25, MaxLevel = 100, Increment = 25 }, Model = typeof(BackwardChoiceExercise)});
+            List<ExerciseInfo> exercises = new List<ExerciseInfo>();
+            exercises.Add(new ExerciseInfo{Info = new ApplicabilityInterval{MinLevel = 0, MaxLevel = 100, Increment = 25}, Model = typeof(DirectChoiceExercise)});
+            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 25, MaxLevel = 100, Increment = 25 }, Model = typeof(BackwardChoiceExercise)});
 
             trainingController = new TrainingController(exercises);
         }
@@ -41,6 +41,11 @@ namespace ManyWords.Views
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (trainingController != null)
+            {
+                trainingController.CheckResult();
+                App.WordStorage.wordsDB.SubmitChanges();
+            }
             base.OnNavigatedFrom(e);
         }
 
@@ -62,11 +67,13 @@ namespace ManyWords.Views
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             GoToNext();
+            btnNext.IsEnabled = false;
         }
 
         private void AnswerSelected(object sender, AnswerChoiceControl.AnswerSelectedEventArgs args)
         {
             System.Diagnostics.Debug.WriteLine("Selected answer: {0}", args.Index);
+            trainingController.CheckResult();
             GoToNext();
         }
 

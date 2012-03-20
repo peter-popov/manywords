@@ -32,7 +32,7 @@ namespace ManyWords.Model
                     NotifyPropertyChanged("Text");
                 }
             }
-        }        
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -78,8 +78,13 @@ namespace ManyWords.Model
     }
 
 
-    public abstract class ChoiceExercise : INotifyPropertyChanged
+    public abstract class ChoiceExercise : Exercise
     {
+        public virtual void SubmitAnswer(ChoiceAnswer answer)
+        {
+        }
+
+
         private ChoiceQuestion question;
         public ChoiceQuestion Question 
         {
@@ -111,17 +116,6 @@ namespace ManyWords.Model
                     answers = value;
                     NotifyPropertyChanged("Answers");
                 }
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

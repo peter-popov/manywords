@@ -104,6 +104,16 @@ namespace ManyWords.Views
 
         private void lstAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //TODO: Yes, it's clumsy, but...
+            //Try to signal selected answer to the datacontext
+            var answer = this.lstAnswers.SelectedItem as Model.ChoiceAnswer;
+            var model = this.DataContext as Model.ChoiceExercise;
+            if (answer!= null && model != null)
+            {
+                model.SubmitAnswer(answer);
+            }
+            //
+            // Fade out unselected elements
             foreach (object item in lstAnswers.Items)
             {
                 

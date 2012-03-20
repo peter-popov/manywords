@@ -168,8 +168,7 @@ namespace ManyWords.WordStorage
             }
 
             wordsDB.SubmitChanges();
-
-            wordsDB.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, w);
+            
             if (audio != null)
                 SaveAudio(IdToFilename(w.WordID), audio);
 

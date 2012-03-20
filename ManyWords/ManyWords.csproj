@@ -75,6 +75,7 @@
     <Compile Include="Model\BackwardChoiceExercise.cs" />
     <Compile Include="Model\ChoiceExercise.cs" />
     <Compile Include="Model\DirectChoiceExercise.cs" />
+    <Compile Include="Model\Exercise.cs" />
     <Compile Include="Model\VocabularyViewModel.cs" />
     <Compile Include="Model\WordsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

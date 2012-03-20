@@ -85,13 +85,43 @@ namespace ManyWords.WordStorage
 
         #region LearnStatistics
 
+        private uint level;
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public uint Level
-        { get; set; }
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                if (level != value)
+                {
+                    NotifyPropertyChanging("Level");
+                    level = value;
+                    NotifyPropertyChanged("Level");
+                }
+            }
+        }
 
+        private State state;
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public State State
-        { get; set; }
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                if (state != value)
+                {
+                    NotifyPropertyChanging("State");
+                    state = value;
+                    NotifyPropertyChanged("State");
+                }
+            }
+        }
 
         #endregion
 

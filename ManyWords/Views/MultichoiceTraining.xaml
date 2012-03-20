@@ -74,7 +74,7 @@
             <local:AnswerChoiceControl x:Name="choiceControl" Grid.Row="0"/>
             
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button Name="btnNext" Content="Next" Click="btnNext_Click" />
+                <Button Name="btnNext" Content="Start" Click="btnNext_Click" />
             </StackPanel>            
         </Grid>
         

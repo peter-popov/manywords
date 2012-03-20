@@ -28,9 +28,15 @@ namespace ManyWords
         public MainPage()
         {
             InitializeComponent();
-            lstVocabulary.DataContext = new Model.VocabularyViewModel();
+           
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Navugated to main page");
+            lstVocabulary.DataContext = new Model.VocabularyViewModel();
+            base.OnNavigatedTo(e);
+        }
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
