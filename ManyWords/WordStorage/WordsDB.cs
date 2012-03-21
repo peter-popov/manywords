@@ -23,5 +23,6 @@ namespace ManyWords.WordStorage
         public Table<Word> Words;
         public Table<Translation> Translations;
         public Table<Vocabulary> Vocabularies;
+        public Table<VocabularyTargetLanguage> TargetLanguages;
     }
 }

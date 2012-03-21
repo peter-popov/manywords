@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
@@ -137,13 +136,13 @@ namespace ManyWords.WordStorage
             get { return this.vocab.Entity; }
             set
             {
-                NotifyPropertyChanging("Word");
+                NotifyPropertyChanging("Vocabulary");
                 this.vocab.Entity = value;
                 if (value != null)
                 {
                     vocabID = value.ID;
                 }
-                NotifyPropertyChanged("Word");
+                NotifyPropertyChanged("Vocabulary");
             }
         }
         #endregion

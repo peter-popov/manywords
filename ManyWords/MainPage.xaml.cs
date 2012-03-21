@@ -28,13 +28,16 @@ namespace ManyWords
         public MainPage()
         {
             InitializeComponent();
-           
+
+            var vocabularyModel = new Model.VocabularyViewModel();
+            lstVocabulary.DataContext = vocabularyModel;
+            App.LanguagesListModel.PropertyChanged += vocabularyModel.OnLanguageModelPropertyChanged;            
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Navugated to main page");
-            lstVocabulary.DataContext = new Model.VocabularyViewModel();
+            languagePicker.ItemsSource = App.LanguagesListModel.StudyLanguages;
             base.OnNavigatedTo(e);
         }
 
@@ -56,6 +59,19 @@ namespace ManyWords
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/MultichoiceTraining.xaml", UriKind.Relative));
+        }
+
+        private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (languagePicker.SelectedItem != null)
+            {
+                App.LanguagesListModel.StudyLanguage = languagePicker.SelectedItem as Model.LanguageListItemModel;
+            }
+        }
+
+        private void LanguagesListModel_PropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
+        {
+            
         }
     }
 }

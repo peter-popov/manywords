@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:ManyWords.Views"
     xmlns:local="clr-namespace:ManyWords"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
-    d:DataContext="{d:DesignData Model/TestData.xml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -57,11 +57,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Grid Background="Transparent">
-                            <Grid.RowDefinitions>
+                            <Grid.RowDefinitions>                                
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
+                            </Grid.RowDefinitions>                           
+                            
                             <TextBlock Grid.Row="0" Text="{Binding Text}" 
                                        Style="{StaticResource PhoneTextExtraLargeStyle}"/>       
                             
@@ -75,6 +75,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+        <DataTemplate x:Name="LanguagePickerItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="LightGreen" Width="34" Height="34">
+                    <TextBlock Text="{Binding HasVocabulary}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="LanguagePickerItemFullModeTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="LightGreen" Width="34" Height="34">
+                    <TextBlock Text="{Binding HasVocabulary}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
+            </StackPanel>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -99,12 +118,29 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" x:Name="buttonNewWord" Content="New Word" 
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <toolkit:ListPicker Grid.Column="0" x:Name="languagePicker"
+                                        Width="Auto"
+                                        Header="Select language you learn" 
+                                        FullModeHeader="Select language you learn"
+                                        ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
+                                        FullModeItemTemplate="{StaticResource LanguagePickerItemFullModeTemplate}"
+                                        CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
+                        
+                        <Button Grid.Column="1" Margin="-10,0,-8,0" Height="75" VerticalAlignment="Bottom" Content="M" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                    </Grid>
+                    
+                    <Button Grid.Row="1" x:Name="buttonNewWord" Content="New Word" 
                             Margin ="5,10,5,15" Height="80"                            
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/AddWord.png"
                             Click="ApplicationBarButtonAddWord_Click"/>
 
-                    <Button Grid.Row="1" x:Name="buttonTraining" Content="Training" 
+                    <Button Grid.Row="2" x:Name="buttonTraining" Content="Training" 
                             Margin ="5,5,5,5" Height="80" 
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/Training.png"
                             Click="Button_Click"/>

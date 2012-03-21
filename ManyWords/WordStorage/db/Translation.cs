@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using Microsoft.Phone.Data.Linq.Mapping;
+//using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
@@ -21,6 +21,9 @@ namespace ManyWords.WordStorage
 
         [Column]
         public int wordID;
+
+        [Column]
+        public string Language;
 
         private EntityRef<Word> word;
         [Association(Storage = "word", ThisKey = "wordID", OtherKey = "WordID", IsForeignKey = true)]

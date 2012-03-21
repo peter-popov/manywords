@@ -24,13 +24,17 @@ namespace ManyWords.Translator.Msft
 
         public MicrosoftTranslator()
         {
-            languages.Add( new Language{ Code="en", Name="English" } );
-            languages.Add( new Language{ Code="de", Name="German" } );
-            languages.Add( new Language{ Code="ru", Name="Russian" } );
 
             translator_proxy.TranslateCompleted += translator_TranslateCompleted;
             translator_proxy.SpeakCompleted += translator_SpeakCompleted ;
             translator_proxy.GetTranslationsCompleted += translator_TranslateAllCompleted;
+
+            translator_proxy.GetLanguagesForTranslateCompleted +=
+                new EventHandler<GetLanguagesForTranslateCompletedEventArgs>
+                                     (GetLanguagesForTranslateCompleted);
+            translator_proxy.GetLanguageNamesCompleted +=
+                       new EventHandler<GetLanguageNamesCompletedEventArgs>
+                                                 (GetLanguageNamesCompleted);
         }
 
         public ICollection<Language> Languages { get { return languages; } }
@@ -88,5 +92,40 @@ namespace ManyWords.Translator.Msft
             });
             client.OpenReadAsync(new Uri(e.Result));
         }
+
+
+        private List<string> _codes = new List<string>();
+        private List<string> _names = new List<string>();  
+
+        void GetLanguagesForTranslateCompleted(object sender,
+          GetLanguagesForTranslateCompletedEventArgs e)
+        {
+            _codes.Clear();
+            _codes.AddRange( e.Result );
+
+            translator_proxy.GetLanguageNamesAsync(APP_ID, "en", e.Result);
+        }
+
+        void GetLanguageNamesCompleted(object sender,
+                 GetLanguageNamesCompletedEventArgs e)
+        {
+            _names.Clear();
+            _names.AddRange( e.Result );
+
+            LoadLanguages();
+        }
+
+        private void LoadLanguages()
+        {
+            for (int index = 0; index < _codes.Count; index++)
+            {
+                languages.Add(new Language
+                {
+                    Code = _codes[index],
+                    Name = _names[index]
+                });
+            }
+        }
+
     }
 }

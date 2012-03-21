@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using ManyWords.Translator;
 using ManyWords.WordStorage;
+using System.Collections.ObjectModel;
 
 namespace ManyWords.Model
 {
@@ -82,16 +83,32 @@ namespace ManyWords.Model
     {
         WordStorage.Storage storage = App.WordStorage;
 
-        public IEnumerable<VocabularyListItemModel> All
+        public VocabularyViewModel()
         {
-            get
-            {
-                return from Vocabulary v in storage.wordsDB.Vocabularies
-                       orderby v.Description ascending
-                       select new VocabularyListItemModel(v);
-            }
+            Update();
         }
 
+        private void Update()
+        {
+            All = new ObservableCollection<VocabularyListItemModel>();
+            var res = from Vocabulary v in storage.wordsDB.Vocabularies
+                      where v.Language == App.LanguagesListModel.StudyLanguage.Code
+                      orderby v.IsClosed descending                      
+                      orderby v.Description ascending
+                      select v;   
+            
+            foreach( var r in res ) All.Add( new VocabularyListItemModel(r) );
+            NotifyPropertyChanged("All");
+        }
+
+
+        public void OnLanguageModelPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            Update();
+        }
+
+    
+        public ObservableCollection<VocabularyListItemModel> All { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

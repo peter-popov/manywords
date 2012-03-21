@@ -19,6 +19,7 @@ namespace ManyWords
     public partial class App : Application
     {
         private static WordStorage.Storage wordStorgae = null;
+        private static Model.LanguageListModel languagesListModel = null;
 
         /// <summary>
         /// A static word storage used to access words database.
@@ -34,7 +35,22 @@ namespace ManyWords
 
                 return wordStorgae;
             }
-        }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Model.LanguageListModel LanguagesListModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (languagesListModel == null)
+                    languagesListModel = new Model.LanguageListModel();
+
+                return languagesListModel;
+            }
+        }
 
 
         /// <summary>
@@ -160,10 +176,5 @@ namespace ManyWords
         }
 
         #endregion
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
