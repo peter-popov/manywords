@@ -101,16 +101,20 @@ namespace ManyWords.Model
             }
             set
             {
-                motherLanguage = MotherLanguages.FirstOrDefault(v => v.Code == value.Code);
-                if (motherLanguage == null)
+                if (value != motherLanguage)
                 {
-                    motherLanguage = value;
-                    MotherLanguages.Add(motherLanguage);
-                    NotifyPropertyChanged("MotherLanguages");
+                    motherLanguage = MotherLanguages.FirstOrDefault(v => v.Code == value.Code);
+                    if (motherLanguage == null)
+                    {
+                        motherLanguage = value;
+                        MotherLanguages.Add(motherLanguage);
+                        NotifyPropertyChanged("MotherLanguages");
+                    }
+                    setting[selected_mother_language_key] = motherLanguage.Code;
+                    setting.Save();
+                    NotifyPropertyChanged("MotherLanguage");
+                    loadStudyLanguages();
                 }
-                setting[selected_study_languages_key] = motherLanguage.Code;
-                NotifyPropertyChanged("MotherLanguage");
-                loadStudyLanguages();                
             }
         }
 
@@ -126,15 +130,23 @@ namespace ManyWords.Model
             }
             set
             {
-                studyLanguage = StudyLanguages.FirstOrDefault(v=> v.Code == value.Code);
-                if (studyLanguage == null)
+                if (value.Code == MotherLanguage.Code)
                 {
-                    studyLanguage = value;
-                    StudyLanguages.Add(studyLanguage);
-                    NotifyPropertyChanged("StudyLanguages");
+                    throw new ArgumentException("You can not use mother language as study");
                 }
-                setting[selected_study_languages_key] = studyLanguage.Code;
-                NotifyPropertyChanged("StudyLanguage");
+                if (value != studyLanguage)
+                {
+                    studyLanguage = StudyLanguages.FirstOrDefault(v => v.Code == value.Code);
+                    if (studyLanguage == null)
+                    {
+                        studyLanguage = value;
+                        StudyLanguages.Add(studyLanguage);
+                        NotifyPropertyChanged("StudyLanguages");
+                    }
+                    setting[selected_study_language_key] = studyLanguage.Code;
+                    setting.Save();
+                    NotifyPropertyChanged("StudyLanguage");
+                }
             }
         }
 
@@ -146,7 +158,7 @@ namespace ManyWords.Model
 
         #region Save/Load
         private static string selected_mother_language_key = "selected_mother_language";
-        private static string selected_study_languages_key = "selected_study_languages";
+        private static string selected_study_language_key = "selected_study_language";
 
 
         private string getSystemLanguage()
@@ -195,13 +207,13 @@ namespace ManyWords.Model
             MotherLanguage = Available.FirstOrDefault(v => v.Code == motherLanguageCode);            
             //
             // Retrive last selected study language
-            if (!setting.Contains(selected_mother_language_key))
+            if (!setting.Contains(selected_study_language_key))
             {
                 StudyLanguage = StudyLanguages.FirstOrDefault(v => v.Code != motherLanguageCode);
             }
             else
             {
-                var code =  setting[selected_study_languages_key] as string;
+                var code =  setting[selected_study_language_key] as string;
                 StudyLanguage = Available.FirstOrDefault(v => v.Code == code);
             }
         }

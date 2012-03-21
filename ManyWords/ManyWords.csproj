@@ -100,6 +100,9 @@
     <Compile Include="Views\AnswerChoiceControl.xaml.cs">
       <DependentUpon>AnswerChoiceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExtendedLanguageSelect.xaml.cs">
+      <DependentUpon>ExtendedLanguageSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MultichoiceTraining.xaml.cs">
       <DependentUpon>MultichoiceTraining.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnswerChoiceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExtendedLanguageSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,7 +23,7 @@ namespace ManyWords
 
     public partial class MainPage : PhoneApplicationPage
     {
-
+        bool processLanguageSelect = false;
         // Constructor
         public MainPage()
         {
@@ -37,7 +37,10 @@ namespace ManyWords
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Navugated to main page");
+
             languagePicker.ItemsSource = App.LanguagesListModel.StudyLanguages;
+            languagePicker.SelectedItem = App.LanguagesListModel.StudyLanguage;
+            processLanguageSelect = true;
             base.OnNavigatedTo(e);
         }
 
@@ -63,7 +66,7 @@ namespace ManyWords
 
         private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (languagePicker.SelectedItem != null)
+            if (languagePicker.SelectedItem != null && processLanguageSelect)
             {
                 App.LanguagesListModel.StudyLanguage = languagePicker.SelectedItem as Model.LanguageListItemModel;
             }
@@ -72,6 +75,11 @@ namespace ManyWords
         private void LanguagesListModel_PropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
         {
             
+        }
+
+        private void btnMore_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/ExtendedLanguageSelect.xaml", UriKind.Relative));
         }
     }
 }

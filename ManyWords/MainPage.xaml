@@ -132,7 +132,7 @@
                                         FullModeItemTemplate="{StaticResource LanguagePickerItemFullModeTemplate}"
                                         CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
                         
-                        <Button Grid.Column="1" Margin="-10,0,-8,0" Height="75" VerticalAlignment="Bottom" Content="M" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                        <Button Grid.Column="1" x:Name="btnMore" Margin="-10,0,-8,0" Height="75" VerticalAlignment="Bottom" Content="M" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Click="btnMore_Click" />
                     </Grid>
                     
                     <Button Grid.Row="1" x:Name="buttonNewWord" Content="New Word" 
