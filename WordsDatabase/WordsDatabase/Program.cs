@@ -56,6 +56,19 @@ namespace WordsDatabase
         }
 
 
+        static Tuple<string, int> parseLanguage(string v)
+        {
+            var sp = v.Split(new char[]{':'});
+            if (sp.Length == 1)
+            {
+                throw new ArgumentException("Wrong language paramenter, use ll:##");
+            }
+            else
+            {
+                return Tuple.Create(sp[0], int.Parse(sp[1]));
+            }
+        }
+
         static void cmd_import(string[] args)
         {
             if (args == null )
@@ -65,10 +78,10 @@ namespace WordsDatabase
             }
 
             string vocabulary = null;
-            string fromLanguge = null;
-            string toLanguage = null;
-            List<string> files = new List<string>();
-
+            Tuple<string, int> fromLanguge = null;
+            var toLanguages = new List<Tuple<string,int>>();
+            var files = new List<string>();
+            
             var p = new OptionSet() {
                             { "vocab=", 
                               "vocabulary name to add new words, if not provided new/default vocabulary will be used",
@@ -78,10 +91,10 @@ namespace WordsDatabase
                               (string v) => files.Add(v) },
                             { "s|source-language=", 
                               "source language code",
-                               (string v) => fromLanguge = v },
+                               (string v) => fromLanguge = parseLanguage(v)},
                             { "t|target-language=",  
                               "target language code", 
-                               (string v) => toLanguage = v },
+                               (string v) => toLanguages.Add( parseLanguage(v) ) },
             };
 
             List<string> extra;
@@ -102,11 +115,11 @@ namespace WordsDatabase
                 return;
             }
 
-            if (vocabulary != null || (fromLanguge != null && toLanguage != null))
+            if ( toLanguages != null && fromLanguge != null )
             {
                 WordsDB wordsDB = createDatabase(extra[0]);
 
-                WordsImporter importer = new WordsImporter(wordsDB, vocabulary, fromLanguge, toLanguage);
+                WordsImporter importer = new WordsImporter(wordsDB, vocabulary, fromLanguge, toLanguages);
 
                 foreach (string f in files)
                 {

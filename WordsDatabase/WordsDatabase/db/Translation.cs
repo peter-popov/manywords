@@ -22,6 +22,9 @@ namespace ManyWords.WordStorage
         [Column]
         public int wordID;
 
+        [Column]
+        public string Language;
+
         private EntityRef<Word> word;
         [Association(Storage = "word", ThisKey = "wordID", OtherKey = "WordID", IsForeignKey = true)]
         public Word Word

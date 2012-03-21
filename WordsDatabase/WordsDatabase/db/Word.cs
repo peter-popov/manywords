@@ -2,24 +2,15 @@
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-//using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
-    public enum TrainingType
-    {
-        Unknown = 0,
-        Multichoice = 1,
-        Spelling = 2,
-        Audio = 3
-    }
 
     public enum State
     {
-        Unknown = 0,
-        New = 1,
-        Learning = 2,
-        Lerned = 3
+        New = 0,
+        Learning = 1,
+        Learned = 2
     }
 
     /// <summary>
@@ -93,22 +84,43 @@ namespace ManyWords.WordStorage
 
         #region LearnStatistics
 
+        private uint level;
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public TrainingType LastTrainingType
-        { get; set; }
+        public uint Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                if (level != value)
+                {
+                    NotifyPropertyChanging("Level");
+                    level = value;
+                    NotifyPropertyChanged("Level");
+                }
+            }
+        }
 
-
-        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public bool LastTrainingResult
-        { get; set; }
-
+        private State state;
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public State State
-        { get; set; }
-
-        [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
-        public int Completion
-        { get; set; }
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                if (state != value)
+                {
+                    NotifyPropertyChanging("State");
+                    state = value;
+                    NotifyPropertyChanged("State");
+                }
+            }
+        }
 
         #endregion
 
@@ -124,13 +136,13 @@ namespace ManyWords.WordStorage
             get { return this.vocab.Entity; }
             set
             {
-                NotifyPropertyChanging("Word");
+                NotifyPropertyChanging("Vocabulary");
                 this.vocab.Entity = value;
                 if (value != null)
                 {
                     vocabID = value.ID;
                 }
-                NotifyPropertyChanged("Word");
+                NotifyPropertyChanged("Vocabulary");
             }
         }
         #endregion
