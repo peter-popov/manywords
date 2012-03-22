@@ -29,14 +29,13 @@ namespace ManyWords
         {
             InitializeComponent();
 
-            var vocabularyModel = new Model.VocabularyViewModel();
-            lstVocabulary.DataContext = vocabularyModel;
-            App.LanguagesListModel.PropertyChanged += vocabularyModel.OnLanguageModelPropertyChanged;            
+            lstVocabulary.DataContext = App.VocabularyListModel;
+            App.LanguagesListModel.PropertyChanged += App.VocabularyListModel.OnLanguageModelPropertyChanged;            
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Navugated to main page");
+            System.Diagnostics.Debug.WriteLine("Navigated to main page");
 
             languagePicker.ItemsSource = App.LanguagesListModel.StudyLanguages;
             languagePicker.SelectedItem = App.LanguagesListModel.StudyLanguage;

@@ -9,14 +9,17 @@ using System.Collections.ObjectModel;
 
 namespace ManyWords.Model
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class VocabularyListItemModel : INotifyPropertyChanged
     {
         Vocabulary vocabulary;
 
         public VocabularyListItemModel(Vocabulary v)
         {
-            this.vocabulary = v;
+            this.vocabulary = v;            
+            v.PropertyChanged += OnSourceVocabularyChanged;
         }
 
         public string Text
@@ -67,6 +70,12 @@ namespace ManyWords.Model
             }
         }
 
+        private void OnSourceVocabularyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            NotifyPropertyChanged("Status");
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
@@ -78,17 +87,19 @@ namespace ManyWords.Model
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class VocabularyViewModel: INotifyPropertyChanged
     {
         WordStorage.Storage storage = App.WordStorage;
 
         public VocabularyViewModel()
-        {
+        {            
             Update();
         }
 
-        private void Update()
+        public void Update()
         {
             All = new ObservableCollection<VocabularyListItemModel>();
             var res = from Vocabulary v in storage.wordsDB.Vocabularies

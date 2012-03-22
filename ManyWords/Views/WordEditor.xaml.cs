@@ -27,15 +27,15 @@ namespace ManyWords.Views
         private bool isSave = false;
         private int wordId = -1;
 
-        Language from = new Language { Code = "de", Name = "German" };
-        Language to = new Language { Code = "ru", Name = "Russian" };
+        Language languageFrom = null;
+        Language languageTo = null;
         #endregion
 
         #region Initialization
         public WordEditor()
         {
             InitializeComponent();
-            textToSpeech = new Model.TextToSpeech(from, default_translator);
+            textToSpeech = new Model.TextToSpeech(languageFrom, default_translator);
         }
 
         private void WordEditor_Loaded(object sender, RoutedEventArgs e)
@@ -60,6 +60,18 @@ namespace ManyWords.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            languageFrom = new Language
+            {
+                Name = App.LanguagesListModel.StudyLanguage.Name,
+                Code = App.LanguagesListModel.StudyLanguage.Code
+            };
+
+            languageTo = new Language
+            {
+                Name = App.LanguagesListModel.MotherLanguage.Name,
+                Code = App.LanguagesListModel.MotherLanguage.Code
+            };
+
             if (NavigationContext.QueryString.ContainsKey("mode"))
             {
                 if (NavigationContext.QueryString["mode"].ToLower() == "edit")
@@ -90,7 +102,7 @@ namespace ManyWords.Views
         void doTranslate(string text)
         {
             if (text.Length > 0)
-                default_translator.StartTranslate(text, from, to);
+                default_translator.StartTranslate(text, languageFrom, languageTo);
         }
 
         private void txtWord_TextChanged(object sender, RoutedEventArgs e)

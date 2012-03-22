@@ -11,8 +11,7 @@ namespace ManyWords.WordStorage
     public class Storage:IDisposable 
     {
         internal WordsDB wordsDB;
-        private Vocabulary defaultVocabulary = null;
-
+       
         public Storage()
         {
             //If it's a very first run copy database to the isolated storage
@@ -34,20 +33,6 @@ namespace ManyWords.WordStorage
             {
                 //Create the database
                 wordsDB.CreateDatabase();
-            }
-
-            //
-            // Hack!!!
-            // To be removed, create default vocabulary
-            defaultVocabulary = (from Vocabulary v in wordsDB.Vocabularies
-              where v.IsDefault
-              select v).FirstOrDefault();
-            if (defaultVocabulary == null)
-            {
-                // If not found need to create
-                defaultVocabulary = new Vocabulary { Description = "Default", IsDefault = true, Language = "de" };
-
-                wordsDB.Vocabularies.InsertOnSubmit(defaultVocabulary);
             }
         }
 
@@ -185,7 +170,7 @@ namespace ManyWords.WordStorage
 
             Word item = new Word { Spelling = spelling, Added = DateTime.Now };
             item.State = State.New;
-            defaultVocabulary.Words.Add(item);
+            getDefaultVocabulary().Words.Add(item);
 
             wordsDB.Words.InsertOnSubmit(item);
             
@@ -197,6 +182,7 @@ namespace ManyWords.WordStorage
             }
             
             wordsDB.SubmitChanges();
+            App.VocabularyListModel.Update();
 
             if (audio != null )
                 SaveAudio(IdToFilename(item.WordID), audio);
@@ -208,6 +194,37 @@ namespace ManyWords.WordStorage
         {
             if (wordsDB != null)
                 wordsDB.Dispose();
+        }
+
+        //Seems like wrong place for this function
+        private Vocabulary getDefaultVocabulary()
+        {
+            var studyLanguage = App.LanguagesListModel.StudyLanguage.Code;
+            var motherLanguage = App.LanguagesListModel.MotherLanguage.Code;
+
+
+            var defaultVocabulary = (from VocabularyTargetLanguage v in wordsDB.TargetLanguages
+                          where v.Language == motherLanguage && 
+                                v.Vocabulary.Language == studyLanguage &&
+                                !v.Vocabulary.IsClosed &&
+                                v.Vocabulary.IsDefault
+                          select v.Vocabulary).FirstOrDefault();
+
+            if (defaultVocabulary == null)
+            {
+                //need to create a new one
+                defaultVocabulary = new Vocabulary { Description = "user words", 
+                                                     IsClosed = false, 
+                                                     IsDefault = true, 
+                                                     Language = studyLanguage };
+                var tl = new VocabularyTargetLanguage { Language = motherLanguage };
+                defaultVocabulary.TargetLanguages.Add(tl);
+
+                wordsDB.Vocabularies.InsertOnSubmit(defaultVocabulary);
+                wordsDB.TargetLanguages.InsertOnSubmit(tl);                
+            }
+
+            return defaultVocabulary;
         }
 
 

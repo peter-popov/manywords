@@ -20,6 +20,7 @@ namespace ManyWords
     {
         private static WordStorage.Storage wordStorgae = null;
         private static Model.LanguageListModel languagesListModel = null;
+        private static Model.VocabularyViewModel vocabularyListModel = null;
 
         /// <summary>
         /// A static word storage used to access words database.
@@ -49,6 +50,21 @@ namespace ManyWords
                     languagesListModel = new Model.LanguageListModel();
 
                 return languagesListModel;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Model.VocabularyViewModel VocabularyListModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (vocabularyListModel == null)
+                    vocabularyListModel = new Model.VocabularyViewModel();
+
+                return vocabularyListModel;
             }
         }
 

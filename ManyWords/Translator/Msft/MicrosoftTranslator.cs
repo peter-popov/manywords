@@ -3,6 +3,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Ink;
@@ -68,18 +69,12 @@ namespace ManyWords.Translator.Msft
 
         private void translator_TranslateAllCompleted(object sender, GetTranslationsCompletedEventArgs e)
         {
-            List<string> list = new List<string>();
+            var translations = e.Result
+                                    .Translations.Select(v => v.TranslatedText.Trim())     
+                                    .Where(v => v != "")
+                                    .Distinct(StringComparer.InvariantCultureIgnoreCase);
             
-            foreach (TranslationMatch match in e.Result.Translations)
-            {
-                if (match.TranslatedText.Trim() == "")
-                    continue;
-
-                if (!list.Contains(match.TranslatedText))
-                    list.Add(match.TranslatedText);
-            }
-
-            TranslateComplete(this, new TranslatedEventArgs<List<string>>(list, true));
+            TranslateComplete(this, new TranslatedEventArgs<List<string>>(translations.ToList(), true));
         }
 
 

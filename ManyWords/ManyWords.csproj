@@ -159,6 +159,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
+    <None Include="Service References\TranslatorService\configuration.svcinfo" />
+    <None Include="Service References\TranslatorService\ManyWords.TranslatorService.GetTranslationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\ManyWords.TranslatorService.TranslateArrayResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Words.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -176,6 +188,12 @@
     <Content Include="Images\right.png" />
     <Content Include="Images\Sound_dark_small.png" />
     <Content Include="Images\Sound_light_small.png" />
+    <None Include="Service References\TranslatorService\soap.wsdl" />
+    <None Include="Service References\TranslatorService\soap.xsd" />
+    <None Include="Service References\TranslatorService\soap1.xsd" />
+    <None Include="Service References\TranslatorService\soap2.xsd" />
+    <None Include="Service References\TranslatorService\soap3.xsd" />
+    <None Include="Service References\TranslatorService\SoapService.wsdl" />
     <SplashScreen Include="Images\SplashScreenImage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </SplashScreen>
@@ -185,34 +203,11 @@
     <Content Include="Images\Translate.png" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="Service References\TranslatorService\ManyWords.TranslatorService.GetTranslationsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\TranslatorService\ManyWords.TranslatorService.TranslateArrayResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\TranslatorService\soap.wsdl" />
-    <None Include="Service References\TranslatorService\soap.xsd" />
-    <None Include="Service References\TranslatorService\soap1.xsd" />
-    <None Include="Service References\TranslatorService\soap2.xsd" />
-    <None Include="Service References\TranslatorService\soap3.xsd" />
-    <None Include="Service References\TranslatorService\SoapService.wsdl" />
     <Content Include="Images\wrong.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
-    <None Include="Service References\TranslatorService\configuration.svcinfo" />
-    <None Include="Service References\TranslatorService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\TranslatorService\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
@@ -222,6 +217,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TranslatorService\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
