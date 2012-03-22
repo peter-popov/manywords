@@ -16,7 +16,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False" Loaded="PhoneApplicationPage_Loaded"
-    views:TiltEffect.IsTiltEnabled="True">
+    views:TiltEffect.IsTiltEnabled="False">
 
 
     <phone:PhoneApplicationPage.Resources>
@@ -56,21 +56,34 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
+
+                        <Border Margin="0,5,0,0"
+                                BorderBrush="{StaticResource PhoneAccentBrush}"
+                                BorderThickness="0"
+                                CornerRadius="10">
+                                
                         <Grid Background="Transparent">
-                            <Grid.RowDefinitions>                                
-                                <RowDefinition Height="*"/>
+                            <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>                           
-                            
-                            <TextBlock Grid.Row="0" Text="{Binding Text}" 
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>       
-                            
-                            <StackPanel Grid.Row="1"  Orientation="Vertical">
-                                <TextBlock Text="{Binding Status}" Margin="25,0,0,0" 
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Text}" 
+                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Status}" Margin="25,0,0,0" 
                                            Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+
+                            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="Lrn"/>                            
                             
                         </Grid>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -85,7 +98,7 @@
                 <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
             </StackPanel>
         </DataTemplate>
-        
+
         <DataTemplate x:Name="LanguagePickerItemFullModeTemplate">
             <StackPanel Orientation="Horizontal">
                 <Border Background="LightGreen" Width="34" Height="34">
@@ -123,7 +136,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <toolkit:ListPicker Grid.Column="0" x:Name="languagePicker"
                                         Width="Auto"
                                         Header="Select language you learn" 
@@ -131,19 +144,21 @@
                                         ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
                                         FullModeItemTemplate="{StaticResource LanguagePickerItemFullModeTemplate}"
                                         CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
-                        
+
                         <Button Grid.Column="1" x:Name="btnMore" Margin="-10,0,-8,0" Height="75" VerticalAlignment="Bottom" Content="M" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Click="btnMore_Click" />
                     </Grid>
-                    
+
                     <Button Grid.Row="1" x:Name="buttonNewWord" Content="New Word" 
                             Margin ="5,10,5,15" Height="80"                            
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/AddWord.png"
-                            Click="ApplicationBarButtonAddWord_Click"/>
+                            Click="ApplicationBarButtonAddWord_Click"
+                            views:TiltEffect.IsTiltEnabled="True"/>
 
                     <Button Grid.Row="2" x:Name="buttonTraining" Content="Training" 
                             Margin ="5,5,5,5" Height="80" 
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/Training.png"
-                            Click="Button_Click"/>
+                            Click="Button_Click"
+                            views:TiltEffect.IsTiltEnabled="True"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
@@ -154,7 +169,7 @@
             <!--**********************************************************-->
             <!--progress-->
             <controls:PanoramaItem Header="vocabs">
-                <ListBox Margin="0,0,0,0" Name="lstVocabulary" 
+                <ListBox  Margin="0,0,0,0" Name="lstVocabulary" 
                          ItemsSource="{Binding All}" 
                          ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" />
 
