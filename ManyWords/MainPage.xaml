@@ -157,7 +157,7 @@
                     <Button Grid.Row="2" x:Name="buttonTraining" Content="Training" 
                             Margin ="5,5,5,5" Height="80" 
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/Training.png"
-                            Click="Button_Click"
+                            Click="StartTraining_Click"
                             views:TiltEffect.IsTiltEnabled="True"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -171,7 +171,7 @@
             <controls:PanoramaItem Header="vocabs">
                 <ListBox  Margin="0,0,0,0" Name="lstVocabulary" 
                          ItemsSource="{Binding All}" 
-                         ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" />
+                         ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" Tap="lstVocabulary_Tap" />
 
             </controls:PanoramaItem>
 
@@ -181,9 +181,8 @@
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Minimized">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_addword.png" Text="Add word" Click="ApplicationBarButtonAddWord_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_wordslist.png" Text="Words list" Click="ApplicationBarButtonWordsList_Click"/>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Default">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_wordslist.png" Text="Words list" Click="AddWord_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

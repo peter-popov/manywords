@@ -53,12 +53,12 @@ namespace ManyWords
             NavigationService.Navigate(new Uri("/Views/WordEditor.xaml?mode=new", UriKind.Relative));   
         }
 
-        private void ApplicationBarButtonWordsList_Click(object sender, EventArgs e)
+        private void AddWord_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/WordsView.xaml", UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void StartTraining_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/MultichoiceTraining.xaml", UriKind.Relative));
         }
@@ -79,6 +79,15 @@ namespace ManyWords
         private void btnMore_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/ExtendedLanguageSelect.xaml", UriKind.Relative));
+        }
+
+        private void lstVocabulary_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var selectedItem = lstVocabulary.SelectedItem as Model.VocabularyListItemModel;
+            if (selectedItem != null)
+            {
+                NavigationService.Navigate(new Uri(string.Format("/Views/WordsView.xaml?vocabulary={0}", selectedItem.Vocabulary.ID), UriKind.Relative));
+            }
         }
     }
 }

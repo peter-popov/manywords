@@ -25,8 +25,7 @@ namespace ManyWords.Views
         public WordsView()
         {
             InitializeComponent();
-            wordsModel = new Model.WordsViewModel();
-            DataContext = wordsModel;
+
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -36,6 +35,17 @@ namespace ManyWords.Views
             {
                 wordsModel.UpdateItem(editedWordItem);
                 editedWordItem = null;
+            }
+            else
+            {
+                WordStorage.Vocabulary useVocabulary = null; 
+                if (NavigationContext.QueryString.ContainsKey("vocabulary"))
+                {
+                    int id = int.Parse( NavigationContext.QueryString["vocabulary"] );
+                    useVocabulary = App.WordStorage.wordsDB.Vocabularies.Where(x => x.ID == id).FirstOrDefault();
+                }
+                wordsModel = useVocabulary == null ? new Model.WordsViewModel() : new Model.WordsViewModel(useVocabulary);
+                DataContext = wordsModel;
             }
         }
 

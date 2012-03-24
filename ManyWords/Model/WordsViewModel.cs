@@ -105,9 +105,17 @@ namespace ManyWords.Model
     {
         WordStorage.Storage storage = App.WordStorage;
         TextToSpeech tts;
+        Vocabulary usedVocabulary = null;
 
         public WordsViewModel()
         {
+            tts = new TextToSpeech(new Language { Code = "de", Name = "German" },
+                                                Translator.TranslatorFactory.CreateInstance());
+        }
+
+        public WordsViewModel(Vocabulary vocabulary)
+        {
+            this.usedVocabulary = vocabulary;
             tts = new TextToSpeech(new Language { Code = "de", Name = "German" },
                                                 Translator.TranslatorFactory.CreateInstance());
         }
@@ -116,9 +124,20 @@ namespace ManyWords.Model
         {
             get
             {
-                return from Word w in storage.Words
+                if ( usedVocabulary == null )
+                {
+                    return from Word w in storage.Words
+                       where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code
                        orderby w.Spelling ascending
                        select new WordListItemModel(w, tts);
+                }
+                else
+                {
+                    return from Word w in storage.Words
+                           where w.Vocabulary.ID == usedVocabulary.ID
+                           orderby w.Spelling ascending
+                           select new WordListItemModel(w, tts);
+                }
             }
 
         }
