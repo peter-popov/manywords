@@ -87,6 +87,7 @@ namespace ManyWords
             if (selectedItem != null)
             {
                 NavigationService.Navigate(new Uri(string.Format("/Views/WordsView.xaml?vocabulary={0}", selectedItem.Vocabulary.ID), UriKind.Relative));
+                lstVocabulary.SelectedItem = null;
             }
         }
     }
