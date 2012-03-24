@@ -125,13 +125,13 @@ namespace ManyWords.WordStorage
             RemoveWord(w.WordID);
         }
 
-        public void StoreWord(int id, string spelling, IEnumerable<string> translation, Stream audio)
+        public void StoreWord(int id, string spelling, IEnumerable<string> translation, Vocabulary vocabulary, Stream audio)
         {
             Word w = Find(id);
 
             if (w == null)
             {
-                StoreWord(spelling, translation, audio);
+                StoreWord(spelling, translation, vocabulary, audio);
                 return;
             }
 
@@ -152,6 +152,14 @@ namespace ManyWords.WordStorage
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
 
+            if (vocabulary != null && vocabulary.ID != w.Vocabulary.ID)
+            {
+                var oldVocabulary = w.Vocabulary;
+                oldVocabulary.Words.Remove(w);
+                vocabulary.Words.Add(w);
+                App.VocabularyListModel.Update();
+            }
+
             wordsDB.SubmitChanges();
             
             if (audio != null)
@@ -160,7 +168,7 @@ namespace ManyWords.WordStorage
             return;
         }
 
-        public void StoreWord(string spelling, IEnumerable<string> translation, Stream audio)
+        public void StoreWord(string spelling, IEnumerable<string> translation, Vocabulary vocabulary, Stream audio)
         {
             if (Find(spelling) != null)
             {
@@ -170,7 +178,11 @@ namespace ManyWords.WordStorage
 
             Word item = new Word { Spelling = spelling, Added = DateTime.Now };
             item.State = State.New;
-            getDefaultVocabulary().Words.Add(item);
+            if (vocabulary == null)
+            {
+                vocabulary = getDefaultVocabulary();
+            }
+            vocabulary.Words.Add(item);
 
             wordsDB.Words.InsertOnSubmit(item);
             

@@ -14,25 +14,26 @@ namespace ManyWords.Model
     /// </summary>
     public class VocabularyListItemModel : INotifyPropertyChanged
     {
-        Vocabulary vocabulary;
+        public Vocabulary Vocabulary{ get; private set; }
 
         public VocabularyListItemModel(Vocabulary v)
         {
-            this.vocabulary = v;            
+            this.Vocabulary = v;            
             v.PropertyChanged += OnSourceVocabularyChanged;
         }
+
 
         public string Text
         {
             get
             {
-                return vocabulary.Description;
+                return Vocabulary.Description;
             }
             set
             {
-                if (value != vocabulary.Description)
+                if (value != Vocabulary.Description)
                 {
-                    vocabulary.Description = value;
+                    Vocabulary.Description = value;
                     NotifyPropertyChanged("Text");
                 }
             }
@@ -42,7 +43,7 @@ namespace ManyWords.Model
         {
             get 
             {
-                return vocabulary.Words.Count; 
+                return Vocabulary.Words.Count; 
             }
         }
 
@@ -50,7 +51,7 @@ namespace ManyWords.Model
         {
             get
             {
-                return vocabulary.Words.Count(w => w.State == State.Learning);
+                return Vocabulary.Words.Count(w => w.State == State.Learning);
             }
         }
 
@@ -58,7 +59,7 @@ namespace ManyWords.Model
         {
             get
             {
-                return vocabulary.Words.Count(w => w.State == State.Learned);
+                return Vocabulary.Words.Count(w => w.State == State.Learned);
             }
         }
 
@@ -102,14 +103,23 @@ namespace ManyWords.Model
         public void Update()
         {
             All = new ObservableCollection<VocabularyListItemModel>();
-            var res = from Vocabulary v in storage.wordsDB.Vocabularies
-                      where v.Language == App.LanguagesListModel.StudyLanguage.Code
-                      orderby v.IsClosed descending                      
-                      orderby v.Description ascending
-                      select v;   
+            User = new ObservableCollection<VocabularyListItemModel>();
+
+            var res = from VocabularyTargetLanguage tl in storage.wordsDB.TargetLanguages
+                      where tl.Language == App.LanguagesListModel.MotherLanguage.Code &&
+                            tl.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code                  
+                      select tl.Vocabulary;
+
+
+            foreach (var v in res)
+            {
+                var item = new VocabularyListItemModel(v);
+                All.Add(item);
+                if (!v.IsClosed) User.Add(item);
+            }
             
-            foreach( var r in res ) All.Add( new VocabularyListItemModel(r) );
             NotifyPropertyChanged("All");
+            NotifyPropertyChanged("User");        
         }
 
 
@@ -120,6 +130,8 @@ namespace ManyWords.Model
 
     
         public ObservableCollection<VocabularyListItemModel> All { get; private set; }
+
+        public ObservableCollection<VocabularyListItemModel> User { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

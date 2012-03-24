@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ManyWords.Views"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -15,13 +16,21 @@
     shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     local:TiltEffect.IsTiltEnabled="True" Loaded="WordEditor_Loaded">
 
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Name="VocabularyPickerItemTemplate">
+            <TextBlock Text="{Binding Text}" Margin="12 0 0 0"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="VocabularyPickerItemFullModeTemplate">
+            <TextBlock Text="{Binding Text}" Margin="12 0 0 0"/>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
@@ -43,7 +52,7 @@
 
             <!--Word section-->
 
-            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" KeyDown="txtWord_KeyDown" />
+            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" KeyDown="txtWord_KeyDown" TextInput="txtWord_TextInput" TextInputStart="txtWord_TextInputStart" TextInputUpdate="txtWord_TextInputUpdate" TextChanged="txtTranslations_TextChanged" LostFocus="txtWord_LostFocus" GotFocus="txtWord_GotFocus" />
             <Button Grid.Row="0" Name="btnSpeak" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0" Click="btnSpeak_Click">
                 <Button.Template>
                     <ControlTemplate>
@@ -57,7 +66,7 @@
 
             <!--Translation-->
             <TextBlock Grid.Row="1" Text="Translations:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
-            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="140" Width="456" TextChanged="txtTranslations_TextChanged" KeyDown="txtTranslations_KeyDown" />
+            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="200" Width="456" TextChanged="txtTranslations_TextChanged" KeyDown="txtTranslations_KeyDown" />
             <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click" IsEnabled="True">
                 <Button.Template>
                     <ControlTemplate>
@@ -69,10 +78,14 @@
             </Button>
 
             <!--Association-->
-            <StackPanel Grid.Row="3" Orientation ="Vertical">
-                <TextBlock Name="txtAssociation" Text="Association:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
-                <TextBox TextWrapping="Wrap" HorizontalAlignment="Right" Height="200" Width="456"/>
-            </StackPanel>
+            <toolkit:ListPicker Grid.Row="3" x:Name="vocabularyPicker"
+                                        VerticalAlignment="Bottom"
+                                        Width="Auto"
+                                        Header="Vocabulary:" 
+                                        FullModeHeader="Select language you learn"
+                                        ItemTemplate="{StaticResource VocabularyPickerItemTemplate}"
+                                        FullModeItemTemplate="{StaticResource VocabularyPickerItemFullModeTemplate}"/>
+
 
             <!--Buttons-->
             <StackPanel Grid.Row="4" Orientation ="Horizontal">
@@ -81,7 +94,6 @@
 
         </Grid>
 
-        <my:AdControl Grid.Row="2" AdUnitId="Image480_80" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />
     </Grid>
 
 
