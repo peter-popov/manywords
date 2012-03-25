@@ -108,21 +108,41 @@ namespace ManyWords.WordStorage
                 return null;
         }
 
+        public void RemoveVocabulary(Vocabulary v)
+        {
+            foreach (var word in v.Words)
+            {
+                removeWordImpl(word);
+            }
+            foreach (var tl in v.TargetLanguages)
+            {
+                wordsDB.TargetLanguages.DeleteOnSubmit(tl);
+            }
+            wordsDB.Vocabularies.DeleteOnSubmit(v);
+            wordsDB.SubmitChanges();
+            App.VocabularyListModel.Update();
+        }
+
         public void RemoveWord(int id)
         {
-            Word word = Find( id);
-            if (word != null)
-            {
-                foreach (Translation t in word.Translations)
-                    wordsDB.Translations.DeleteOnSubmit(t);
-                wordsDB.Words.DeleteOnSubmit(word);
-                wordsDB.SubmitChanges();
-            }
+            removeWordImpl(Find(id) as Word);
+            wordsDB.SubmitChanges();
         }
 
         public void RemoveWord(Word w)
         {
-            RemoveWord(w.WordID);
+            removeWordImpl(w);
+            wordsDB.SubmitChanges();
+        }
+
+        private void removeWordImpl(Word word)
+        {           
+            if (word != null)
+            {
+                foreach (Translation t in word.Translations)
+                    wordsDB.Translations.DeleteOnSubmit(t);
+                wordsDB.Words.DeleteOnSubmit(word);               
+            }
         }
 
         public void StoreWord(int id, string spelling, IEnumerable<string> translation, Vocabulary vocabulary, Stream audio)

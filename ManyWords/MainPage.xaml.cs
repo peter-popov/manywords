@@ -95,5 +95,17 @@ namespace ManyWords
         {
             NavigationService.Navigate(new Uri("/Views/AddVocabulary.xaml", UriKind.Relative));
         }
+
+        private void DeleteVocabulary_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender != null)
+            {
+                var selectedItem = (sender as MenuItem).DataContext as Model.VocabularyListItemModel;
+                if (selectedItem != null)
+                {
+                    App.WordStorage.RemoveVocabulary(selectedItem.Vocabulary);
+                }
+            }
+        }
     }
 }

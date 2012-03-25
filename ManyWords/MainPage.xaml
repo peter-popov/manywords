@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:ManyWords.Views"
-    xmlns:local="clr-namespace:ManyWords"
+    xmlns:local="clr-namespace:ManyWords"    
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -63,7 +63,14 @@
                                 CornerRadius="10">
                                 
                         <Grid Background="Transparent">
-                            <Grid.RowDefinitions>
+
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Width="300">
+                                        <toolkit:MenuItem Header="Delete" Click="DeleteVocabulary_Click"/>
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
+
+                                <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -183,7 +190,7 @@
                         </Button>
                     </StackPanel>
                 </controls:PanoramaItem.Header>
-                <ListBox  Margin="0,0,0,0" Name="lstVocabulary" 
+                <ListBox  Margin="0,0,0,0" Name="lstVocabulary" views:TiltEffect.IsTiltEnabled="True"
                          ItemsSource="{Binding All}" 
                          ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" Tap="lstVocabulary_Tap" />
 
