@@ -90,5 +90,10 @@ namespace ManyWords
                 lstVocabulary.SelectedItem = null;
             }
         }
+
+        private void btnAddVocabulary_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/AddVocabulary.xaml", UriKind.Relative));
+        }
     }
 }

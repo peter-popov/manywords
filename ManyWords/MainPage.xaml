@@ -168,7 +168,21 @@
 
             <!--**********************************************************-->
             <!--progress-->
-            <controls:PanoramaItem Header="vocabs">
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="vocabs"/>
+                        <Button  x:Name ="btnAddVocabulary" Margin="15,0,0,15" views:TiltEffect.IsTiltEnabled="True" Click="btnAddVocabulary_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                        <Image Source="/Images/add.png" Width="Auto" Height="Auto" Stretch="Fill" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </controls:PanoramaItem.Header>
                 <ListBox  Margin="0,0,0,0" Name="lstVocabulary" 
                          ItemsSource="{Binding All}" 
                          ItemContainerStyle="{StaticResource ListBoxVocabularyViewStyle}" Tap="lstVocabulary_Tap" />

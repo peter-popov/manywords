@@ -52,7 +52,7 @@
 
             <!--Word section-->
 
-            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" KeyDown="txtWord_KeyDown" TextInput="txtWord_TextInput" TextInputStart="txtWord_TextInputStart" TextInputUpdate="txtWord_TextInputUpdate" TextChanged="txtTranslations_TextChanged" LostFocus="txtWord_LostFocus" GotFocus="txtWord_GotFocus" />
+            <TextBox Grid.Row="0" Name="txtWord" Height="80" Margin="0,0,0,0" Width="Auto" VerticalAlignment="Top" FontSize="32" FontWeight="Bold" KeyDown="txtWord_KeyDown" TextInput="txtWord_TextInput" TextInputStart="txtWord_TextInputStart" TextInputUpdate="txtWord_TextInputUpdate" TextChanged="txtTranslations_TextChanged" LostFocus="txtWord_LostFocus" GotFocus="txtWord_GotFocus" />
             <Button Grid.Row="0" Name="btnSpeak" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0" Click="btnSpeak_Click">
                 <Button.Template>
                     <ControlTemplate>

@@ -97,6 +97,9 @@
     <Compile Include="Translator\ITranslator.cs" />
     <Compile Include="Model\TextToSpeech.cs" />
     <Compile Include="Translator\TranslatorFactory.cs" />
+    <Compile Include="Views\AddVocabulary.xaml.cs">
+      <DependentUpon>AddVocabulary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AnswerChoiceControl.xaml.cs">
       <DependentUpon>AnswerChoiceControl.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddVocabulary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AnswerChoiceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +178,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Words.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
