@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using ManyWords.WordStorage;
 
 namespace ManyWords.Model
 {
@@ -106,6 +108,12 @@ namespace ManyWords.Model
                     NotifyPropertyChanged("Answers");
                 }
             }
+        }
+
+        protected Translation selectCorectTranslation(Word w)
+        {
+            var list = WordsSelector.takeRandom(w.Translations.Where(x => x.Language == App.LanguagesListModel.MotherLanguage.Code));
+            return list.FirstOrDefault();
         }
     }
 }

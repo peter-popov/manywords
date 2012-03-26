@@ -7,7 +7,7 @@ namespace ManyWords.WordStorage
     public class WordsSelector
     {
         private Storage storage;
-        private Random rnd = new Random((int)DateTime.Now.Ticks);
+        private static Random rnd = new Random((int)DateTime.Now.Ticks);
         private string languageStudy;
         private string languageMother;
 
@@ -19,12 +19,14 @@ namespace ManyWords.WordStorage
         }
 
 
-        private IEnumerable<T> takeRandom<T>(IEnumerable<T> from, int count)
+        public static IEnumerable<T> takeRandom<T>(IEnumerable<T> from)
         {
-            if (from.Count() <= count)
-            {
-                return from;
-            }
+            return takeRandom(from, from.Count());
+        }
+
+        public static IEnumerable<T> takeRandom<T>(IEnumerable<T> from, int count)
+        {
+            count = Math.Min(count, from.Count());
             //
             // TODO: Think how to do it properly
             var list = from.ToList();
@@ -62,15 +64,15 @@ namespace ManyWords.WordStorage
             return takeRandom(selectSet, count);
         }
 
-        public IEnumerable<Translation> SelectTranslations(Word w, int count)
+        public IEnumerable<Translation> SelectTranslations(Word w, Translation main, int count)
         {
-            string main = w.Translations[0].Spelling;
-
             int offset = rnd.Next(1, int.MaxValue/2);
             int mask = rnd.Next(10000, int.MaxValue);
 
             var res = from Translation t in storage.wordsDB.Translations
-                      where t.Language == languageMother && t.Spelling != main && t.ID != w.WordID && (((t.ID + offset) ^ mask) % 10 > 5)
+                      where t.Language == languageMother && 
+                            t.Spelling != main.Spelling && 
+                            t.ID != w.WordID && (((t.ID + offset) ^ mask) % 10 > 5)                                   
                       select t;
 
             return res.Take(count);
@@ -82,7 +84,7 @@ namespace ManyWords.WordStorage
             int mask = rnd.Next(10000, int.MaxValue);
 
             var res = from Word w in storage.wordsDB.Words
-                      where w.Vocabulary.Language == languageStudy && w.WordID != t.ID && (((w.WordID + offset) ^ mask) % 10 > 5)
+                      where w.Vocabulary.Language == languageStudy && w.WordID != t.wordID && (((w.WordID + offset) ^ mask) % 10 > 5)
                       select w;
 
             return res.Take(count);

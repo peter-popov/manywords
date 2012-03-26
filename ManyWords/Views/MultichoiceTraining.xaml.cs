@@ -45,6 +45,7 @@ namespace ManyWords.Views
             {
                 trainingController.CheckResult();
                 App.WordStorage.wordsDB.SubmitChanges();
+                App.VocabularyListModel.Update();
             }
             base.OnNavigatedFrom(e);
         }

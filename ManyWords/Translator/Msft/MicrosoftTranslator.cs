@@ -82,7 +82,7 @@ namespace ManyWords.Translator.Msft
         {
             var client = new WebClient();
             client.OpenReadCompleted += ((s, args) =>
-            {
+            {                
                 SpeachReady(this, new TranslatedEventArgs<Stream>(args.Result, true));
             });
             client.OpenReadAsync(new Uri(e.Result));

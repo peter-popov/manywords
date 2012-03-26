@@ -109,14 +109,20 @@ namespace ManyWords.Model
 
         public WordsViewModel()
         {
-            tts = new TextToSpeech(new Language { Code = "de", Name = "German" },
+            tts = new TextToSpeech(new Language { 
+                                                    Code = App.LanguagesListModel.StudyLanguage.Code,
+                                                    Name = App.LanguagesListModel.StudyLanguage.Name 
+                                                },
                                                 Translator.TranslatorFactory.CreateInstance());
         }
 
         public WordsViewModel(Vocabulary vocabulary)
         {
             this.usedVocabulary = vocabulary;
-            tts = new TextToSpeech(new Language { Code = "de", Name = "German" },
+            tts = new TextToSpeech(new Language { 
+                                                    Code = App.LanguagesListModel.StudyLanguage.Code,
+                                                    Name = App.LanguagesListModel.StudyLanguage.Name 
+                                                },
                                                 Translator.TranslatorFactory.CreateInstance());
         }
 
