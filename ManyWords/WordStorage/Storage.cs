@@ -93,17 +93,11 @@ namespace ManyWords.WordStorage
                     select w).FirstOrDefault();
         }
 
-
-        string IdToFilename(Int64 id)
-        {
-            return id.ToString().Trim() + ".wav";
-        }
-
         public Stream GetSpeachAudioStream(Word word)
         {            
             var word_item = Find(word.Spelling);
             if (word_item != null)
-                return LoadAudio(IdToFilename(word_item.WordID));
+                return LoadAudio(word_item.AudioFile);
             else
                 return null;
         }
@@ -139,9 +133,11 @@ namespace ManyWords.WordStorage
         {           
             if (word != null)
             {
+                RemoveAudio(word.AudioFile);
+
                 foreach (Translation t in word.Translations)
                     wordsDB.Translations.DeleteOnSubmit(t);
-                wordsDB.Words.DeleteOnSubmit(word);               
+                wordsDB.Words.DeleteOnSubmit(word);
             }
         }
 
@@ -183,7 +179,7 @@ namespace ManyWords.WordStorage
             wordsDB.SubmitChanges();
             
             if (audio != null)
-                SaveAudio(IdToFilename(w.WordID), audio);
+                SaveAudio(w, audio);
 
             return;
         }
@@ -217,7 +213,7 @@ namespace ManyWords.WordStorage
             App.VocabularyListModel.Update();
 
             if (audio != null )
-                SaveAudio(IdToFilename(item.WordID), audio);
+                SaveAudio(item, audio);
 
             return;
         }
@@ -260,6 +256,18 @@ namespace ManyWords.WordStorage
         }
 
 
+        private void RemoveAudio(string filename)
+        {
+            // Obtain the virtual store for the application.
+            IsolatedStorageFile myStore = IsolatedStorageFile.GetUserStoreForApplication();
+
+            // Create a new folder and call it "MyFolder".
+            if (myStore.DirectoryExists("Audio") && myStore.FileExists("Audio\\" + filename))
+            {
+                myStore.DeleteFile("Audio\\" + filename);
+            }
+        }
+
         private Stream LoadAudio(string filename)
         {
             // Obtain the virtual store for the application.
@@ -274,7 +282,7 @@ namespace ManyWords.WordStorage
             return new IsolatedStorageFileStream("Audio\\" + filename, FileMode.Open, FileAccess.Read, FileShare.Read, myStore);
         }
 
-        private void SaveAudio(string filename, Stream audio)
+        public void SaveAudio(Word w, Stream audio)
         {
             // Obtain the virtual store for the application.
             IsolatedStorageFile myStore = IsolatedStorageFile.GetUserStoreForApplication();
@@ -284,7 +292,7 @@ namespace ManyWords.WordStorage
                 myStore.CreateDirectory("Audio");
 
             // Specify the file path and options.
-            using (var isoFileStream = new IsolatedStorageFileStream("Audio\\" + filename, FileMode.OpenOrCreate, myStore))
+            using (var isoFileStream = new IsolatedStorageFileStream("Audio\\" + w.AudioFile, FileMode.OpenOrCreate, myStore))
             {
                 audio.CopyTo(isoFileStream);
             }

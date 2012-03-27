@@ -66,15 +66,24 @@ namespace ManyWords.Model
             }
             else
             {
-                Speak(word.Spelling);
+                translator.StartSpeach(clearWord(word.Spelling), language, word);
+                lastText = clearWord(word.Spelling);
             }
 
         }
 
         private void translator_SpeakCompleted(object sender, TranslatedEventArgs<Stream> e)
         {
-            cacheSpeech(e.Result);
-            playBuffer(new MemoryStream(audioCache));
+            if (e.IsOk)
+            {
+                cacheSpeech(e.Result);
+                playBuffer(new MemoryStream(audioCache));
+                var word = e.UserState as Word;
+                if (word != null)
+                {
+                    App.WordStorage.SaveAudio(word, new MemoryStream(audioCache));
+                }                
+            }
         }
 
         string clearWord(string s)

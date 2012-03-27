@@ -147,6 +147,16 @@ namespace ManyWords.WordStorage
         }
         #endregion
 
+
+        #region Non DB properties
+        public string AudioFile
+        {
+            get
+            {
+                return WordID.ToString().Trim() + ".wav";
+            }
+        }
+        
         public string Translation
         {
             get
@@ -164,6 +174,7 @@ namespace ManyWords.WordStorage
                     return "";
             }
         }
+        #endregion
 
 
         private void attach_translation(Translation entity)
