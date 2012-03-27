@@ -37,16 +37,25 @@ namespace ManyWords.Training
         private ExerciseInfo currentExercise = null;
         private Model.Exercise currentExerciceModel = null;
         private int wordIndex = -1;
-
+        
         public TrainingController(List<ExerciseInfo> exercies)
         {
             this.exercies = exercies;
         }
 
+        public int NewWordsSeenCount { get; private set;}
+        public int CorrectAnswersCount { get; private set; }
+        public int WordsCount { get; private set; }
+
+
         public void StartNewTraining()
         {
             WordsSelector ws = new WordsSelector(App.WordStorage);
             words.AddRange(ws.SelectWordsForTraining(10));
+            
+            this.NewWordsSeenCount = 0;
+            this.CorrectAnswersCount = 0;
+            WordsCount = words.Count;
             wordIndex = -1;
         }
 
@@ -86,6 +95,12 @@ namespace ManyWords.Training
             {
                 currentWord.Level += currentExercise.Info.Increment;
                 currentWord.Level = Math.Min(MaxLevel, currentWord.Level);
+                CorrectAnswersCount++;
+            }
+
+            if (currentWord.State == State.New)
+            {
+                NewWordsSeenCount++;
             }
 
             currentWord.State = ( currentWord.Level == MaxLevel ? State.Learned : State.Learning );

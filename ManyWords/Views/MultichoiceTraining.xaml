@@ -56,8 +56,8 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>            
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>            
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
@@ -65,20 +65,32 @@
             <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="0,5,0,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,5,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <local:AnswerChoiceControl x:Name="choiceControl" Grid.Row="0"/>
-            
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button Name="btnNext" Content="Start" Click="btnNext_Click" />
-            </StackPanel>            
+            <local:AnswerChoiceControl x:Name="choiceControl" Visibility="Collapsed" Grid.Row="0"/>
+
+            <!--Statistics-->
+            <StackPanel x:Name="ctlStatistic" Grid.Row="0" Orientation="Vertical">
+                <TextBlock Text="Correct answers:" Margin="10,30,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                <TextBlock x:Name="txtAnswers" Margin="0,20,0,0" Text="5 of 8" 
+                           HorizontalAlignment="Center"                           
+                           Foreground="{StaticResource PhoneAccentBrush}"
+                           FontSize="48" FontWeight="Bold" />
+                <TextBlock Text="New words:" Margin="10,30,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                <TextBlock x:Name="txtNewWords" Margin="0,20,0,0" Text="2" 
+                           HorizontalAlignment="Center" 
+                           Foreground="{StaticResource PhoneAccentBrush}"
+                           FontSize="48" FontWeight="Bold"/>
+            </StackPanel>
+
+
         </Grid>
         
-        <my:AdControl AdUnitId="Image480_80" Grid.Row="1" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />
+        <my:AdControl AdUnitId="Image480_80" Grid.Row="2" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />
     </Grid>
 
 

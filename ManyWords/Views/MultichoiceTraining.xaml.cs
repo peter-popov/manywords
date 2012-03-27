@@ -62,13 +62,9 @@ namespace ManyWords.Views
             {
                 oldDataContext = DataContext;
                 choiceControl.DataContext = model;
+                choiceControl.Visibility = System.Windows.Visibility.Visible;
+                ctlStatistic.Visibility = System.Windows.Visibility.Collapsed;
             }
-        }
-
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-            GoToNext();
-            btnNext.IsEnabled = false;
         }
 
         private void AnswerSelected(object sender, AnswerChoiceControl.AnswerSelectedEventArgs args)
@@ -88,6 +84,10 @@ namespace ManyWords.Views
             else
             {
                 choiceControl.DataContext = oldDataContext;
+                choiceControl.Visibility = System.Windows.Visibility.Collapsed;
+                ctlStatistic.Visibility = System.Windows.Visibility.Visible;
+                txtNewWords.Text = trainingController.NewWordsSeenCount.ToString();
+                txtAnswers.Text = string.Format("{0} of {1}", trainingController.CorrectAnswersCount, trainingController.WordsCount);
             }
         }
 
