@@ -60,7 +60,7 @@ namespace ManyWords
 
         private void StartTraining_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/MultichoiceTraining.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Views/TrainingView.xaml", UriKind.Relative));
         }
 
         private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -15,10 +15,10 @@ using ManyWords.Model;
 
 namespace ManyWords.Views
 {
-    public partial class MultichoiceTraining : PhoneApplicationPage
+    public partial class TrainingView : PhoneApplicationPage
     {
         TrainingController trainingController;
-        public MultichoiceTraining()
+        public TrainingView()
         {
             InitializeComponent();
             choiceControl.AnswerSelected += AnswerSelected;
