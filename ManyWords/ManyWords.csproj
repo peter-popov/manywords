@@ -96,7 +96,9 @@
     <Compile Include="Translator\Msft\MicrosoftTranslator.cs" />
     <Compile Include="Translator\ITranslator.cs" />
     <Compile Include="Model\TextToSpeech.cs" />
+    <Compile Include="Translator\Msft\MicrosoftTranslatorHttp.cs" />
     <Compile Include="Translator\TranslatorFactory.cs" />
+    <Compile Include="Translator\WebRequestHelper.cs" />
     <Compile Include="Views\AddVocabulary.xaml.cs">
       <DependentUpon>AddVocabulary.xaml</DependentUpon>
     </Compile>

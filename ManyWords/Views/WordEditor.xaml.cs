@@ -199,8 +199,11 @@ namespace ManyWords.Views
                 //Do something
                 return;
             }
-            txtTranslations.Text = "";
-            e.Result.ForEach( s => txtTranslations.Text += s + "\n" );            
+            Dispatcher.BeginInvoke(() =>
+                {
+                    txtTranslations.Text = "";
+                    e.Result.ForEach(s => txtTranslations.Text += s + "\n");
+                });
         }
         #endregion
 

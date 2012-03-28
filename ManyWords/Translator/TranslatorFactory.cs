@@ -57,7 +57,7 @@ namespace ManyWords.Translator
 
         public static ITranslator CreateInstance(string options = "")
         {
-            return new Msft.MicrosoftTranslator();
+            return new Msft.MicrosoftTranslatorHttp();
         }
     }
 }
