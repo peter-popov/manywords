@@ -92,18 +92,21 @@ namespace ManyWords.Views
         
         private void tapAfterSelection(object sender, GestureEventArgs e)
         {           
-            if (AnswerSelected != null && lstAnswers.SelectedIndex >= 0)
+            if (lstAnswers.SelectedIndex >= 0)
             {
-                AnswerSelected(this, new AnswerSelectedEventArgs(lstAnswers.SelectedIndex));
+                if ( AnswerSelected != null  )
+                    AnswerSelected(this, new AnswerSelectedEventArgs(lstAnswers.SelectedIndex));
 
                 rectHidden.Visibility = System.Windows.Visibility.Collapsed;
-
-                lstAnswers.SelectedIndex = -1;
             }
+
+            lstAnswers.SelectedIndex = -1;
         }
 
         private void lstAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Answer selected, index = {0}", lstAnswers.SelectedIndex);
+
             //TODO: Yes, it's clumsy, but...
             //Try to signal selected answer to the datacontext
             var answer = this.lstAnswers.SelectedItem as Model.ChoiceAnswer;
@@ -124,7 +127,8 @@ namespace ManyWords.Views
                     VisualStateManager.GoToState(listBoxItem, "Faded", false);
             }
 
-            rectHidden.Visibility = System.Windows.Visibility.Visible;            
+            if (lstAnswers.SelectedIndex >= 0)
+                rectHidden.Visibility = System.Windows.Visibility.Visible;            
         }
     }
 }

@@ -74,8 +74,10 @@
 
             <local:AnswerChoiceControl x:Name="choiceControl" Visibility="Collapsed" Grid.Row="0"/>
 
+            <local:PresentWordControl local:TiltEffect.IsTiltEnabled="True" x:Name="presentControl" Visibility="Collapsed" Grid.Row="0"/>
+            
             <!--Statistics-->
-            <StackPanel x:Name="ctlStatistic" Grid.Row="0" Orientation="Vertical">
+            <StackPanel x:Name="ctlStatistic" Grid.Row="0" Orientation="Vertical" Visibility="Collapsed">
                 <TextBlock Text="Correct answers:" Margin="10,30,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                 <TextBlock x:Name="txtAnswers" Margin="0,20,0,0" Text="5 of 8" 
                            HorizontalAlignment="Center"                           

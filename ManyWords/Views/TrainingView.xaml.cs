@@ -22,11 +22,22 @@ namespace ManyWords.Views
         {
             InitializeComponent();
             choiceControl.AnswerSelected += AnswerSelected;
+            presentControl.AnswerSelected += AnswerSelected;
 
 
             List<ExerciseInfo> exercises = new List<ExerciseInfo>();
-            exercises.Add(new ExerciseInfo{Info = new ApplicabilityInterval{MinLevel = 0, MaxLevel = 100, Increment = 25}, Model = typeof(DirectChoiceExercise)});
-            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 25, MaxLevel = 100, Increment = 25 }, Model = typeof(BackwardChoiceExercise)});
+            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 100, Increment = 25}, 
+                                             Model = typeof(DirectChoiceExercise),
+                                             Presenter = choiceControl 
+                                           });
+            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 25, MaxLevel = 100, Increment = 25 }, 
+                                             Model = typeof(BackwardChoiceExercise),
+                                             Presenter = choiceControl 
+                                           });
+            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 1, Increment = 1 }, 
+                                             Model = typeof(NewWordExercise),
+                                             Presenter = presentControl
+                                           });            
 
             trainingController = new TrainingController(exercises);
         }
@@ -51,45 +62,43 @@ namespace ManyWords.Views
         }
 
 
-        object oldDataContext = null;
-
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
             trainingController.StartNewTraining();
-
-            var model = trainingController.Next();
-            if (model != null)
-            {
-                oldDataContext = DataContext;
-                choiceControl.DataContext = model;
-                choiceControl.Visibility = System.Windows.Visibility.Visible;
-                ctlStatistic.Visibility = System.Windows.Visibility.Collapsed;
-            }
+            GoToNext();
         }
 
-        private void AnswerSelected(object sender, AnswerChoiceControl.AnswerSelectedEventArgs args)
-        {
-            System.Diagnostics.Debug.WriteLine("Selected answer: {0}", args.Index);
+        private void AnswerSelected(object sender, EventArgs args)
+        {            
             trainingController.CheckResult();
             GoToNext();
         }
 
+        private Control lastView;
         private void GoToNext()
         {
+            if (lastView != null)
+            {
+                lastView.Visibility = Visibility.Collapsed;
+            }
+
             var model = trainingController.Next();
             if (model != null)
             {
-                choiceControl.DataContext = model;
+                lastView = trainingController.CurrentExercise.Presenter as Control;
+                lastView.DataContext = model;
+                lastView.Focus();
+                lastView.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
-                choiceControl.DataContext = oldDataContext;
-                choiceControl.Visibility = System.Windows.Visibility.Collapsed;
+                App.WordStorage.wordsDB.SubmitChanges();
                 ctlStatistic.Visibility = System.Windows.Visibility.Visible;
                 txtNewWords.Text = trainingController.NewWordsSeenCount.ToString();
                 txtAnswers.Text = string.Format("{0} of {1}", trainingController.CorrectAnswersCount, trainingController.WordsCount);
             }
         }
+
 
     }
 }

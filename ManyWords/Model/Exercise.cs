@@ -17,7 +17,7 @@ namespace ManyWords.Model
 {
     public class Exercise: INotifyPropertyChanged
     {
-        public bool Result { get; protected set;}
+        public virtual bool Result { get; protected set;}
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(String propertyName)

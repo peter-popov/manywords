@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using ManyWords.WordStorage;
 
+
 namespace ManyWords.Training
 {
 
@@ -25,6 +26,7 @@ namespace ManyWords.Training
     {
         public ApplicabilityInterval Info;
         public Type Model;
+        public object Presenter;
     }
 
 
@@ -46,6 +48,13 @@ namespace ManyWords.Training
         public int NewWordsSeenCount { get; private set;}
         public int CorrectAnswersCount { get; private set; }
         public int WordsCount { get; private set; }
+        public ExerciseInfo CurrentExercise
+        {
+            get
+            {
+                return currentExercise;
+            }
+        }
 
 
         public void StartNewTraining()
@@ -60,7 +69,7 @@ namespace ManyWords.Training
         }
 
         public object Next()
-        {
+        {            
             wordIndex++;
             if (wordIndex >= words.Count)
             {
@@ -80,6 +89,13 @@ namespace ManyWords.Training
             //
             // Create model
             currentExerciceModel = Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] }) as Model.Exercise;
+            //
+            // TODO: this is hacking
+            if (words[wordIndex].State == State.New)
+            {
+                NewWordsSeenCount++;
+            }
+            
             return currentExerciceModel;
         }
 
@@ -98,12 +114,11 @@ namespace ManyWords.Training
                 CorrectAnswersCount++;
             }
 
-            if (currentWord.State == State.New)
-            {
-                NewWordsSeenCount++;
-            }
 
-            currentWord.State = ( currentWord.Level == MaxLevel ? State.Learned : State.Learning );
+            if (currentWord.State == State.Learning && currentWord.Level == MaxLevel)
+            {
+                currentWord.State = State.Learned;
+            }
         }
 
         private List<ExerciseInfo> SelectExercies(uint level)
