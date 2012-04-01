@@ -96,24 +96,6 @@
             </Setter>
         </Style>
 
-
-        <DataTemplate x:Name="LanguagePickerItemTemplate">
-            <StackPanel Orientation="Horizontal">
-                <Border Background="LightGreen" Width="34" Height="34">
-                    <TextBlock Text="{Binding HasVocabulary}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-                <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate x:Name="LanguagePickerItemFullModeTemplate">
-            <StackPanel Orientation="Horizontal">
-                <Border Background="LightGreen" Width="34" Height="34">
-                    <TextBlock Text="{Binding HasVocabulary}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-                <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
-            </StackPanel>
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -149,7 +131,7 @@
                                         Header="Select language you learn" 
                                         FullModeHeader="Select language you learn"
                                         ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
-                                        FullModeItemTemplate="{StaticResource LanguagePickerItemFullModeTemplate}"
+                                        FullModeItemTemplate="{StaticResource LanguagePickerItemTemplate}"
                                         CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
 
                         <Button Grid.Column="1" x:Name="btnMore" Margin="-10,0,-8,0" Height="75" VerticalAlignment="Bottom" Content="M" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Click="btnMore_Click" />

@@ -20,7 +20,6 @@ using ManyWords.Translator;
 
 namespace ManyWords
 {
-
     public partial class MainPage : PhoneApplicationPage
     {
         bool processLanguageSelect = false;

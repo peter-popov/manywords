@@ -80,10 +80,10 @@ namespace ManyWords.Views
             };
 
             if (NavigationContext.QueryString.ContainsKey("mode"))
-            {                
+            {
+                vocabularyPicker.ItemsSource = App.VocabularyListModel.All;
                 if (NavigationContext.QueryString["mode"].ToLower() == "edit")
-                {
-                    vocabularyPicker.ItemsSource = App.VocabularyListModel.All;
+                {                    
                     if (NavigationContext.QueryString.ContainsKey("id"))
                     {
                         loadWord(int.Parse(NavigationContext.QueryString["id"]));
@@ -95,18 +95,6 @@ namespace ManyWords.Views
                 }
                 else if (NavigationContext.QueryString["mode"].ToLower() == "new")
                 {
-                    // Set vocabulary list, if empty don't bother user with selection            
-                    if (App.VocabularyListModel.User.Count == 0)
-                    {
-                        vocabularyPicker.Visibility = System.Windows.Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        vocabularyPicker.ItemsSource = App.VocabularyListModel.User;
-                        vocabularyPicker.Visibility = System.Windows.Visibility.Visible;
-                    }
-
-
                     isSave = false;
                     this.PageTitle.Text = "new word";
                     this.txtWord.IsReadOnly = false;

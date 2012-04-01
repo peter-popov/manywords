@@ -192,6 +192,9 @@
     <Content Include="Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\vocabulary.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Words.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
