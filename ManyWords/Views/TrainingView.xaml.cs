@@ -74,7 +74,7 @@ namespace ManyWords.Views
             GoToNext();
         }
 
-        private Control lastView;
+        private ExerciseControl lastView;
         private void GoToNext()
         {
             if (lastView != null)
@@ -85,10 +85,9 @@ namespace ManyWords.Views
             var model = trainingController.Next();
             if (model != null)
             {
-                lastView = trainingController.CurrentExercise.Presenter as Control;
+                lastView = trainingController.CurrentExercise.Presenter as ExerciseControl;
                 lastView.DataContext = model;
-                if (lastView == presentControl)
-                    presentControl.Focus();
+                lastView.Reset();
                 lastView.Visibility = System.Windows.Visibility.Visible;
             }
             else

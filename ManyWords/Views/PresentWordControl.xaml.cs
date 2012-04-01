@@ -12,11 +12,17 @@ using System.Windows.Shapes;
 
 namespace ManyWords.Views
 {
-    public partial class PresentWordControl : UserControl
+    public partial class PresentWordControl : ExerciseControl
     {
         public PresentWordControl()
         {
             InitializeComponent();
+        }
+
+        public override void Reset()
+        {
+            this.Focus();
+            txtTip.Text = "This is a new word, you can either skip or start learning it";
         }
 
         public event EventHandler<EventArgs> AnswerSelected;

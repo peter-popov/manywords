@@ -70,7 +70,7 @@ namespace ManyWords.Views
     }
     #endregion
 
-    public partial class AnswerChoiceControl : UserControl
+    public partial class AnswerChoiceControl : ExerciseControl
     {
 
         public class AnswerSelectedEventArgs : EventArgs
@@ -83,6 +83,11 @@ namespace ManyWords.Views
         }
 
         public event EventHandler<AnswerSelectedEventArgs> AnswerSelected;
+
+        public override void Reset()
+        {
+            txtTip.Text = "Tap on a correct answer from above";
+        }
 
         public AnswerChoiceControl()
         {
@@ -126,6 +131,8 @@ namespace ManyWords.Views
                 if (listBoxItem != null)
                     VisualStateManager.GoToState(listBoxItem, "Faded", false);
             }
+
+            txtTip.Text = "Tap somewhere to continue";
 
             if (lstAnswers.SelectedIndex >= 0)
                 rectHidden.Visibility = System.Windows.Visibility.Visible;            

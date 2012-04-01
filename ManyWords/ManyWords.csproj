@@ -106,6 +106,7 @@
     <Compile Include="Views\AnswerChoiceControl.xaml.cs">
       <DependentUpon>AnswerChoiceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExerciseControl.cs" />
     <Compile Include="Views\ExtendedLanguageSelect.xaml.cs">
       <DependentUpon>ExtendedLanguageSelect.xaml</DependentUpon>
     </Compile>
