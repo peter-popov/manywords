@@ -76,7 +76,15 @@ namespace ManyWords.Views
                 return;
             }
 
-            wordsModel.Remove(selectedListBoxItem.DataContext as Model.WordListItemModel);
+            var wordItem = selectedListBoxItem.DataContext as Model.WordListItemModel;
+
+            var res = MessageBox.Show("Are you sure you want to completly remove this word ?",
+                                       "Remove \"" + wordItem.Spelling + "\"",
+                                       MessageBoxButton.OKCancel);
+            if (res == MessageBoxResult.OK)
+            {
+                wordsModel.Remove(wordItem);
+            }
         }
     }
 }

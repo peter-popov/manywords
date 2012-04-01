@@ -98,12 +98,19 @@ namespace ManyWords
 
         private void DeleteVocabulary_Click(object sender, RoutedEventArgs e)
         {
+            
             if (sender != null)
             {
-                var selectedItem = (sender as MenuItem).DataContext as Model.VocabularyListItemModel;
-                if (selectedItem != null)
+                var res = MessageBox.Show("This will also remove all words in this vocabulary. Are you sure that you want to delete this vocabulary?",
+                             "Remove vocabulary",
+                             MessageBoxButton.OKCancel);
+                if (res == MessageBoxResult.OK)
                 {
-                    App.WordStorage.RemoveVocabulary(selectedItem.Vocabulary);
+                    var selectedItem = (sender as MenuItem).DataContext as Model.VocabularyListItemModel;
+                    if (selectedItem != null)
+                    {
+                        App.WordStorage.RemoveVocabulary(selectedItem.Vocabulary);
+                    }
                 }
             }
         }
