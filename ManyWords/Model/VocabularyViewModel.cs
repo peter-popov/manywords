@@ -115,7 +115,7 @@ namespace ManyWords.Model
             {
                 var item = new VocabularyListItemModel(v);
                 All.Add(item);
-                if (!v.IsClosed) User.Add(item);
+                if (!v.IsPreloaded) User.Add(item);
             }
             
             NotifyPropertyChanged("All");

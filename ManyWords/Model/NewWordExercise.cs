@@ -54,7 +54,7 @@ namespace ManyWords.Model
 
             public void Execute(object param)
             {
-                word.State = State.Learned;
+                word.State = State.Known;
                 System.Diagnostics.Debug.WriteLine("SkipWord::Execute");
             }
 

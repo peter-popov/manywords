@@ -10,7 +10,8 @@ namespace ManyWords.WordStorage
     {
         New = 0,
         Learning = 1,
-        Learned = 2
+        Learned = 2,
+        Known = 3
     }
 
     /// <summary>

@@ -186,12 +186,6 @@ namespace ManyWords.WordStorage
 
         public void StoreWord(string spelling, IEnumerable<string> translation, Vocabulary vocabulary, Stream audio)
         {
-            if (Find(spelling) != null)
-            {
-                MessageBox.Show("Word already exists in the database");
-                return;
-            }
-
             Word item = new Word { Spelling = spelling, Added = DateTime.Now };
             item.State = State.New;
             if (vocabulary == null)
@@ -233,17 +227,16 @@ namespace ManyWords.WordStorage
 
             var defaultVocabulary = (from VocabularyTargetLanguage v in wordsDB.TargetLanguages
                           where v.Language == motherLanguage && 
-                                v.Vocabulary.Language == studyLanguage &&
-                                !v.Vocabulary.IsClosed &&
-                                v.Vocabulary.IsDefault
+                                v.Vocabulary.Language == studyLanguage 
+                          orderby v.Vocabulary.IsPreloaded
                           select v.Vocabulary).FirstOrDefault();
 
             if (defaultVocabulary == null)
             {
                 //need to create a new one
                 defaultVocabulary = new Vocabulary { Description = "user words", 
-                                                     IsClosed = false, 
-                                                     IsDefault = true, 
+                                                     IsPreloaded = false, 
+                                                     IsUsed = true, 
                                                      Language = studyLanguage };
                 var tl = new VocabularyTargetLanguage { Language = motherLanguage };
                 defaultVocabulary.TargetLanguages.Add(tl);

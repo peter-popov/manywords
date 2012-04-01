@@ -63,10 +63,10 @@ namespace ManyWords.WordStorage
         public string Description;
 
         [Column(CanBeNull = false)]
-        public bool IsDefault;
+        public bool IsPreloaded;
 
         [Column(CanBeNull = false)]
-        public bool IsClosed;
+        public bool IsUsed;
 
         [Column(CanBeNull = false)]
         public string Language;

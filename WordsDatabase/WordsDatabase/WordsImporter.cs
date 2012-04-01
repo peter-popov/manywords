@@ -98,7 +98,10 @@ namespace WordsDatabase
             }*/
 
             // Create vocabulary and vocabulary info
-            var newVocabulary = new Vocabulary { Description = vocabulary, IsDefault = false, IsClosed = true, Language = languageFrom.Item1 };
+            var newVocabulary = new Vocabulary { Description = vocabulary, 
+                                                 IsPreloaded = true, 
+                                                 IsUsed = true, 
+                                                 Language = languageFrom.Item1 };
 
             foreach( var lng in languagesTo)
             {

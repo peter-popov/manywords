@@ -58,7 +58,7 @@ namespace ManyWords.Model
             //
             // Get mother languages from db            
             var dbMotherLanguages = (from VocabularyTargetLanguage vtl in storage.wordsDB.TargetLanguages
-                                     where vtl.Vocabulary.IsClosed
+                                     where vtl.Vocabulary.IsPreloaded
                                      select vtl.Language).Distinct();
          
             MotherLanguages = new ObservableCollection<LanguageListItemModel>();
@@ -173,7 +173,7 @@ namespace ManyWords.Model
             //
             // Get study languages from DB
             var dbStudyLanguages = (from VocabularyTargetLanguage vtl in storage.wordsDB.TargetLanguages
-                                    where vtl.Vocabulary.IsClosed && vtl.Language == MotherLanguage.Code
+                                    where vtl.Vocabulary.IsPreloaded && vtl.Language == MotherLanguage.Code
                                     select vtl.Vocabulary.Language).Distinct();
             
             foreach (var l in dbStudyLanguages)
