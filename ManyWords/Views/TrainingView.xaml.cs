@@ -87,7 +87,8 @@ namespace ManyWords.Views
             {
                 lastView = trainingController.CurrentExercise.Presenter as Control;
                 lastView.DataContext = model;
-                lastView.Focus();
+                if (lastView == presentControl)
+                    presentControl.Focus();
                 lastView.Visibility = System.Windows.Visibility.Visible;
             }
             else
