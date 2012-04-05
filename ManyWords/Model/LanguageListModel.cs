@@ -15,7 +15,7 @@ namespace ManyWords.Model
     {
         public string Name { get; private set; }
         public string Code { get; private set; }        
-        public bool HasVocabulary { get; private set; }
+        public bool HasVocabulary { get; set; }
 
 
         public LanguageListItemModel(string code, bool hasVocabs)
@@ -113,7 +113,14 @@ namespace ManyWords.Model
                     setting[selected_mother_language_key] = motherLanguage.Code;
                     setting.Save();
                     NotifyPropertyChanged("MotherLanguage");
+
+                    Available.Select(x =>x.HasVocabulary = false);
                     loadStudyLanguages();
+                    foreach (var l in StudyLanguages)
+                    {
+                        var av = Available.FirstOrDefault(v => v.Code == l.Code);
+                        if (av != null) av.HasVocabulary = l.HasVocabulary;
+                    }
                 }
             }
         }
@@ -177,14 +184,17 @@ namespace ManyWords.Model
                                     select vtl.Vocabulary.Language).Distinct();
             
             foreach (var l in dbStudyLanguages)
+            {
                 StudyLanguages.Add(new LanguageListItemModel(l, true));
+                
+            }
 
             // Fill list with default languages
             if (StudyLanguages.Count < 5)
             {
                 foreach (var l in basicLanguageList)
-                    if ( l != MotherLanguage.Code && !dbStudyLanguages.Contains(l) )
-                    StudyLanguages.Add(new LanguageListItemModel(l, false));    
+                    if (l != MotherLanguage.Code && StudyLanguages.Count < 5 && !dbStudyLanguages.Contains(l))
+                        StudyLanguages.Add(new LanguageListItemModel(l, false));    
             }
             NotifyPropertyChanged("StudyLanguages");
         }
