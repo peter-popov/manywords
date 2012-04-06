@@ -1,11 +1,14 @@
 ﻿using System.Linq;
 using ManyWords.WordStorage;
+using System.Windows.Input;
 
 namespace ManyWords.Model
 {
     public class DirectChoiceExercise : ChoiceExercise
     {
         private ChoiceAnswer correctAnswer;
+        private ICommand playSound = null;
+
         public DirectChoiceExercise(Word word)
         {
             Question = new ChoiceQuestion { Text = word.Spelling };
@@ -23,10 +26,26 @@ namespace ManyWords.Model
             {
                 Answers.Add(t);
             }
+
+            playSound = new PlaySound(word, App.TextToSpeech);
         }
 
+        public override ICommand PlaySound
+        {
+            get
+            {
+                return playSound;
+            }
+        }
 
-
+        public override void Ready()
+        {
+            if (PlaySound != null)
+            {
+                PlaySound.Execute(null);
+            }
+        }
+        
         public override void SubmitAnswer(ChoiceAnswer answer)
         {
             this.Result = ( answer.Text == correctAnswer.Text );

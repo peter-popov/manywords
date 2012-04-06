@@ -12,11 +12,11 @@ namespace ManyWords.Model
     public class PlaySound : ICommand
     {
         TextToSpeech tts;
-        WordListItemModel item;
-        public PlaySound(WordListItemModel item, TextToSpeech tts)
+        Word word;
+        public PlaySound(Word w, TextToSpeech tts)
         {
             this.tts = tts;
-            this.item = item;
+            this.word = w;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -29,7 +29,7 @@ namespace ManyWords.Model
 
         public void Execute(object parameter)
         {
-            tts.Speak(item.Word);
+            tts.Speak(word);
         }
     }
 
@@ -40,7 +40,7 @@ namespace ManyWords.Model
         public WordListItemModel(Word w, TextToSpeech tts)
         {
             this.word = w;
-            playCmd = new PlaySound(this, tts);
+            playCmd = new PlaySound(word, tts);
         }
 
         private Word word;
@@ -107,23 +107,15 @@ namespace ManyWords.Model
         TextToSpeech tts;
         Vocabulary usedVocabulary = null;
 
-        public WordsViewModel()
+        public WordsViewModel(TextToSpeech tts)
         {
-            tts = new TextToSpeech(new Language { 
-                                                    Code = App.LanguagesListModel.StudyLanguage.Code,
-                                                    Name = App.LanguagesListModel.StudyLanguage.Name 
-                                                },
-                                                Translator.TranslatorFactory.CreateInstance());
+            this.tts = tts; 
         }
 
-        public WordsViewModel(Vocabulary vocabulary)
+        public WordsViewModel(TextToSpeech tts, Vocabulary vocabulary )
         {
             this.usedVocabulary = vocabulary;
-            tts = new TextToSpeech(new Language { 
-                                                    Code = App.LanguagesListModel.StudyLanguage.Code,
-                                                    Name = App.LanguagesListModel.StudyLanguage.Name 
-                                                },
-                                                Translator.TranslatorFactory.CreateInstance());
+            this.tts = tts; 
         }
 
         public IEnumerable<WordListItemModel> All

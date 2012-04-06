@@ -19,6 +19,10 @@ namespace ManyWords.Model
     {
         public virtual bool Result { get; protected set;}
 
+        public virtual ICommand PlaySound { get {return null;} }
+
+        public virtual void Ready() { }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(String propertyName)
         {

@@ -68,7 +68,7 @@ namespace ManyWords.Training
             wordIndex = -1;
         }
 
-        public object Next()
+        public Model.Exercise Next()
         {            
             wordIndex++;
             if (wordIndex >= words.Count)
@@ -88,7 +88,7 @@ namespace ManyWords.Training
             }
             //
             // Create model
-            currentExerciceModel = Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] }) as Model.Exercise;
+            currentExerciceModel = Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] }) as Model.Exercise;            
             //
             // TODO: this is hacking
             if (words[wordIndex].State == State.New)

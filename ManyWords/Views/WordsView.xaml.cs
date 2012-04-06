@@ -44,7 +44,7 @@ namespace ManyWords.Views
                     int id = int.Parse( NavigationContext.QueryString["vocabulary"] );
                     useVocabulary = App.WordStorage.wordsDB.Vocabularies.Where(x => x.ID == id).FirstOrDefault();
                 }
-                wordsModel = useVocabulary == null ? new Model.WordsViewModel() : new Model.WordsViewModel(useVocabulary);
+                wordsModel = useVocabulary == null ? new Model.WordsViewModel(App.TextToSpeech) : new Model.WordsViewModel(App.TextToSpeech, useVocabulary);
                 DataContext = wordsModel;
             }
         }

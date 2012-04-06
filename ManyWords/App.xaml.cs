@@ -28,6 +28,7 @@ namespace ManyWords
         private static WordStorage.Storage wordStorgae = null;
         private static Model.LanguageListModel languagesListModel = null;
         private static Model.VocabularyViewModel vocabularyListModel = null;
+        private static Model.TextToSpeech tts = null;
 
         /// <summary>
         /// A static word storage used to access words database.
@@ -72,6 +73,21 @@ namespace ManyWords
                     vocabularyListModel = new Model.VocabularyViewModel();
 
                 return vocabularyListModel;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Model.TextToSpeech TextToSpeech
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (tts == null)
+                    tts = new Model.TextToSpeech(Translator.TranslatorFactory.CreateInstance());
+
+                return tts;
             }
         }
 

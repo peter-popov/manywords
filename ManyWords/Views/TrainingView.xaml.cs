@@ -26,7 +26,7 @@ namespace ManyWords.Views
 
 
             List<ExerciseInfo> exercises = new List<ExerciseInfo>();
-            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 100, Increment = 25}, 
+            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 75, Increment = 25}, 
                                              Model = typeof(DirectChoiceExercise),
                                              Presenter = choiceControl 
                                            });
@@ -87,6 +87,7 @@ namespace ManyWords.Views
             {
                 lastView = trainingController.CurrentExercise.Presenter as ExerciseControl;
                 lastView.DataContext = model;
+                model.Ready();
                 lastView.Reset();
                 lastView.Visibility = System.Windows.Visibility.Visible;
             }

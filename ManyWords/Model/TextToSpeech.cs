@@ -23,11 +23,27 @@ namespace ManyWords.Model
         private byte[] audioCache = null;
         private string lastText = null;
 
+        public TextToSpeech(ITranslator translator)
+        {
+            this.translator = translator;
+            this.translator.SpeachReady += translator_SpeakCompleted;
+        }
+
         public TextToSpeech(Language language, ITranslator translator)
         {
             this.language = language;
             this.translator = translator;
             this.translator.SpeachReady += translator_SpeakCompleted;
+        }
+
+        private Language CurrentLanguage
+        {
+            get
+            {
+                if (language == null)
+                    return new Language { Code = App.LanguagesListModel.StudyLanguage.Code };
+                return language;
+            }
         }
 
         public Stream GetAudioStream(string text)
@@ -46,7 +62,7 @@ namespace ManyWords.Model
             }
             else
             {
-                translator.StartSpeach(clearWord(text), language);
+                translator.StartSpeach(clearWord(text), CurrentLanguage);
                 lastText = clearWord(text);
             }
         }
@@ -66,7 +82,7 @@ namespace ManyWords.Model
             }
             else
             {
-                translator.StartSpeach(clearWord(word.Spelling), language, word);
+                translator.StartSpeach(clearWord(word.Spelling), CurrentLanguage, word);
                 lastText = clearWord(word.Spelling);
             }
 

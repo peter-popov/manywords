@@ -21,6 +21,8 @@ namespace ManyWords.Model
         public string Translation { get; private set; }
         #endregion
 
+        private ICommand playSound = null;
+        
         public NewWordExercise(Word word)
         {
             OnSkip = new SkipWord(word);
@@ -28,6 +30,15 @@ namespace ManyWords.Model
 
             Word = word.Spelling;
             Translation = word.Translation;
+            playSound = new PlaySound(word, App.TextToSpeech);
+        }
+
+        public override ICommand PlaySound
+        {
+            get
+            {
+                return playSound;
+            }
         }
 
         public override bool Result
@@ -35,6 +46,14 @@ namespace ManyWords.Model
             get
             {
                 return OnLearn.Result;
+            }
+        }
+
+        public override void Ready()
+        {
+            if (PlaySound != null)
+            {
+                PlaySound.Execute(null);
             }
         }
 
