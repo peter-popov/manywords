@@ -53,7 +53,7 @@ namespace ManyWords.WordStorage
                                 where (w.State == State.New || w.State == State.Learning) &&
                                        w.Vocabulary.Language == languageStudy &&
                                        w.Translations.Any(x=>x.Language == languageMother)
-                                orderby w.Level
+                                orderby w.Level descending
                                 orderby w.Added                        
                                 select w;
             //

@@ -140,26 +140,68 @@ namespace ManyWords.Model
 
         }
 
+        public IEnumerable<WordListItemModel> Learning
+        {
+            get
+            {
+                if (usedVocabulary == null)
+                {
+                    return from Word w in storage.Words
+                           where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code &&
+                                 w.State == State.Learning
+                           orderby w.Spelling ascending
+                           select new WordListItemModel(w, tts);
+                }
+                else
+                {
+                    return from Word w in storage.Words
+                           where w.Vocabulary.ID == usedVocabulary.ID && w.State == State.Learning
+                           orderby w.Spelling ascending
+                           select new WordListItemModel(w, tts);
+                }
+            }
+        }
+
+        public IEnumerable<WordListItemModel> Learned
+        {
+            get
+            {
+                if (usedVocabulary == null)
+                {
+                    return from Word w in storage.Words
+                           where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code &&
+                                 w.State == State.Learned
+                           orderby w.Spelling ascending
+                           select new WordListItemModel(w, tts);
+                }
+                else
+                {
+                    return from Word w in storage.Words
+                           where w.Vocabulary.ID == usedVocabulary.ID && w.State == State.Learned
+                           orderby w.Spelling ascending
+                           select new WordListItemModel(w, tts);
+                }
+            }
+        }
+
+
+
         public void Remove(WordListItemModel item)
         {
-
             if (item != null)
             {
                 storage.RemoveWord(item.Word);
                 NotifyPropertyChanged("All");
             }
-
         }
 
         public void UpdateItem(WordListItemModel item)
         {
-
             Word w = storage.Find(item.Word.WordID);
             if (w != null)
             {
                 item.Word = w;
             }
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

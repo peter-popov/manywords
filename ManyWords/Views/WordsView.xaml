@@ -18,6 +18,11 @@
     local:TiltEffect.IsTiltEnabled="True">
 
     <phone:PhoneApplicationPage.Resources>
+
+
+        <local:ProgressToVisibility x:Key="progressToVisibility"/>
+        <local:ProgressToWidth x:Key="progressToWidth"/>
+
         <Style TargetType="ListBoxItem" x:Key="ListBoxWordViewStyle">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -43,10 +48,46 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Spelling}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="30,0,0,0" Text="{Binding Translation}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+
+
+
+                            <TextBlock Grid.Row="0" Grid.Column="0"                                        
+                                       Margin="0,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding Spelling}" 
+                                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+
+                            <Grid Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" 
+                                  Visibility="{Binding Path=Word, Converter={StaticResource progressToVisibility}}">
+                                <Rectangle  
+                                        Width="{Binding Path=Word, Converter={StaticResource progressToWidth}}" 
+                                        Height="6"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Fill="LimeGreen"
+                                        Opacity="0.5"/>
+
+                                <Rectangle  Width="100" Height="8"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"                                        
+                                        Fill="Transparent"
+                                        StrokeThickness="1"
+                                        Stroke="LimeGreen"
+                                        Opacity="1.0"/>
+                            </Grid>
+
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" 
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding Translation}" 
+                                       Width="300"
+                                       TextWrapping="Wrap" 
+                                       Style="{StaticResource PhoneTextSubtleStyle}"/>
+
 
                             <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
                                 <Button.Template>
@@ -80,7 +121,7 @@
 
             <!--Pivot item two-->
             <controls:PivotItem Header="done">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Done}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}"/>
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Learned}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}"/>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
