@@ -108,7 +108,20 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}">
+        <controls:Pivot>
+            <controls:Pivot.Title >
+                <StackPanel Margin="-10,0,10,0" Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Width="Auto" Source="/Images/appbar_wordslist.png" Stretch="None"/>
+                        <TextBox x:Name="txtSearch" Grid.Column="1" TextInput="txtSearch_TextInput" TextInputUpdate="txtSearch_TextInputUpdate" TextChanged="txtSearch_TextChanged" />
+                    </Grid>
+                </StackPanel>
+            </controls:Pivot.Title>
             <!--Pivot item one-->
             <controls:PivotItem Header="all">
                 <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using ManyWords.Translator;
 using ManyWords.WordStorage;
+using System.Text.RegularExpressions;
 
 namespace ManyWords.Model
 {
@@ -21,7 +22,7 @@ namespace ManyWords.Model
 
         public event EventHandler CanExecuteChanged;
 
-        
+
         public bool CanExecute(object parameter)
         {
             return true;
@@ -109,32 +110,36 @@ namespace ManyWords.Model
 
         public WordsViewModel(TextToSpeech tts)
         {
-            this.tts = tts; 
+            this.tts = tts;
         }
 
-        public WordsViewModel(TextToSpeech tts, Vocabulary vocabulary )
+        public WordsViewModel(TextToSpeech tts, Vocabulary vocabulary)
         {
             this.usedVocabulary = vocabulary;
-            this.tts = tts; 
+            this.tts = tts;
+        }
+
+
+        string filter = "";
+        public void Filter(string filter)
+        {
+            this.filter = filter;
+            NotifyPropertyChanged("All");
+            NotifyPropertyChanged("Learning");
+            NotifyPropertyChanged("Learned");
         }
 
         public IEnumerable<WordListItemModel> All
         {
             get
             {
-                if ( usedVocabulary == null )
+                if (usedVocabulary == null)
                 {
-                    return from Word w in storage.Words
-                       where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code
-                       orderby w.Spelling ascending
-                       select new WordListItemModel(w, tts);
+                    return query(App.LanguagesListModel.StudyLanguage.Code, filter);
                 }
                 else
                 {
-                    return from Word w in storage.Words
-                           where w.Vocabulary.ID == usedVocabulary.ID
-                           orderby w.Spelling ascending
-                           select new WordListItemModel(w, tts);
+                    return query(usedVocabulary, filter);
                 }
             }
 
@@ -144,21 +149,7 @@ namespace ManyWords.Model
         {
             get
             {
-                if (usedVocabulary == null)
-                {
-                    return from Word w in storage.Words
-                           where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code &&
-                                 w.State == State.Learning
-                           orderby w.Spelling ascending
-                           select new WordListItemModel(w, tts);
-                }
-                else
-                {
-                    return from Word w in storage.Words
-                           where w.Vocabulary.ID == usedVocabulary.ID && w.State == State.Learning
-                           orderby w.Spelling ascending
-                           select new WordListItemModel(w, tts);
-                }
+                return All.Where(x => x.Word.State == State.Learning);
             }
         }
 
@@ -166,24 +157,31 @@ namespace ManyWords.Model
         {
             get
             {
-                if (usedVocabulary == null)
-                {
-                    return from Word w in storage.Words
-                           where w.Vocabulary.Language == App.LanguagesListModel.StudyLanguage.Code &&
-                                 w.State == State.Learned
-                           orderby w.Spelling ascending
-                           select new WordListItemModel(w, tts);
-                }
-                else
-                {
-                    return from Word w in storage.Words
-                           where w.Vocabulary.ID == usedVocabulary.ID && w.State == State.Learned
-                           orderby w.Spelling ascending
-                           select new WordListItemModel(w, tts);
-                }
+                return All.Where(x => x.Word.State == State.Learned);
             }
         }
 
+
+        private IEnumerable<WordListItemModel> query(string language, string filter)
+        {
+            Regex re = new Regex(@"\b" + filter, RegexOptions.IgnoreCase);
+            
+            return from Word w in storage.Words
+                   where w.Vocabulary.Language == language
+                       && re.IsMatch(w.Spelling)
+                   orderby w.Spelling ascending
+                   select new WordListItemModel(w, tts);
+        }
+
+        private IEnumerable<WordListItemModel> query(Vocabulary vocab, string filter)
+        {           
+            Regex re = new Regex( @"\b" + filter, RegexOptions.IgnoreCase );
+            return from Word w in storage.Words
+                   where w.Vocabulary.ID == vocab.ID
+                      && re.IsMatch(w.Spelling)
+                   orderby w.Spelling ascending
+                   select new WordListItemModel(w, tts);
+        }
 
 
         public void Remove(WordListItemModel item)
@@ -192,6 +190,8 @@ namespace ManyWords.Model
             {
                 storage.RemoveWord(item.Word);
                 NotifyPropertyChanged("All");
+                NotifyPropertyChanged("Learning");
+                NotifyPropertyChanged("Learned");
             }
         }
 

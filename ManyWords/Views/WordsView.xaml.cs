@@ -9,46 +9,7 @@ using Microsoft.Phone.Controls;
 namespace ManyWords.Views
 {
 
-    public class ProgressToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var w = value as WordStorage.Word;
-
-            if (w != null && w.Level > 0)
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return false;
-        }
-    }
-
-    public class ProgressToWidth : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var w = value as WordStorage.Word;
-
-            if (w != null && w.Level > 0)
-            {
-                return w.Level;
-            }
-
-            return 0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return false;
-        }
-    }
-
-
+    
     public partial class WordsView : PhoneApplicationPage
     {
         private Model.WordsViewModel wordsModel;
@@ -119,5 +80,63 @@ namespace ManyWords.Views
                 wordsModel.Remove(wordItem);
             }
         }
+
+        private void txtSearch_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextInputUpdate(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (wordsModel != null)
+                wordsModel.Filter(txtSearch.Text);
+        }
     }
+
+
+    public class ProgressToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var w = value as WordStorage.Word;
+
+            if (w != null && w.Level > 0)
+            {
+                return Visibility.Visible;
+            }
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return false;
+        }
+    }
+
+    public class ProgressToWidth : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var w = value as WordStorage.Word;
+
+            if (w != null && w.Level > 0)
+            {
+                return w.Level;
+            }
+
+            return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return false;
+        }
+    }
+
+
 }
