@@ -25,7 +25,7 @@ namespace ManyWords.Views
             txtTip.Text = "This is a new word, you can either skip or start learning it";
         }
 
-        public event EventHandler<EventArgs> AnswerSelected;
+        public override event EventHandler<EventArgs> AnswerSelected;
 
         private void LearnButton_Click(object sender, RoutedEventArgs e)
         {

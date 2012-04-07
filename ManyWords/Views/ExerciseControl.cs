@@ -13,9 +13,10 @@ namespace ManyWords.Views
 {
     public class ExerciseControl: UserControl
     {
+        public virtual event EventHandler<EventArgs> AnswerSelected;
 
         public virtual void Reset()
-        {
+        {            
         }
     }
 }

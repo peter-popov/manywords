@@ -82,7 +82,7 @@ namespace ManyWords.Views
             }
         }
 
-        public event EventHandler<AnswerSelectedEventArgs> AnswerSelected;
+        public override event EventHandler<EventArgs> AnswerSelected;
 
         public override void Reset()
         {
@@ -100,7 +100,7 @@ namespace ManyWords.Views
             if (lstAnswers.SelectedIndex >= 0)
             {
                 if ( AnswerSelected != null  )
-                    AnswerSelected(this, new AnswerSelectedEventArgs(lstAnswers.SelectedIndex));
+                    AnswerSelected(this, new EventArgs());
 
                 rectHidden.Visibility = System.Windows.Visibility.Collapsed;
             }

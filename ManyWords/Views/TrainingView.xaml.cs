@@ -23,10 +23,10 @@ namespace ManyWords.Views
             InitializeComponent();
             choiceControl.AnswerSelected += AnswerSelected;
             presentControl.AnswerSelected += AnswerSelected;
-
+            spellingControl.AnswerSelected += AnswerSelected;
 
             List<ExerciseInfo> exercises = new List<ExerciseInfo>();
-            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 75, Increment = 25}, 
+            /*exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 75, Increment = 25}, 
                                              Model = typeof(DirectChoiceExercise),
                                              Presenter = choiceControl 
                                            });
@@ -37,7 +37,13 @@ namespace ManyWords.Views
             exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 1, Increment = 1 }, 
                                              Model = typeof(NewWordExercise),
                                              Presenter = presentControl
-                                           });            
+                                           });*/
+            exercises.Add(new ExerciseInfo
+                                            {
+                                                Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 100, Increment = 10 },
+                                                Model = typeof(SpellingExercise),
+                                                Presenter = spellingControl
+                                            });   
 
             trainingController = new TrainingController(exercises);
         }
