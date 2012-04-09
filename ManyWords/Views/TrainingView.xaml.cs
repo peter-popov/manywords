@@ -26,24 +26,21 @@ namespace ManyWords.Views
             spellingControl.AnswerSelected += AnswerSelected;
 
             List<ExerciseInfo> exercises = new List<ExerciseInfo>();
-            /*exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 75, Increment = 25}, 
-                                             Model = typeof(DirectChoiceExercise),
-                                             Presenter = choiceControl 
-                                           });
-            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 25, MaxLevel = 100, Increment = 25 }, 
-                                             Model = typeof(BackwardChoiceExercise),
-                                             Presenter = choiceControl 
-                                           });
-            exercises.Add(new ExerciseInfo { Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 1, Increment = 1 }, 
-                                             Model = typeof(NewWordExercise),
-                                             Presenter = presentControl
-                                           });*/
-            exercises.Add(new ExerciseInfo
-                                            {
-                                                Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 100, Increment = 10 },
-                                                Model = typeof(SpellingExercise),
-                                                Presenter = spellingControl
-                                            });   
+            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 1, Increment = 1 },
+                                              Model = typeof(NewWordExercise),
+                                              Presenter = presentControl });
+
+            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 60, Increment = 20}, 
+                                              Model = typeof(DirectChoiceExercise),
+                                              Presenter = choiceControl });
+
+            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 60, MaxLevel = 90, Increment = 10 }, 
+                                              Model = typeof(BackwardChoiceExercise),
+                                              Presenter = choiceControl });
+
+            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 70, MaxLevel = 100, Increment = 10 },
+                                              Model = typeof(SpellingExercise),
+                                              Presenter = spellingControl });   
 
             trainingController = new TrainingController(exercises);
         }

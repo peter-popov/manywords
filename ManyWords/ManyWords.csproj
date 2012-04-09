@@ -101,6 +101,7 @@
     <Compile Include="Translator\Msft\MicrosoftTranslatorHttp.cs" />
     <Compile Include="Translator\TranslatorFactory.cs" />
     <Compile Include="Translator\WebRequestHelper.cs" />
+    <Compile Include="Utils\Diff.cs" />
     <Compile Include="Views\AddVocabulary.xaml.cs">
       <DependentUpon>AddVocabulary.xaml</DependentUpon>
     </Compile>
