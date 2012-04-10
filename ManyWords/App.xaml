@@ -16,13 +16,14 @@
         <Resources:LocalizedStrings x:Key="LocalizedStrings" />
 
         <Resources:StatusToVisibilityConverter x:Key="booleanConverter"/>
+        
         <DataTemplate x:Name="LanguagePickerItemTemplate">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/vocabulary.png" 
                        VerticalAlignment="Center"
                        Stretch="Fill"
                        Visibility="{Binding Path=HasVocabulary, Converter={StaticResource booleanConverter}}"/>
-
+                
                 <TextBlock Text="{Binding Name}" Margin="12 0 0 0"/>
             </StackPanel>
         </DataTemplate>

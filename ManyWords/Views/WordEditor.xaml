@@ -57,9 +57,13 @@
             <Button Grid.Row="0" Name="btnSpeak" Margin="0,10,10,0" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" BorderThickness="0" Click="btnSpeak_Click">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
-                            <Image Source="/Images/Sound_light_small.png" Height="60" Width="60" Stretch="Fill" />
-                        </Border>
+                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Width="60" Height="60">
+                            <Rectangle.OpacityMask>
+                                <ImageBrush Stretch="Fill" ImageSource="/Images/Sound_dark_small.png"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
@@ -71,9 +75,13 @@
             <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click" IsEnabled="True">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="myborder">
-                            <Image Source="/Images/Translate.png" Height="60" Width="60" Stretch="Fill" />
-                        </Border>
+                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Width="60" Height="60">
+                            <Rectangle.OpacityMask>
+                                <ImageBrush Stretch="Fill" ImageSource="/Images/Translate.png"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
                     </ControlTemplate>
                 </Button.Template>
             </Button>

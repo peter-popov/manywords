@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Media;
 
 namespace ManyWords
 {
@@ -112,6 +113,8 @@ namespace ManyWords
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            this.SetCustomColorTheme();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -131,6 +134,45 @@ namespace ManyWords
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+        }
+
+
+        private void SetCustomColorTheme()
+        {
+            var accentColor = Color.FromArgb(255, 255, 180, 43);
+            var mainForeground = Colors.White;
+            var mainBackground = Color.FromArgb(255, 1, 160, 199);
+
+            (App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color = accentColor;
+            (App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color = mainForeground;
+            (App.Current.Resources["PhoneBackgroundBrush"] as SolidColorBrush).Color = mainBackground;
+
+            (App.Current.Resources["PhoneContrastBackgroundBrush"] as SolidColorBrush).Color = Colors.White;
+            (App.Current.Resources["PhoneContrastForegroundBrush"] as SolidColorBrush).Color = Colors.Black;
+
+            (App.Current.Resources["PhoneSubtleBrush"] as SolidColorBrush).Color = Colors.LightGray;
+
+            (App.Current.Resources["PhoneTextBoxBrush"] as SolidColorBrush).Color = Colors.White;
+            (App.Current.Resources["PhoneTextCaretBrush"] as SolidColorBrush).Color = Colors.Black;
+            (App.Current.Resources["PhoneTextBoxForegroundBrush"] as SolidColorBrush).Color = Colors.Black;
+            (App.Current.Resources["PhoneTextBoxEditBackgroundBrush"] as SolidColorBrush).Color = Colors.White;
+            (App.Current.Resources["PhoneTextBoxEditBorderBrush"] as SolidColorBrush).Color = Colors.White;
+            (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.White;
+            
+            
+            
+                     
+
+            //(App.Current.Resources["PhoneDisabledBrush"] as SolidColorBrush).Color = Colors.Purple;
+
+            //PhoneContrastBackgroundBrush
+            //PhoneContrastForegroundBrush
+            //PhoneDisabledBrush
+            //PhoneSubtleBrush
+            //TransparentBrush
+            //PhoneSemitransparentBrush
+            //PhoneChromeBrush
+
         }
 
         // Code to execute when the application is launching (eg, from Start)

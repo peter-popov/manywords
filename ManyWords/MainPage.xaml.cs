@@ -27,7 +27,7 @@ namespace ManyWords
         public MainPage()
         {
             InitializeComponent();
-
+            
             lstVocabulary.DataContext = App.VocabularyListModel;
             App.LanguagesListModel.PropertyChanged += App.VocabularyListModel.OnLanguageModelPropertyChanged;            
         }

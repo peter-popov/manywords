@@ -35,7 +35,7 @@
                     <ControlTemplate TargetType="ListBoxItem">
                         <Grid Background="Transparent">
                             <toolkit:ContextMenuService.ContextMenu>
-                                <toolkit:ContextMenu Width="300">
+                                <toolkit:ContextMenu Width="300" Background="{StaticResource PhoneForegroundBrush}">
                                     <toolkit:MenuItem Header="Edit" Click="Edit_MenuItem_Click"/>
                                     <toolkit:MenuItem Header="Delete" Click="Delete_MenuItem_Click"/>
                                 </toolkit:ContextMenu>
@@ -67,15 +67,15 @@
                                         Height="6"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Fill="LimeGreen"
+                                        Fill="{StaticResource PhoneAccentBrush}"
                                         Opacity="0.5"/>
 
                                 <Rectangle  Width="100" Height="8"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"                                        
                                         Fill="Transparent"
-                                        StrokeThickness="1"
-                                        Stroke="LimeGreen"
+                                        StrokeThickness="2"
+                                        Stroke="{StaticResource PhoneAccentBrush}"
                                         Opacity="1.0"/>
                             </Grid>
 
@@ -92,9 +92,16 @@
                             <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Rectangle Fill="{StaticResource PhoneForegroundBrush}" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Width="60" Height="60">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush Stretch="Fill" ImageSource="/Images/Sound_dark_small.png"/>
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <!--<Border HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Image Source="/Images/Sound_dark_small.png" Width="60" Height="60" Stretch="Fill" />
-                                        </Border>
+                                        </Border>-->
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -114,12 +121,32 @@
                     <TextBlock Text="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>                            
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Width="Auto" Source="/Images/appbar_wordslist.png" Stretch="None"/>
-                        <TextBox x:Name="txtSearch" Grid.Column="1" TextInput="txtSearch_TextInput" TextInputUpdate="txtSearch_TextInputUpdate" TextChanged="txtSearch_TextChanged" />
-                    </Grid>
+                        <TextBox x:Name="txtSearch" Grid.Column="0" TextInput="txtSearch_TextInput" 
+                                 TextInputUpdate="txtSearch_TextInputUpdate" 
+                                 TextChanged="txtSearch_TextChanged" HorizontalAlignment="Stretch" />
+
+                        <Button Grid.Column="1">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid Background="Transparent">
+                                        <Rectangle Width="50" Fill="White" Opacity="0.5"
+                                                   Margin="-12,12,12,12" />
+                                        <Rectangle Width="50" Fill="{StaticResource PhoneAccentBrush}"
+                                                   Margin="-12,12,12,12" >
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush Stretch="Fill" ImageSource="/Images/appbar_wordslist.png"/>
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <!--<Image Grid.Column="1" Width="Auto" Source="/Images/appbar_wordslist.png" Stretch="None"/>-->
+                        </Grid>
                 </StackPanel>
             </controls:Pivot.Title>
             <!--Pivot item one-->
