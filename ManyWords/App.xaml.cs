@@ -139,9 +139,9 @@ namespace ManyWords
 
         private void SetCustomColorTheme()
         {
-            var accentColor = Color.FromArgb(255, 255, 180, 43);
+            var accentColor = Color.FromArgb(255, 224, 65, 70);
             var mainForeground = Colors.White;
-            var mainBackground = Color.FromArgb(255, 1, 160, 199);
+            var mainBackground = Color.FromArgb(255, 25, 117, 150);
 
             (App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color = accentColor;
             (App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color = mainForeground;
@@ -157,7 +157,7 @@ namespace ManyWords
             (App.Current.Resources["PhoneTextBoxForegroundBrush"] as SolidColorBrush).Color = Colors.Black;
             (App.Current.Resources["PhoneTextBoxEditBackgroundBrush"] as SolidColorBrush).Color = Colors.White;
             (App.Current.Resources["PhoneTextBoxEditBorderBrush"] as SolidColorBrush).Color = Colors.White;
-            (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.White;
+            (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.Gray;
             
             
             

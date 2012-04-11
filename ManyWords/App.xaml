@@ -20,7 +20,9 @@
         <DataTemplate x:Name="LanguagePickerItemTemplate">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/vocabulary.png" 
+                       Width="34" Height="34"
                        VerticalAlignment="Center"
+                       Opacity="0.7"
                        Stretch="Fill"
                        Visibility="{Binding Path=HasVocabulary, Converter={StaticResource booleanConverter}}"/>
                 

@@ -31,14 +31,16 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" 
-                                       Margin="3,3,3,3"
-                                       VerticalAlignment="Center"
-                                       Stretch="Fill" />
-                                <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"
-                                           VerticalAlignment="Center"                                           
-                                           
-                                           Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <Rectangle Grid.Column="0" Fill="{StaticResource PhoneAccentBrush}" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Width="60" Height="60">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"                                                                                                                            
+                                           Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -61,8 +63,8 @@
                                 BorderBrush="{StaticResource PhoneAccentBrush}"
                                 BorderThickness="0"
                                 CornerRadius="10">
-                                
-                        <Grid Background="Transparent">
+
+                            <Grid Background="Transparent">
 
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Width="300">
@@ -71,25 +73,39 @@
                                 </toolkit:ContextMenuService.ContextMenu>
 
                                 <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Text}" 
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Text}" 
                                        Style="{StaticResource PhoneTextExtraLargeStyle}"/>
 
 
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Status}" Margin="25,0,0,0" 
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Status}" Margin="25,0,0,0" 
                                            Style="{StaticResource PhoneTextSubtleStyle}"/>
 
-                            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="Lrn"/>                            
-                            
-                        </Grid>
+                                <Button  Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Rectangle Grid.Column="0" Margin="0,0,15,0"
+                                                       Fill="{StaticResource PhoneAccentBrush}" 
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Width="40" Height="40">
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush Stretch="Fill" ImageSource="/Images/Training.png"/>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </Grid>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -109,6 +125,10 @@
                            FontSize="100" Margin="0,50,0,0" />
                 </DataTemplate>
             </controls:Panorama.TitleTemplate>
+            
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="/Images/PanoramaBackground.jpg"/>
+            </controls:Panorama.Background>
 
             <!--**********************************************************-->
             <!--trainings-->
@@ -146,13 +166,13 @@
                     </Grid>
 
                     <Button Grid.Row="1" x:Name="buttonNewWord" Content="new word" 
-                            Margin ="5,10,5,15" Height="80"                            
+                            Margin ="5,15,5,0" Height="80"                            
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/AddWord.png"
                             Click="ApplicationBarButtonAddWord_Click"
                             views:TiltEffect.IsTiltEnabled="True"/>
 
                     <Button Grid.Row="2" x:Name="buttonTraining" Content="training" 
-                            Margin ="5,5,5,5" Height="80" 
+                            Margin ="5,15,5,5" Height="80" 
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/Training.png"
                             Click="StartTraining_Click"
                             views:TiltEffect.IsTiltEnabled="True"/>
