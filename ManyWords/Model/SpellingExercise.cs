@@ -28,7 +28,8 @@ namespace ManyWords.Model
 
         public void SubmitAnswer(string answer)
         {
-            Result = ( String.Compare(answer.Trim(), Word, StringComparison.InvariantCultureIgnoreCase) == 0 );
+            Result = ( String.Compare(answer.Trim(), Word, StringComparison.InvariantCultureIgnoreCase) == 0 ) ?
+                ExerciseResult.OK : ExerciseResult.Wrong;
         }
 
     }

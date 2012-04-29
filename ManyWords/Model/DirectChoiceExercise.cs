@@ -48,7 +48,7 @@ namespace ManyWords.Model
         
         public override void SubmitAnswer(ChoiceAnswer answer)
         {
-            this.Result = ( answer.Text == correctAnswer.Text );
+            this.Result = ( answer.Text == correctAnswer.Text ) ? ExerciseResult.OK : ExerciseResult.Wrong;
         }
     }
 }

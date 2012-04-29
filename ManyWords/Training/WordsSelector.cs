@@ -52,16 +52,12 @@ namespace ManyWords.WordStorage
             var possibleWords = from Word w in storage.wordsDB.Words
                                 where (w.State == State.New || w.State == State.Learning) &&
                                        w.Vocabulary.Language == languageStudy &&
-                                       w.Translations.Any(x=>x.Language == languageMother)
-                                orderby w.Level descending
-                                orderby w.Added                        
+                                       w.Translations.Any(x => x.Language == languageMother)
+                                orderby w.Level descending          
                                 select w;
             //
-            // Take 5 time more than requested
-            var selectSet = possibleWords.Take(count * 5);
-            //
-            // Randomize on result
-            return takeRandom(selectSet, count);
+            // Take 3 time more than requested, and select "count" randomly
+            return takeRandom(possibleWords.Take(count * 3), count);
         }
 
         public IEnumerable<Translation> SelectTranslations(Word w, Translation main, int count)

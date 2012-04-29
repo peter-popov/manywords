@@ -44,7 +44,7 @@ namespace ManyWords.Model
                 PlaySound.Execute(null);
             }
 
-            this.Result = (answer.Text == correctAnswer.Text);
+            this.Result = (answer.Text == correctAnswer.Text) ? ExerciseResult.OK : ExerciseResult.Wrong;
         }
     }
 }

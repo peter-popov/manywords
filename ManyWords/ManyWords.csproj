@@ -186,6 +186,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ManyWords_2012_04_28_19_35_40.sap" />
+    <None Include="ManyWords_2012_04_28_23_04_29.sap" />
+    <None Include="ManyWords_2012_04_28_23_11_46.sap" />
     <None Include="Service References\TranslatorService\configuration91.svcinfo" />
     <None Include="Service References\TranslatorService\configuration.svcinfo" />
     <None Include="Service References\TranslatorService\ManyWords.TranslatorService.GetTranslationsResponse.datasource">

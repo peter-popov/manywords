@@ -15,9 +15,17 @@ using System.Collections.Generic;
 
 namespace ManyWords.Model
 {
+    public enum ExerciseResult
+    {
+        OK,
+        Wrong,
+        Repeat,
+        Ignore
+    };
+
     public class Exercise: INotifyPropertyChanged
     {
-        public virtual bool Result { get; protected set;}
+        public virtual ExerciseResult Result { get; protected set; }
 
         public virtual ICommand PlaySound { get {return null;} }
 

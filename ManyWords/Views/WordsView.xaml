@@ -53,13 +53,14 @@
 
 
 
-
+                            <!--Word spelling-->
                             <TextBlock Grid.Row="0" Grid.Column="0"                                        
                                        Margin="0,0,0,0"
                                        HorizontalAlignment="Left"
                                        Text="{Binding Spelling}" 
                                        Style="{StaticResource PhoneTextExtraLargeStyle}"/>
 
+                            <!--Lerning progress-->
                             <Grid Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" 
                                   Visibility="{Binding Path=Word, Converter={StaticResource progressToVisibility}}">
                                 <Rectangle  
@@ -68,7 +69,7 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         Fill="{StaticResource PhoneAccentBrush}"
-                                        Opacity="0.5"/>
+                                        Opacity="0.7"/>
 
                                 <Rectangle  Width="100" Height="8"
                                         HorizontalAlignment="Left"
@@ -79,7 +80,7 @@
                                         Opacity="1.0"/>
                             </Grid>
 
-
+                            <!--Word translations-->
                             <TextBlock Grid.Row="2" Grid.Column="0" 
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Left"
@@ -89,6 +90,7 @@
                                        Style="{StaticResource PhoneTextSubtleStyle}"/>
 
 
+                            <!--The speech button-->
                             <Button Grid.Row="0" Grid.Column="1" BorderThickness="2" Command="{Binding PlaySound}">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -119,7 +121,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>                            
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="txtSearch" Grid.Column="0" TextInput="txtSearch_TextInput" 
                                  TextInputUpdate="txtSearch_TextInputUpdate" 
@@ -141,9 +143,7 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-
-                        <!--<Image Grid.Column="1" Width="Auto" Source="/Images/appbar_wordslist.png" Stretch="None"/>-->
-                        </Grid>
+                    </Grid>
                 </StackPanel>
             </controls:Pivot.Title>
             <!--Pivot item one-->
@@ -162,19 +162,5 @@
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
-
-
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

@@ -107,17 +107,42 @@ namespace ManyWords.Training
             }
 
             Word currentWord = words[wordIndex];
-            if (currentExerciceModel.Result)
+            //
+            // Check exercise result
+            if (currentExerciceModel.Result != Model.ExerciseResult.Wrong)
             {
+                // If positive update counters and words status
                 currentWord.Level += currentExercise.Info.Increment;
                 currentWord.Level = Math.Min(MaxLevel, currentWord.Level);
-                CorrectAnswersCount++;
             }
 
+            if (currentExerciceModel.Result == Model.ExerciseResult.OK)
+            {
+                CorrectAnswersCount++;            
+            }
 
+            if (currentExerciceModel.Result == Model.ExerciseResult.Repeat)
+            {
+                // If repeat add this word to the training set again
+                words.Insert(wordIndex + 1 + random.Next(words.Count - wordIndex), currentWord);    
+            }
+            //
+            // If words learingn lever reaches it maximum it means that word is learned
             if (currentWord.State == State.Learning && currentWord.Level == MaxLevel)
             {
                 currentWord.State = State.Learned;
+            }
+        }
+
+
+        private void ProcessWordsList(ref List<Word> words)
+        {
+            for (int i = words.Count - 1; i >= 0; i--)
+            {
+                if (words[i].State == State.New)
+                {
+                    words.Insert(i + random.Next(words.Count - i), words[i]);
+                }
             }
         }
 

@@ -41,7 +41,7 @@ namespace ManyWords.Model
             }
         }
 
-        public override bool Result
+        public override ExerciseResult Result
         {
             get
             {
@@ -74,7 +74,6 @@ namespace ManyWords.Model
             public void Execute(object param)
             {
                 word.State = State.Known;
-                System.Diagnostics.Debug.WriteLine("SkipWord::Execute");
             }
 
             public event EventHandler CanExecuteChanged;
@@ -86,10 +85,10 @@ namespace ManyWords.Model
             public LearnWord(Word w)
             {
                 this.word = w;
-                this.Result = false;
+                this.Result = ExerciseResult.Ignore;
             }
 
-            public bool Result { get; private set; }
+            public ExerciseResult Result { get; private set; }
 
             public bool CanExecute(object param)
             {
@@ -99,8 +98,7 @@ namespace ManyWords.Model
             public void Execute(object param)
             {
                 word.State = State.Learning;
-                Result =true;
-                System.Diagnostics.Debug.WriteLine("LearnWord::Execute");
+                Result = ExerciseResult.Repeat;
             }
 
             public event EventHandler CanExecuteChanged;
