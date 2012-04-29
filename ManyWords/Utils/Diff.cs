@@ -12,6 +12,23 @@ using System.Collections.Generic;
 
 namespace ManyWords.Utils
 {
+
+    class SpecialEqualityComparer : IEqualityComparer<char> 
+    {
+        public static SpecialEqualityComparer Default = new SpecialEqualityComparer();
+
+        bool IEqualityComparer<char>.Equals(char x, char y)
+        {
+            return char.ToLower(x) == char.ToLower(y);    
+        }
+
+        public int GetHashCode(char obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
+
+
     /// <summary>
     /// Diff algorithm.
     /// Adopt algorithm from here: http://devdirective.com/post/91/creating-a-reusable-though-simple-diff-implementation-in-csharp-part-1

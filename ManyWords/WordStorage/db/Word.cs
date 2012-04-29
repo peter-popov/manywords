@@ -167,7 +167,8 @@ namespace ManyWords.WordStorage
                     string s = "";
                     foreach (Translation t in translations)
                     {
-                        s += t.Spelling + "; ";
+                        if (s.Length > 0) s += "; ";
+                        s += t.Spelling;
                     }
                     return s;
                 }

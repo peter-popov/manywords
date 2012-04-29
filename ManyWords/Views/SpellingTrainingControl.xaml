@@ -46,7 +46,11 @@
                        FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" />
 
         <TextBox Grid.Row ="1" x:Name="txtInput" FontSize="30" TextInput="txtInput_TextInput"/>
-        <RichTextBox Grid.Row ="1" x:Name="txtAnswer" Visibility="Collapsed"/>
+        <RichTextBox Background="{StaticResource PhoneTextBoxBrush}"
+                     Foreground="{StaticResource PhoneTextBoxForegroundBrush}"
+                     Margin="0,10,0,20"
+                     Padding="5,0,0,0"
+                     Grid.Row ="1" x:Name="txtAnswer" Visibility="Collapsed"/>
 
         <Button Grid.Row="2" x:Name="btnCheck" Content="Check" Click="btnCheck_Click" />
         

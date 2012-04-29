@@ -30,15 +30,15 @@ namespace ManyWords.Views
                                               Model = typeof(NewWordExercise),
                                               Presenter = presentControl });
 
-            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 60, Increment = 20}, 
-                                              Model = typeof(DirectChoiceExercise),
-                                              Presenter = choiceControl });
+            //exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval{MinLevel = 1, MaxLevel = 60, Increment = 20}, 
+            //                                  Model = typeof(DirectChoiceExercise),
+            //                                  Presenter = choiceControl });
 
-            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 60, MaxLevel = 90, Increment = 10 }, 
-                                              Model = typeof(BackwardChoiceExercise),
-                                              Presenter = choiceControl });
+            //exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 60, MaxLevel = 90, Increment = 10 }, 
+            //                                  Model = typeof(BackwardChoiceExercise),
+            //                                  Presenter = choiceControl });
 
-            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 70, MaxLevel = 100, Increment = 10 },
+            exercises.Add(new ExerciseInfo {  Info = new ApplicabilityInterval { MinLevel = 0, MaxLevel = 100, Increment = 10 },
                                               Model = typeof(SpellingExercise),
                                               Presenter = spellingControl });   
 

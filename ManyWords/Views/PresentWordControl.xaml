@@ -17,26 +17,29 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>            
         </Grid.RowDefinitions>
-        
+
+        <!--Word-->
         <TextBlock Grid.Row ="0" Name="txtWord" Text="{Binding Word}" Margin="0,10,0,20"
                        FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" />
 
-        <TextBlock Grid.Row ="1" Name="txtTranslation" Text="{Binding Translation}" Margin="0,10,0,20"
-                       FontSize="30" HorizontalAlignment="Left" FontStyle="Italic" />
+        <!--Translation-->
+        <TextBlock Grid.Row ="1" Name="txtTranslation" Text="{Binding Translation}" Margin="10,10,0,20"
+                   FontSize="30" HorizontalAlignment="Left" FontStyle="Italic" />
 
-
-
-
-        
-        <StackPanel Grid.Row ="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Learn" Margin="0,0,0,0" HorizontalAlignment="Center" Click="LearnButton_Click" 
+        <!--Buttons for Learn and Skip-->
+        <Grid Grid.Row ="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Learn" Margin="0,0,0,0" HorizontalAlignment="Stretch" Click="LearnButton_Click" 
                     BorderBrush="{StaticResource PhoneAccentBrush}"
                     Background="{StaticResource PhoneAccentBrush}"                                       
                     />
-            <Button Content="Skip" Margin="100,0,0,0" HorizontalAlignment="Center" Click="SkipButton_Click"
+            <Button Grid.Column="1" Content="Skip" Margin="0,0,20,0" HorizontalAlignment="Stretch" Click="SkipButton_Click"
                     BorderBrush="{StaticResource PhoneAccentBrush}"
                     Background="{StaticResource PhoneAccentBrush}" />
-        </StackPanel>
+        </Grid>
 
         <TextBlock x:Name="txtTip" Grid.Row ="3" TextWrapping="Wrap" Margin="10,15,0,0"  Text="" Style="{StaticResource PhoneTextSubtleStyle}" />
 
