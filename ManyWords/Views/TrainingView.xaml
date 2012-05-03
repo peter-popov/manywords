@@ -79,7 +79,7 @@
             <local:SpellingTrainingControll local:TiltEffect.IsTiltEnabled="True" x:Name="spellingControl" Visibility="Collapsed" Grid.Row="0"/>
 
             <!--Statistics-->
-            <StackPanel x:Name="ctlStatistic" Grid.Row="0" Orientation="Vertical" Visibility="Collapsed">
+            <StackPanel x:Name="ctlStatistic" Grid.Row="0" VerticalAlignment="Center" Orientation="Vertical" Visibility="Collapsed">
                 <TextBlock Text="Correct answers:" Margin="10,30,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                 <TextBlock x:Name="txtAnswers" Margin="0,20,0,0" Text="5 of 8" 
                            HorizontalAlignment="Center"                           

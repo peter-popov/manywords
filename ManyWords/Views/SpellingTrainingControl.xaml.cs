@@ -9,6 +9,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ManyWords.Utils;
 
 namespace ManyWords.Views
@@ -23,13 +29,13 @@ namespace ManyWords.Views
 
         public override void Reset()
         {
+            VisualStateManager.GoToState(iconResult, "Normal", false);   
             this.Focus();
             txtInput.Focus();
             txtTip.Text = "Enter translation for the word above";
             txtInput.Text = "";
             btnCheck.Visibility = Visibility.Visible;
-            txtAnswer.Visibility = Visibility.Collapsed;
-            txtInput.Visibility = Visibility.Visible;            
+            panelAnswer.Visibility = Visibility.Collapsed;
         }
 
         public override event EventHandler<EventArgs> AnswerSelected;
@@ -51,27 +57,23 @@ namespace ManyWords.Views
             {
                 model.SubmitAnswer(txtInput.Text);
             }
-            txtTip.Text = "Tap somewhere to continue";
-            rectHidden.Visibility = System.Windows.Visibility.Visible;
-            btnCheck.Visibility = Visibility.Collapsed;
 
-            //
-            // Nice fomat for output
-            var result = txtInput.Text.Trim();
-            var expected = model.Word.Trim();
-            txtInput.Visibility = System.Windows.Visibility.Collapsed;
-            txtAnswer.Visibility = System.Windows.Visibility.Visible;
-            
-            if (string.Compare(result, expected, StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (model.Result == Model.ExerciseResult.OK)
             {
-                showCorrect(expected);
+                VisualStateManager.GoToState(iconResult, "Correct", true); 
             }
             else
             {
-            
-                showDiff(result, expected);            
+                panelAnswer.Visibility = System.Windows.Visibility.Visible;
+                //
+                // Show expected result and highlight problematic parts
+                showDiff(txtInput.Text.Trim(), model.Word.Trim());
+                VisualStateManager.GoToState(iconResult, "Wrong", true); 
             }
 
+            txtTip.Text = "Tap somewhere to continue";
+            rectHidden.Visibility = System.Windows.Visibility.Visible;
+            btnCheck.Visibility = Visibility.Collapsed;
         }
 
         private void showCorrect(string text, bool correct = true)
@@ -82,10 +84,10 @@ namespace ManyWords.Views
                 Run r = new Run();
                 r.FontSize = txtInput.FontSize;
                 r.Text = text;
-                r.Foreground = new SolidColorBrush(correct ? Colors.Green : Colors.Red);
+                r.Foreground = new SolidColorBrush(Colors.Black);
                 p1.Inlines.Add(r);
             }
-            txtAnswer.Blocks.Add(p1);
+            txtAnswer.Blocks.Add(p1);  
         }
 
         private void showDiff(string text1, string text2)
@@ -101,7 +103,7 @@ namespace ManyWords.Views
 
             if (distance > 4)
             {
-                showCorrect(text1, false);
+                showCorrect(text2, false);
                 return;
             }
 
@@ -144,7 +146,7 @@ namespace ManyWords.Views
 
             }
 
-            txtAnswer.Blocks.Add(p1);
+            //txtAnswer.Blocks.Add(p1);
             txtAnswer.Blocks.Add(p2);
 
 
