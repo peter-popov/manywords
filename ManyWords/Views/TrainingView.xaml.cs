@@ -81,7 +81,7 @@ namespace ManyWords.Views
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
             performanceProgressBar.IsIndeterminate = true;
-            performanceProgressBar.Visibility = System.Windows.Visibility.Visible;
+            progressPanel.Visibility = System.Windows.Visibility.Visible;
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += LoadWords;
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WordsLoadingCompleted);
@@ -96,7 +96,7 @@ namespace ManyWords.Views
         void WordsLoadingCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             performanceProgressBar.IsIndeterminate = false;
-            performanceProgressBar.Visibility = System.Windows.Visibility.Collapsed;
+            progressPanel.Visibility = System.Windows.Visibility.Collapsed;
             GoToNext();
         }
 

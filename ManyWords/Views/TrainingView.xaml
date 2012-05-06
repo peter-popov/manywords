@@ -93,10 +93,11 @@
                            FontSize="48" FontWeight="Bold"/>
             </StackPanel>
 
-            <toolkit:PerformanceProgressBar Grid.Row="0" 
-                                            x:Name="performanceProgressBar"
-                                            VerticalAlignment="Center"/>
-
+            <StackPanel Grid.Row ="0" x:Name="progressPanel" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" 
+                   Text="Loading words..." Style="{StaticResource PhoneTextSubtleStyle}" />
+                <toolkit:PerformanceProgressBar Margin="0,10,0,0" x:Name="performanceProgressBar"/>
+            </StackPanel>
 
         </Grid>
         
