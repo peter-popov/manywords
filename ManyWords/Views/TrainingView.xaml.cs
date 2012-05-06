@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 using Microsoft.Phone.Controls;
 using ManyWords.Training;
 using ManyWords.Model;
@@ -79,7 +80,23 @@ namespace ManyWords.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            trainingController.StartNewTraining();
+            performanceProgressBar.IsIndeterminate = true;
+            performanceProgressBar.Visibility = System.Windows.Visibility.Visible;
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += LoadWords;
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WordsLoadingCompleted);
+            bw.RunWorkerAsync();
+        }
+
+        private void LoadWords(object sender, DoWorkEventArgs e)
+        {
+            trainingController.StartNewTraining();        
+        }
+
+        void WordsLoadingCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            performanceProgressBar.IsIndeterminate = false;
+            performanceProgressBar.Visibility = System.Windows.Visibility.Collapsed;
             GoToNext();
         }
 
@@ -113,6 +130,11 @@ namespace ManyWords.Views
                 txtNewWords.Text = trainingController.NewWordsSeenCount.ToString();
                 txtAnswers.Text = string.Format("{0} of {1}", trainingController.CorrectAnswersCount, trainingController.WordsCount);
             }
+        }
+
+        private void ContentPanel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
         }
 
 
