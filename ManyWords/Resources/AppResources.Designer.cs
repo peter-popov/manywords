@@ -68,5 +68,50 @@ namespace ManyWords.Resources {
                 return ResourceManager.GetString("AppName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new word.
+        /// </summary>
+        public static string MainPage_ButtonNewWord {
+            get {
+                return ResourceManager.GetString("MainPage_ButtonNewWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to training.
+        /// </summary>
+        public static string MainPage_ButtonTraining {
+            get {
+                return ResourceManager.GetString("MainPage_ButtonTraining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to start.
+        /// </summary>
+        public static string MainPage_PanoramaTitleStart {
+            get {
+                return ResourceManager.GetString("MainPage_PanoramaTitleStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to vocabs.
+        /// </summary>
+        public static string MainPage_PanoramaTitleVocabularies {
+            get {
+                return ResourceManager.GetString("MainPage_PanoramaTitleVocabularies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select language you learn.
+        /// </summary>
+        public static string MainPage_SelectLanguageTip {
+            get {
+                return ResourceManager.GetString("MainPage_SelectLanguageTip", resourceCulture);
+            }
+        }
     }
 }

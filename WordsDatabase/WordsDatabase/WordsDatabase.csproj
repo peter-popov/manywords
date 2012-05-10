@@ -72,6 +72,7 @@
     <Compile Include="db\Translation.cs" />
     <Compile Include="db\Vocabulary.cs" />
     <Compile Include="db\Word.cs" />
+    <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

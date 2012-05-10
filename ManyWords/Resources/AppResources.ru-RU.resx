@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppName" xml:space="preserve">
-    <value>ManyWords</value>
+    <value>МногоСлов</value>
   </data>
   <data name="MainPage_ButtonNewWord" xml:space="preserve">
-    <value>new word</value>
+    <value>новое слово</value>
   </data>
   <data name="MainPage_ButtonTraining" xml:space="preserve">
-    <value>training</value>
+    <value>учить</value>
   </data>
   <data name="MainPage_PanoramaTitleStart" xml:space="preserve">
-    <value>start</value>
+    <value>старт</value>
   </data>
   <data name="MainPage_PanoramaTitleVocabularies" xml:space="preserve">
-    <value>vocabs</value>
+    <value>словари</value>
   </data>
   <data name="MainPage_SelectLanguageTip" xml:space="preserve">
-    <value>Select language you learn</value>
+    <value>Выберите язык для изучения</value>
   </data>
 </root>

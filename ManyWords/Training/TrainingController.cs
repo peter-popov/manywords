@@ -64,7 +64,7 @@ namespace ManyWords.Training
             
             this.NewWordsSeenCount = 0;
             this.CorrectAnswersCount = 0;
-            WordsCount = words.Count;
+            WordsCount = 0;  //words.Count;
             wordIndex = -1;
         }
 
@@ -90,10 +90,14 @@ namespace ManyWords.Training
             // Create model
             currentExerciceModel = Activator.CreateInstance(currentExercise.Model, new object[] { words[wordIndex] }) as Model.Exercise;            
             //
-            // TODO: this is hacking
+            // 
             if (words[wordIndex].State == State.New)
             {
                 NewWordsSeenCount++;
+            }
+            else
+            {
+                WordsCount++;
             }
             
             return currentExerciceModel;
