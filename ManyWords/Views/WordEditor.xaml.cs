@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using ManyWords.Translator;
 using System.IO;
+using ManyWords.Resources;
 
 namespace ManyWords.Views
 {
@@ -89,13 +90,13 @@ namespace ManyWords.Views
                         loadWord(int.Parse(NavigationContext.QueryString["id"]));
                     }
                     isSave = true;
-                    this.PageTitle.Text = "edit word";
+                    this.PageTitle.Text = AppResources.WordEditor_TitleEdit;
                     this.txtWord.IsReadOnly = true;                  
                 }
                 else if (NavigationContext.QueryString["mode"].ToLower() == "new")
                 {
                     isSave = false;
-                    this.PageTitle.Text = "new word";
+                    this.PageTitle.Text = AppResources.WordEditor_TitleAdd;
                     this.txtWord.IsReadOnly = false;
                 }
                 else
