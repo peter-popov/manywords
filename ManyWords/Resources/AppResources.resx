@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddVocabulary_AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddVocabulary_Hint" xml:space="preserve">
+    <value>Please enter name for new vocabulary:</value>
+  </data>
+  <data name="AnswerChoice_ContinueHint" xml:space="preserve">
+    <value>Tap somewhere to continue</value>
+  </data>
+  <data name="AnswerChoice_TapHint" xml:space="preserve">
+    <value>Tap on a correct answer from above</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>ManyWords</value>
+  </data>
+  <data name="LanguageSelect_ButtonSelect" xml:space="preserve">
+    <value>Select</value>
   </data>
   <data name="MainPage_ButtonNewWord" xml:space="preserve">
     <value>new word</value>
@@ -134,5 +149,56 @@
   </data>
   <data name="MainPage_SelectLanguageTip" xml:space="preserve">
     <value>Select language you learn</value>
+  </data>
+  <data name="PresentWord_Hint" xml:space="preserve">
+    <value>This is a new word, you can either skip or start learning it</value>
+  </data>
+  <data name="PresentWord_Learn" xml:space="preserve">
+    <value>Learn</value>
+  </data>
+  <data name="PresentWord_Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="SpellingCheck_ButtonCheck" xml:space="preserve">
+    <value>check</value>
+  </data>
+  <data name="SpellingCheck_ContinueHint" xml:space="preserve">
+    <value>Tap somewhere to continue</value>
+  </data>
+  <data name="SpellingCheck_Hint" xml:space="preserve">
+    <value>Enter translation for the word above</value>
+  </data>
+  <data name="TrainingView_Progress" xml:space="preserve">
+    <value>Loading words...</value>
+  </data>
+  <data name="WordEditor_ButtonOK" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="WordEditor_TitleAdd" xml:space="preserve">
+    <value>new word</value>
+  </data>
+  <data name="WordEditor_TitleEdit" xml:space="preserve">
+    <value>edit word</value>
+  </data>
+  <data name="WordEditor_TranslationTitle" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="WordEditor_VocabularyPickerTitle" xml:space="preserve">
+    <value>Vocabulary</value>
+  </data>
+  <data name="WordsView_All" xml:space="preserve">
+    <value>all</value>
+  </data>
+  <data name="WordsView_Delete" xml:space="preserve">
+    <value>delete</value>
+  </data>
+  <data name="WordsView_Done" xml:space="preserve">
+    <value>done</value>
+  </data>
+  <data name="WordsView_Edit" xml:space="preserve">
+    <value>edit</value>
+  </data>
+  <data name="WordsView_Learning" xml:space="preserve">
+    <value>learning</value>
   </data>
 </root>

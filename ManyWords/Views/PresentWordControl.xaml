@@ -32,11 +32,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Learn" Margin="0,0,0,0" HorizontalAlignment="Stretch" Click="LearnButton_Click" 
+            <Button Grid.Column="0" 
+                    Content="{Binding Path=AppResources.PresentWord_Learn, Source={StaticResource LocalizedStrings}}" 
+                    Margin="0,0,0,0" HorizontalAlignment="Stretch" Click="LearnButton_Click" 
                     BorderBrush="{StaticResource PhoneAccentBrush}"
                     Background="{StaticResource PhoneAccentBrush}"                                       
                     />
-            <Button Grid.Column="1" Content="Skip" Margin="0,0,20,0" HorizontalAlignment="Stretch" Click="SkipButton_Click"
+            <Button Grid.Column="1" 
+                    Content="{Binding Path=AppResources.PresentWord_Skip, Source={StaticResource LocalizedStrings}}" 
+                    Margin="0,0,20,0" HorizontalAlignment="Stretch" Click="SkipButton_Click"
                     BorderBrush="{StaticResource PhoneAccentBrush}"
                     Background="{StaticResource PhoneAccentBrush}" />
         </Grid>

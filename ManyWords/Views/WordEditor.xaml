@@ -37,7 +37,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="edit word" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -70,7 +70,7 @@
 
 
             <!--Translation-->
-            <TextBlock Grid.Row="1" Text="Translations:" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+            <TextBlock Grid.Row="1" Text="{Binding Path=AppResources.WordEditor_TranslationTitle, Source={StaticResource LocalizedStrings}}" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
             <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="200" Width="456" TextChanged="txtTranslations_TextChanged" KeyDown="txtTranslations_KeyDown" />
             <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click" IsEnabled="True">
                 <Button.Template>
@@ -86,20 +86,24 @@
                 </Button.Template>
             </Button>
 
-            <!--Association-->
+            <!--Select vocabulary-->
             <toolkit:ListPicker Grid.Row="3" x:Name="vocabularyPicker"
                                         VerticalAlignment="Bottom"
                                         Width="Auto"
-                                        Header="Vocabulary:" 
+                                        Header="{Binding Path=AppResources.WordEditor_VocabularyPickerTitle, Source={StaticResource LocalizedStrings}}" 
                                         FullModeHeader="Select language you learn"
                                         ItemTemplate="{StaticResource VocabularyPickerItemTemplate}"
                                         FullModeItemTemplate="{StaticResource VocabularyPickerItemFullModeTemplate}"/>
 
 
             <!--Buttons-->
-            <StackPanel Grid.Row="4" Orientation ="Horizontal">
-                <Button Margin="180,0,0,0" Name="btnDone" Content="Learn" HorizontalAlignment="Center" FlowDirection="LeftToRight" Click="btnDone_Click" IsEnabled="False"></Button>
-            </StackPanel>
+               <Button Grid.Row="4" Margin="0,0,0,0" Name="btnDone" 
+                        Content="{Binding Path=AppResources.WordEditor_ButtonOK, Source={StaticResource LocalizedStrings}}" 
+                        HorizontalAlignment="Center" 
+                        FlowDirection="LeftToRight" 
+                        Click="btnDone_Click" 
+                        IsEnabled="False"/>
+           
 
         </Grid>
 

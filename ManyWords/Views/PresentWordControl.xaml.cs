@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ManyWords.Resources;
 
 namespace ManyWords.Views
 {
@@ -22,7 +23,7 @@ namespace ManyWords.Views
         public override void Reset()
         {
             this.Focus();
-            txtTip.Text = "This is a new word, you can either skip or start learning it";
+            txtTip.Text = AppResources.PresentWord_Hint;
         }
 
         public override event EventHandler<EventArgs> AnswerSelected;

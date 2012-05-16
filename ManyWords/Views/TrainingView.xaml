@@ -95,7 +95,7 @@
 
             <StackPanel Grid.Row ="0" x:Name="progressPanel" Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" 
-                   Text="Loading words..." Style="{StaticResource PhoneTextSubtleStyle}" />
+                   Text="{Binding Path=AppResources.TrainingView_Progress, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSubtleStyle}" />
                 <toolkit:PerformanceProgressBar Margin="0,10,0,0" x:Name="performanceProgressBar"/>
             </StackPanel>
 

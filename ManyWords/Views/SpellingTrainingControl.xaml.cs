@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ManyWords.Utils;
+using ManyWords.Resources;
 
 namespace ManyWords.Views
 {
@@ -32,7 +33,7 @@ namespace ManyWords.Views
             VisualStateManager.GoToState(iconResult, "Normal", false);   
             this.Focus();
             txtInput.Focus();
-            txtTip.Text = "Enter translation for the word above";
+            txtTip.Text = AppResources.SpellingCheck_Hint;
             txtInput.Text = "";
             btnCheck.Visibility = Visibility.Visible;
             panelAnswer.Visibility = Visibility.Collapsed;
@@ -71,7 +72,7 @@ namespace ManyWords.Views
                 VisualStateManager.GoToState(iconResult, "Wrong", true); 
             }
 
-            txtTip.Text = "Tap somewhere to continue";
+            txtTip.Text = AppResources.SpellingCheck_ContinueHint;
             rectHidden.Visibility = System.Windows.Visibility.Visible;
             btnCheck.Visibility = Visibility.Collapsed;
         }
@@ -165,7 +166,7 @@ namespace ManyWords.Views
             {
                 model.SubmitAnswer(txtInput.Text);
             }
-            txtTip.Text = "Tap somewhere to continue";
+            txtTip.Text = AppResources.SpellingCheck_ContinueHint;
             rectHidden.Visibility = System.Windows.Visibility.Visible;
             btnCheck.Visibility = Visibility.Collapsed;
         }

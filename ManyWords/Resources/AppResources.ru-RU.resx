@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddVocabulary_AddButton" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddVocabulary_Hint" xml:space="preserve">
+    <value>Введите название для нового словаря:</value>
+  </data>
+  <data name="AnswerChoice_ContinueHint" xml:space="preserve">
+    <value>Нажмите где-нибудь чтобы продолжить</value>
+  </data>
+  <data name="AnswerChoice_TapHint" xml:space="preserve">
+    <value>Выберите правильный перевод</value>
+  </data>
   <data name="AppName" xml:space="preserve">
-    <value>МногоСлов</value>
+    <value>ManyWords</value>
+  </data>
+  <data name="LanguageSelect_ButtonSelect" xml:space="preserve">
+    <value>Выбрать</value>
   </data>
   <data name="MainPage_ButtonNewWord" xml:space="preserve">
     <value>новое слово</value>
@@ -134,5 +149,56 @@
   </data>
   <data name="MainPage_SelectLanguageTip" xml:space="preserve">
     <value>Выберите язык для изучения</value>
+  </data>
+  <data name="PresentWord_Hint" xml:space="preserve">
+    <value>Это новое слово, вы можете либо начать его изучение либо пропустить </value>
+  </data>
+  <data name="PresentWord_Learn" xml:space="preserve">
+    <value>Учить</value>
+  </data>
+  <data name="PresentWord_Skip" xml:space="preserve">
+    <value>Проспустить</value>
+  </data>
+  <data name="SpellingCheck_ButtonCheck" xml:space="preserve">
+    <value>проверить</value>
+  </data>
+  <data name="SpellingCheck_ContinueHint" xml:space="preserve">
+    <value>Нажмите где-нибудь чтобы продолжить</value>
+  </data>
+  <data name="SpellingCheck_Hint" xml:space="preserve">
+    <value>Введите перевод для слова выше</value>
+  </data>
+  <data name="TrainingView_Progress" xml:space="preserve">
+    <value>Загружаем слова...</value>
+  </data>
+  <data name="WordEditor_ButtonOK" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="WordEditor_TitleAdd" xml:space="preserve">
+    <value>новое слово</value>
+  </data>
+  <data name="WordEditor_TitleEdit" xml:space="preserve">
+    <value>редактировать</value>
+  </data>
+  <data name="WordEditor_TranslationTitle" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+  <data name="WordEditor_VocabularyPickerTitle" xml:space="preserve">
+    <value>Словарь</value>
+  </data>
+  <data name="WordsView_All" xml:space="preserve">
+    <value>все</value>
+  </data>
+  <data name="WordsView_Delete" xml:space="preserve">
+    <value>удалить</value>
+  </data>
+  <data name="WordsView_Done" xml:space="preserve">
+    <value>готовые</value>
+  </data>
+  <data name="WordsView_Edit" xml:space="preserve">
+    <value>изменить</value>
+  </data>
+  <data name="WordsView_Learning" xml:space="preserve">
+    <value>на изучении</value>
   </data>
 </root>

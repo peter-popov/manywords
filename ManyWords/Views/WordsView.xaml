@@ -36,8 +36,8 @@
                         <Grid Background="Transparent">
                             <toolkit:ContextMenuService.ContextMenu>
                                 <toolkit:ContextMenu Width="300" Background="{StaticResource PhoneForegroundBrush}">
-                                    <toolkit:MenuItem Header="Edit" Click="Edit_MenuItem_Click"/>
-                                    <toolkit:MenuItem Header="Delete" Click="Delete_MenuItem_Click"/>
+                                    <toolkit:MenuItem Header="{Binding Path=AppResources.WordsView_Edit, Source={StaticResource LocalizedStrings}}" Click="Edit_MenuItem_Click"/>
+                                    <toolkit:MenuItem Header="{Binding Path=AppResources.WordsView_Delete, Source={StaticResource LocalizedStrings}}" Click="Delete_MenuItem_Click"/>
                                 </toolkit:ContextMenu>
                             </toolkit:ContextMenuService.ContextMenu>
 
@@ -147,17 +147,17 @@
                 </StackPanel>
             </controls:Pivot.Title>
             <!--Pivot item one-->
-            <controls:PivotItem Header="all">
+            <controls:PivotItem Header="{Binding Path=AppResources.WordsView_All, Source={StaticResource LocalizedStrings}}">
                 <ListBox Margin="0,0,0,0" Name="allList" ItemsSource="{Binding All}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}" />
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="learning">
+            <controls:PivotItem Header="{Binding Path=AppResources.WordsView_Learning, Source={StaticResource LocalizedStrings}}">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Learning}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}"/>
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="done">
+            <controls:PivotItem Header="{Binding Path=AppResources.WordsView_Done, Source={StaticResource LocalizedStrings}}">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Learned}" ItemContainerStyle="{StaticResource ListBoxWordViewStyle}"/>
             </controls:PivotItem>
         </controls:Pivot>

@@ -90,15 +90,13 @@ namespace ManyWords.Views
                     }
                     isSave = true;
                     this.PageTitle.Text = "edit word";
-                    this.txtWord.IsReadOnly = true;
-                    btnDone.Content = "Save";
+                    this.txtWord.IsReadOnly = true;                  
                 }
                 else if (NavigationContext.QueryString["mode"].ToLower() == "new")
                 {
                     isSave = false;
                     this.PageTitle.Text = "new word";
                     this.txtWord.IsReadOnly = false;
-                    btnDone.Content = "Add";
                 }
                 else
                 {

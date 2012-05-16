@@ -263,7 +263,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.ru-RU.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

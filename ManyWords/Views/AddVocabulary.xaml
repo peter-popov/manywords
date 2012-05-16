@@ -39,13 +39,13 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0,30,0,0" Orientation="Vertical">
-                <TextBlock Text="Please enter name for new vocabulary:"/>
+                <TextBlock Text="{Binding Path=AppResources.AddVocabulary_Hint, Source={StaticResource LocalizedStrings}}"/>
                 <TextBox x:Name="txtVocabularyName" FontSize="28" KeyDown="txtVocabularyName_KeyDown" />
             </StackPanel>
             
             <CheckBox Grid.Row ="1" Margin="0,20,0,0" Content="Use in trainings"/>
-            
-            <Button Grid.Row ="2" x:Name="btnReady" Content="Add" VerticalAlignment="Bottom" Click="btnReady_Click" />
+
+            <Button Grid.Row ="2" x:Name="btnReady" Content="{Binding Path=AppResources.AddVocabulary_AddButton, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" Click="btnReady_Click" />
             
         </Grid>
     </Grid>

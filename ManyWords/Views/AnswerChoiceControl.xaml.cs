@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ManyWords.Resources;
 
 namespace ManyWords.Views
 {
@@ -66,6 +67,7 @@ namespace ManyWords.Views
 
     public partial class AnswerChoiceControl : ExerciseControl
     {
+        LocalizedStrings strings = new LocalizedStrings();
 
         public class AnswerSelectedEventArgs : EventArgs
         {
@@ -79,8 +81,8 @@ namespace ManyWords.Views
         public override event EventHandler<EventArgs> AnswerSelected;
 
         public override void Reset()
-        {
-            txtTip.Text = "Tap on a correct answer from above";
+        {            
+            txtTip.Text = AppResources.AnswerChoice_TapHint;
         }
 
         public AnswerChoiceControl()
@@ -126,7 +128,7 @@ namespace ManyWords.Views
                     VisualStateManager.GoToState(listBoxItem, "Faded", false);
             }
 
-            txtTip.Text = "Tap somewhere to continue";
+            txtTip.Text = AppResources.AnswerChoice_ContinueHint;
 
             if (lstAnswers.SelectedIndex >= 0)
                 rectHidden.Visibility = System.Windows.Visibility.Visible;            
