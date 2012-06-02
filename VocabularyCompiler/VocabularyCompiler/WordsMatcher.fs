@@ -31,12 +31,16 @@ let lng_en = new Dictionary<Word, List<string>>()
 let en_lng = new Dictionary<string, List<Word>>()
 
 let buildConnections words =
+    let differentLanguages = new HashSet<string>()
+    ignore(differentLanguages.Add("English"))
     for word in words do
+        ignore(differentLanguages.Add(word.Language))
         let translations = extractTranslations word.Translation
         for t in translations do
             let key = t.ToLower().Trim()    
             addConnection key word en_lng
             addConnection word key lng_en
+    differentLanguages
     
 let cmp (w1:Word) (w2:Word) =
     ( w1.Part.IsNone || w2.Part.IsNone || (w1.Part.Value = w2.Part.Value) )
@@ -57,6 +61,14 @@ let extractConnected word =
                 ignore(values.Add(w))
     values
                 
+
+let extractMultilang w connectdWords =
+    let translation = new Dictionary<string, string>()
+    translation.["English"] <- w.Translation        
+    for t in connectdWords do
+        if not(t.Language = w.Language) then
+            translation.[t.Language] <- t.Spelling        
+    translation           
                 
 //let extractLanguage words language =
 //    words 

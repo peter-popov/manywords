@@ -47,28 +47,42 @@ let findImportantWords words =
 
 
 
-//let op1 =
-//    let path = (System.Environment.GetCommandLineArgs().GetValue(1).ToString())    
-//    exportExcell path "all_words.txt"
-//
-//let op2 =
-//    let words = readCsv "all_words.txt" 
-//                |> Seq.filter (fun x -> x.Part.IsSome )                    
-//    let importantWords = findImportantWords words
-//    printfn "%d words, %d important " (Seq.length words) importantWords.Count
-//    words      
-//    |> Seq.filter (fun x -> importantWords.Contains(x.Spelling) )
-//    |> writeCsv "important_words.txt"  
+let sieveOut input output =
+    let words = readCsv input
+                |> Seq.filter (fun x -> x.Part.IsSome )                    
+    let importantWords = findImportantWords words
+    printfn "%d words, %d important " (Seq.length words) importantWords.Count
+    words      
+    |> Seq.filter (fun x -> importantWords.Contains(x.Spelling) )
+    |> writeCsv output 
     
-let op3 =
-    let words = readCsv "important_words.txt" 
-    buildConnections words    
-    for w in Seq.skip 855 words |> Seq.take 1 do        
-        printfn "%A" w
-        printfn "==========================="
-        let connected = extractConnected w
-        writeCsv "ich_connections.txt" connected  
-        
-        
-op3          
+let valueOrNothing (key:'k) (dict:Dictionary<'k,string>) =
+    if not(dict.ContainsKey(key)) then
+        ""
+    else
+        dict.[key]    
 
+let translationsToCsv w lng translations =
+    let mutable s = w.Spelling;
+    for l in lng do
+        s <- s + "$" + valueOrNothing l translations 
+    s           
+    
+let extractLanguage language input output =
+    let words = readCsv input 
+    let languages = buildConnections words
+    let lines = Array.ofList [ for w in words do
+                                    if w.Language = language then
+                                        let connected = extractConnected w
+                                        let translations = extractMultilang w connected
+                                        let srvline = sprintf "%s$%s" ( someOrEmpty w.Part ) ( someOrEmpty w.Gender )
+                                        let translation = translationsToCsv w languages translations
+                                        yield (translation + "$" + srvline) ]                           
+    File.WriteAllLines( output, lines, Text.Encoding.UTF8 )        
+        
+//exportExcell (System.Environment.GetCommandLineArgs().GetValue(1).ToString()) "all_words.txt"        
+
+//sieveOut "all_words.txt" "important_words.txt" 
+                  
+
+extractLanguage "German" "important_words.txt" "german.txt"
