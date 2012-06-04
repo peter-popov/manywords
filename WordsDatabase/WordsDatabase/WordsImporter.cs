@@ -33,7 +33,7 @@ namespace WordsDatabase
             Console.WriteLine("Creating database objects...");
             while ((line = sr.ReadLine()) != null)
             {
-                var row = line.Split(',');
+                var row = line.Split('$');
 
                 int pos = languageFrom.Item2;
                 string spelling = row[pos];
@@ -52,7 +52,7 @@ namespace WordsDatabase
 
                 if (translations.Count == 0)
                 {
-                    Console.WriteLine("Warning: {0} - word ignored, not all translations found", spelling);
+                    Console.WriteLine("Warning: {0} - word ignored, no translations found", spelling);
                     continue;
                 }
 

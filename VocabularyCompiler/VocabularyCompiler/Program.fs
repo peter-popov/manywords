@@ -62,22 +62,26 @@ let valueOrNothing (key:'k) (dict:Dictionary<'k,string>) =
     else
         dict.[key]    
 
-let translationsToCsv w lng translations =
-    let mutable s = w.Spelling;
-    for l in lng do
-        s <- s + "$" + valueOrNothing l translations 
-    s           
+let translationsToCsv w lng translations =    
+    lng 
+    |> Seq.map (fun l -> valueOrNothing l translations)
+    |> Seq.fold (fun s x -> s + "$" + x ) w.Spelling
+
+let prepareCsvLine languages w =
+    let translation = extractConnected w 
+                       |> extractMultilang w 
+                       |> translationsToCsv w languages
+    let srvline = sprintf "%s$%s" ( someOrEmpty w.Part ) ( someOrEmpty w.Gender )
+    translation + "$" + srvline
     
 let extractLanguage language input output =
     let words = readCsv input 
     let languages = buildConnections words
-    let lines = Array.ofList [ for w in words do
-                                    if w.Language = language then
-                                        let connected = extractConnected w
-                                        let translations = extractMultilang w connected
-                                        let srvline = sprintf "%s$%s" ( someOrEmpty w.Part ) ( someOrEmpty w.Gender )
-                                        let translation = translationsToCsv w languages translations
-                                        yield (translation + "$" + srvline) ]                           
+    let lines = words 
+                |> Seq.filter(fun w -> w.Language = language)
+                |> Seq.distinct
+                |> Seq.map(prepareCsvLine languages)
+                |> Array.ofSeq
     File.WriteAllLines( output, lines, Text.Encoding.UTF8 )        
         
 //exportExcell (System.Environment.GetCommandLineArgs().GetValue(1).ToString()) "all_words.txt"        

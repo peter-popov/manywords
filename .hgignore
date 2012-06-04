@@ -9,3 +9,4 @@ syntax: glob
 */obj/
 */bin/
 */Bin/
+*.xls

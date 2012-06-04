@@ -5,6 +5,24 @@ using System.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
+    public enum PartsOfSpeech
+    {    
+        Noun,
+        Verb,
+        Adjective,
+        Adverb,
+        Pronoun,
+        Preposition,
+        Interjection,
+        Conjunction
+    }
+            
+    public enum Genders
+    {
+        Femine,
+        Musculin,
+        Neutral,
+    }
 
     public enum State
     {
@@ -70,8 +88,20 @@ namespace ManyWords.WordStorage
             }
         }
 
+        [Column(CanBeNull = true, AutoSync = AutoSync.OnInsert)]
+        public PartsOfSpeech PartOfSpeech
+        { get; set; }
+
+        [Column(CanBeNull = true, AutoSync = AutoSync.OnInsert)]
+        public Genders Gender
+        { get; set; }
+
         [Column(CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public DateTime Added
+        { get; set; }
+
+        [Column(CanBeNull = true, AutoSync = AutoSync.OnInsert)]
+        public string SpecialForms
         { get; set; }
 
         private EntitySet<Translation> translations;
@@ -148,7 +178,6 @@ namespace ManyWords.WordStorage
         }
         #endregion
 
-
         #region Non DB properties
         public string AudioFile
         {
@@ -167,7 +196,8 @@ namespace ManyWords.WordStorage
                     string s = "";
                     foreach (Translation t in translations)
                     {
-                        s += t.Spelling + "; ";
+                        if (s.Length > 0) s += "; ";
+                        s += t.Spelling;
                     }
                     return s;
                 }
