@@ -150,7 +150,7 @@
                         <toolkit:ListPicker Grid.Column="0" x:Name="languagePicker"                                            
                                         Width="Auto"
                                         Header="{Binding Path=AppResources.MainPage_SelectLanguageTip, Source={StaticResource LocalizedStrings}}" 
-                                        FullModeHeader="Select language you learn"
+                                        FullModeHeader="{Binding Path=AppResources.MainPage_SelectLanguageTip, Source={StaticResource LocalizedStrings}}"
                                         ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
                                         FullModeItemTemplate="{StaticResource LanguagePickerItemTemplate}"
                                         CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
@@ -170,7 +170,7 @@
                     <Button Grid.Row="1" x:Name="buttonNewWord" Content="{Binding Path=AppResources.MainPage_ButtonNewWord, Source={StaticResource LocalizedStrings}}" 
                             Margin ="5,15,5,0" Height="80"                            
                             Style="{StaticResource ActionButtonStyle}" Tag="/Images/AddWord.png"
-                            Click="ApplicationBarButtonAddWord_Click"
+                            Click="AddWord_Click"
                             views:TiltEffect.IsTiltEnabled="True"/>
 
                     <!--Button for start training-->
@@ -216,7 +216,8 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Default">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_wordslist.png" Text="Words list" Click="AddWord_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_wordslist.png" Text="search word" Click="SearchWord_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_settings.png" Text="settings" Click="Settings_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

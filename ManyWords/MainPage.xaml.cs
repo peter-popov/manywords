@@ -47,14 +47,19 @@ namespace ManyWords
             
         }
 
-        private void ApplicationBarButtonAddWord_Click(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Views/WordEditor.xaml?mode=new", UriKind.Relative));   
-        }
-
         private void AddWord_Click(object sender, EventArgs e)
         {
+            NavigationService.Navigate(new Uri("/Views/WordEditor.xaml?mode=new", UriKind.Relative));
+        }
+
+        private void SearchWord_Click(object sender, EventArgs e)
+        {
             NavigationService.Navigate(new Uri("/Views/WordsView.xaml", UriKind.Relative));
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/SettingsView.xaml", UriKind.Relative));
         }
 
         private void StartTraining_Click(object sender, RoutedEventArgs e)

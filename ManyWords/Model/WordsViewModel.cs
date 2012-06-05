@@ -41,6 +41,7 @@ namespace ManyWords.Model
         public WordListItemModel(Word w, TextToSpeech tts)
         {
             this.word = w;
+            this.translation = w.getTranslation(App.LanguagesListModel.MotherLanguage.Code);
             playCmd = new PlaySound(word, tts);
         }
 
@@ -76,11 +77,12 @@ namespace ManyWords.Model
             }
         }
 
+        private string translation;
         public string Translation
         {
             get
             {
-                return word.Translation;
+                return translation;
             }
         }
 

@@ -59,311 +59,282 @@ namespace ManyWords.Resources {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        public static string AddVocabulary_AddButton
-        {
-            get
-            {
+        public static string AddVocabulary_AddButton {
+            get {
                 return ResourceManager.GetString("AddVocabulary_AddButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Please enter name for new vocabulary:.
         /// </summary>
-        public static string AddVocabulary_Hint
-        {
-            get
-            {
+        public static string AddVocabulary_Hint {
+            get {
                 return ResourceManager.GetString("AddVocabulary_Hint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Tap somewhere to continue.
         /// </summary>
-        public static string AnswerChoice_ContinueHint
-        {
-            get
-            {
+        public static string AnswerChoice_ContinueHint {
+            get {
                 return ResourceManager.GetString("AnswerChoice_ContinueHint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Tap on a correct answer from above.
         /// </summary>
-        public static string AnswerChoice_TapHint
-        {
-            get
-            {
+        public static string AnswerChoice_TapHint {
+            get {
                 return ResourceManager.GetString("AnswerChoice_TapHint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to ManyWords.
         /// </summary>
-        public static string AppName
-        {
-            get
-            {
+        public static string AppName {
+            get {
                 return ResourceManager.GetString("AppName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select.
         /// </summary>
-        public static string LanguageSelect_ButtonSelect
-        {
-            get
-            {
+        public static string LanguageSelect_ButtonSelect {
+            get {
                 return ResourceManager.GetString("LanguageSelect_ButtonSelect", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to new word.
         /// </summary>
-        public static string MainPage_ButtonNewWord
-        {
-            get
-            {
+        public static string MainPage_ButtonNewWord {
+            get {
                 return ResourceManager.GetString("MainPage_ButtonNewWord", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to training.
         /// </summary>
-        public static string MainPage_ButtonTraining
-        {
-            get
-            {
+        public static string MainPage_ButtonTraining {
+            get {
                 return ResourceManager.GetString("MainPage_ButtonTraining", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to start.
         /// </summary>
-        public static string MainPage_PanoramaTitleStart
-        {
-            get
-            {
+        public static string MainPage_PanoramaTitleStart {
+            get {
                 return ResourceManager.GetString("MainPage_PanoramaTitleStart", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to vocabs.
         /// </summary>
-        public static string MainPage_PanoramaTitleVocabularies
-        {
-            get
-            {
+        public static string MainPage_PanoramaTitleVocabularies {
+            get {
                 return ResourceManager.GetString("MainPage_PanoramaTitleVocabularies", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select language you learn.
         /// </summary>
-        public static string MainPage_SelectLanguageTip
-        {
-            get
-            {
+        public static string MainPage_SelectLanguageTip {
+            get {
                 return ResourceManager.GetString("MainPage_SelectLanguageTip", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to This is a new word, you can either skip or start learning it.
         /// </summary>
-        public static string PresentWord_Hint
-        {
-            get
-            {
+        public static string PresentWord_Hint {
+            get {
                 return ResourceManager.GetString("PresentWord_Hint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Learn.
         /// </summary>
-        public static string PresentWord_Learn
-        {
-            get
-            {
+        public static string PresentWord_Learn {
+            get {
                 return ResourceManager.GetString("PresentWord_Learn", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Skip.
         /// </summary>
-        public static string PresentWord_Skip
-        {
-            get
-            {
+        public static string PresentWord_Skip {
+            get {
                 return ResourceManager.GetString("PresentWord_Skip", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to apply.
+        /// </summary>
+        public static string SettingsView_Apply {
+            get {
+                return ResourceManager.GetString("SettingsView_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select you mother language (will be used to show translations) .
+        /// </summary>
+        public static string SettingsView_SelectMotherLanguage {
+            get {
+                return ResourceManager.GetString("SettingsView_SelectMotherLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to settings.
+        /// </summary>
+        public static string SettingsView_Title {
+            get {
+                return ResourceManager.GetString("SettingsView_Title", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to check.
         /// </summary>
-        public static string SpellingCheck_ButtonCheck
-        {
-            get
-            {
+        public static string SpellingCheck_ButtonCheck {
+            get {
                 return ResourceManager.GetString("SpellingCheck_ButtonCheck", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Tap somewhere to continue.
         /// </summary>
-        public static string SpellingCheck_ContinueHint
-        {
-            get
-            {
+        public static string SpellingCheck_ContinueHint {
+            get {
                 return ResourceManager.GetString("SpellingCheck_ContinueHint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter translation for the word above.
         /// </summary>
-        public static string SpellingCheck_Hint
-        {
-            get
-            {
+        public static string SpellingCheck_Hint {
+            get {
                 return ResourceManager.GetString("SpellingCheck_Hint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Loading words....
         /// </summary>
-        public static string TrainingView_Progress
-        {
-            get
-            {
+        public static string TrainingView_Progress {
+            get {
                 return ResourceManager.GetString("TrainingView_Progress", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        public static string WordEditor_ButtonOK
-        {
-            get
-            {
+        public static string WordEditor_ButtonOK {
+            get {
                 return ResourceManager.GetString("WordEditor_ButtonOK", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to new word.
         /// </summary>
-        public static string WordEditor_TitleAdd
-        {
-            get
-            {
+        public static string WordEditor_TitleAdd {
+            get {
                 return ResourceManager.GetString("WordEditor_TitleAdd", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to edit word.
         /// </summary>
-        public static string WordEditor_TitleEdit
-        {
-            get
-            {
+        public static string WordEditor_TitleEdit {
+            get {
                 return ResourceManager.GetString("WordEditor_TitleEdit", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Translation.
         /// </summary>
-        public static string WordEditor_TranslationTitle
-        {
-            get
-            {
+        public static string WordEditor_TranslationTitle {
+            get {
                 return ResourceManager.GetString("WordEditor_TranslationTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Vocabulary.
         /// </summary>
-        public static string WordEditor_VocabularyPickerTitle
-        {
-            get
-            {
+        public static string WordEditor_VocabularyPickerTitle {
+            get {
                 return ResourceManager.GetString("WordEditor_VocabularyPickerTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to all.
         /// </summary>
-        public static string WordsView_All
-        {
-            get
-            {
+        public static string WordsView_All {
+            get {
                 return ResourceManager.GetString("WordsView_All", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to delete.
         /// </summary>
-        public static string WordsView_Delete
-        {
-            get
-            {
+        public static string WordsView_Delete {
+            get {
                 return ResourceManager.GetString("WordsView_Delete", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to done.
         /// </summary>
-        public static string WordsView_Done
-        {
-            get
-            {
+        public static string WordsView_Done {
+            get {
                 return ResourceManager.GetString("WordsView_Done", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to edit.
         /// </summary>
-        public static string WordsView_Edit
-        {
-            get
-            {
+        public static string WordsView_Edit {
+            get {
                 return ResourceManager.GetString("WordsView_Edit", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to learning.
         /// </summary>
-        public static string WordsView_Learning
-        {
-            get
-            {
+        public static string WordsView_Learning {
+            get {
                 return ResourceManager.GetString("WordsView_Learning", resourceCulture);
             }
         }

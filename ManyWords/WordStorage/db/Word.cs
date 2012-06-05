@@ -187,23 +187,21 @@ namespace ManyWords.WordStorage
             }
         }
         
-        public string Translation
+        public string getTranslation(string languageCode)
         {
-            get
+            string s = "";
+            if (translations != null)
             {
-                if (translations != null)
+                foreach (Translation t in translations)
                 {
-                    string s = "";
-                    foreach (Translation t in translations)
+                    if (t.Language == languageCode )
                     {
                         if (s.Length > 0) s += "; ";
                         s += t.Spelling;
                     }
-                    return s;
                 }
-                else
-                    return "";
             }
+            return s;                            
         }
         #endregion
 

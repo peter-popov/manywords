@@ -29,7 +29,7 @@ namespace ManyWords.Model
             OnLearn = new LearnWord(word);
 
             Word = word.Spelling;
-            Translation = word.Translation;
+            Translation = word.getTranslation(App.LanguagesListModel.MotherLanguage.Code);
             playSound = new PlaySound(word, App.TextToSpeech);
         }
 

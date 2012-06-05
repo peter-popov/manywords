@@ -158,21 +158,6 @@ namespace ManyWords
             (App.Current.Resources["PhoneTextBoxEditBackgroundBrush"] as SolidColorBrush).Color = Colors.White;
             (App.Current.Resources["PhoneTextBoxEditBorderBrush"] as SolidColorBrush).Color = Colors.White;
             (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.Gray;
-            
-            
-            
-                     
-
-            //(App.Current.Resources["PhoneDisabledBrush"] as SolidColorBrush).Color = Colors.Purple;
-
-            //PhoneContrastBackgroundBrush
-            //PhoneContrastForegroundBrush
-            //PhoneDisabledBrush
-            //PhoneSubtleBrush
-            //TransparentBrush
-            //PhoneSemitransparentBrush
-            //PhoneChromeBrush
-
         }
 
         // Code to execute when the application is launching (eg, from Start)

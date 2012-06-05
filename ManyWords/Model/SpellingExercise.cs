@@ -23,7 +23,7 @@ namespace ManyWords.Model
         public SpellingExercise(Word word)
         {
             Word = word.Spelling;
-            Translation = word.Translation;
+            Translation = word.getTranslation(App.LanguagesListModel.MotherLanguage.Code);
         }
 
         public void SubmitAnswer(string answer)

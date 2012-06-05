@@ -36,7 +36,13 @@ namespace WordsDatabase
                 var row = line.Split('$');
 
                 int pos = languageFrom.Item2;
-                string spelling = row[pos];
+                string spelling = row[pos].Trim();
+
+                if (spelling == "")
+                {
+                    continue;
+                }
+
                 var translations = new List<Tuple<string, string>>();
 
                 foreach (var lng in languagesTo)

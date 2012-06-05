@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Model\BackwardChoiceExercise.cs" />
     <Compile Include="Model\ChoiceExercise.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\SpellingExercise.cs" />
     <Compile Include="Model\DirectChoiceExercise.cs" />
     <Compile Include="Model\Exercise.cs" />
@@ -86,15 +87,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.de-DE.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\AppResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\AppResources.ru-RU.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.ru-RU.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AppResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\LocalizedStrings.cs" />
     <Compile Include="Service References\TranslatorService\Reference.cs">
@@ -116,6 +117,9 @@
     </Compile>
     <Compile Include="Views\AnswerChoiceControl.xaml.cs">
       <DependentUpon>AnswerChoiceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpellingTrainingControl.xaml.cs">
       <DependentUpon>SpellingTrainingControl.xaml</DependentUpon>
@@ -169,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpellingTrainingControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -210,6 +218,7 @@
     <Content Include="Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\appbar_settings.png" />
     <Content Include="Images\PanoramaBackground.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -225,7 +234,6 @@
     <Content Include="Images\AddWord.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\appbar_addword.png" />
     <Content Include="Images\appbar_wordslist.png" />
     <Content Include="Images\ApplicationIcon.png" />
     <Content Include="Images\Background.png" />

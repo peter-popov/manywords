@@ -159,6 +159,15 @@
   <data name="PresentWord_Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
+  <data name="SettingsView_Apply" xml:space="preserve">
+    <value>apply</value>
+  </data>
+  <data name="SettingsView_SelectMotherLanguage" xml:space="preserve">
+    <value>Select you mother language (will be used to show translations) </value>
+  </data>
+  <data name="SettingsView_Title" xml:space="preserve">
+    <value>settings</value>
+  </data>
   <data name="SpellingCheck_ButtonCheck" xml:space="preserve">
     <value>check</value>
   </data>
