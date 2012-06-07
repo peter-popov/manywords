@@ -34,8 +34,7 @@ namespace ManyWords
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Navigated to main page");
-
+            System.Diagnostics.Debug.WriteLine("Navigated to main page");            
             languagePicker.ItemsSource = App.LanguagesListModel.StudyLanguages;
             languagePicker.SelectedItem = App.LanguagesListModel.StudyLanguage;
             processLanguageSelect = true;

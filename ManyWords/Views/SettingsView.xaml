@@ -9,13 +9,14 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
+    Background="{StaticResource PhoneBackgroundBrush}"    
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -44,11 +45,12 @@
 
                 
                 <toolkit:ListPicker Grid.Column="0" x:Name="languagePicker"                                            
-                                        Width="Auto"                                        
+                                        Width="Auto"
                                         FullModeHeader="{Binding Path=AppResources.SettingsView_SelectMotherLanguage, Source={StaticResource LocalizedStrings}}"
                                         ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
                                         FullModeItemTemplate="{StaticResource LanguagePickerItemTemplate}"
-                                        CacheMode="BitmapCache" >
+                                        CacheMode="BitmapCache"
+                                        SelectionChanged="languagePicker_SelectionChanged">
                     <toolkit:ListPicker.Header>
                         <TextBlock Grid.Row="0" 
                            Text="{Binding Path=AppResources.SettingsView_SelectMotherLanguage, Source={StaticResource LocalizedStrings}}" 
@@ -56,7 +58,7 @@
                     </toolkit:ListPicker.Header>
                 </toolkit:ListPicker>
 
-                <Button Grid.Column="1" x:Name="btnMore"
+                <!--<Button Grid.Column="1" x:Name="btnMore"
                         Margin="-27,0,0,-3"    
                         Height="82" Width="70" 
                         VerticalAlignment="Bottom" HorizontalContentAlignment="Left"     
@@ -64,7 +66,7 @@
                                 
                         Background="White" Foreground="Black" Opacity="0.6"
                         Content="..."
-                        VerticalContentAlignment="Center" Click="btnMore_Click" />
+                        VerticalContentAlignment="Center" Click="btnMore_Click" />-->
             </Grid>
 
 

@@ -19,17 +19,27 @@ namespace ManyWords.Views
         {
             InitializeComponent();
         }
-
+        bool processLanguageSelect = false;
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            processLanguageSelect = false;
             languagePicker.ItemsSource = App.LanguagesListModel.MotherLanguages;
             languagePicker.SelectedItem = App.LanguagesListModel.MotherLanguage;
+            processLanguageSelect = true;
             base.OnNavigatedTo(e);
         }
 
         private void btnMore_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/ExtendedLanguageSelect?mode=mother.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Views/ExtendedLanguageSelect.xaml?mode=mother", UriKind.Relative));
+        }
+
+        private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (languagePicker.SelectedItem != null && processLanguageSelect)
+            {
+                App.LanguagesListModel.MotherLanguage = languagePicker.SelectedItem as Model.LanguageListItemModel;
+            }
         }
 
         private void btnApply_Click(object sender, RoutedEventArgs e)

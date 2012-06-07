@@ -148,22 +148,22 @@
                         </Grid.ColumnDefinitions>
 
                         <toolkit:ListPicker Grid.Column="0" x:Name="languagePicker"                                            
-                                        Width="Auto"
+                                        Width="Auto"                                        
                                         Header="{Binding Path=AppResources.MainPage_SelectLanguageTip, Source={StaticResource LocalizedStrings}}" 
                                         FullModeHeader="{Binding Path=AppResources.MainPage_SelectLanguageTip, Source={StaticResource LocalizedStrings}}"
                                         ItemTemplate="{StaticResource LanguagePickerItemTemplate}"
-                                        FullModeItemTemplate="{StaticResource LanguagePickerItemTemplate}"
-                                        CacheMode="BitmapCache" SelectionChanged="languagePicker_SelectionChanged" />
+                                        FullModeItemTemplate="{StaticResource LanguagePickerItemTemplate}"                                        
+                                        CacheMode="BitmapCache" 
+                                        SelectionChanged="languagePicker_SelectionChanged"/>
 
-                        <Button Grid.Column="1" x:Name="btnMore"
+                        <!--<Button Grid.Column="1" x:Name="btnMore"
                                 Margin="-27,0,0,-3"    
                                 Height="82" Width="70" 
                                 VerticalAlignment="Bottom" HorizontalContentAlignment="Left"     
-                                BorderBrush="Transparent"
-                                
+                                BorderBrush="Transparent"                                
                                 Background="White" Foreground="Black" Opacity="0.6"
                                 Content="..."
-                                VerticalContentAlignment="Center" Click="btnMore_Click" />
+                                VerticalContentAlignment="Center" Click="btnMore_Click" />-->
                     </Grid>
 
                     <!--Button for add new word-->

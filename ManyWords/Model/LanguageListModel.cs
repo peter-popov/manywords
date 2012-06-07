@@ -65,6 +65,14 @@ namespace ManyWords.Model
             foreach (var l in dbMotherLanguages)
                 MotherLanguages.Add(new LanguageListItemModel(l, true));
 
+            // Fill list with default languages
+            if (MotherLanguages.Count < 5)
+            {
+                foreach (var l in basicLanguageList)
+                    if (MotherLanguages.Count < 5 && !dbMotherLanguages.Contains(l))
+                        MotherLanguages.Add(new LanguageListItemModel(l, false));
+            }
+
             // Get from translation engine
             Available = new ObservableCollection<LanguageListItemModel>();
             foreach (var kv in Translator.TranslatorFactory.LanguageNames)
@@ -185,16 +193,16 @@ namespace ManyWords.Model
             
             foreach (var l in dbStudyLanguages)
             {
-                StudyLanguages.Add(new LanguageListItemModel(l, true));
-                
+                if (l != MotherLanguage.Code && StudyLanguages.Count < 5 )
+                    StudyLanguages.Add(new LanguageListItemModel(l, true));                
             }
-
+            
             // Fill list with default languages
             if (StudyLanguages.Count < 5)
             {
                 foreach (var l in basicLanguageList)
                     if (l != MotherLanguage.Code && StudyLanguages.Count < 5 && !dbStudyLanguages.Contains(l))
-                        StudyLanguages.Add(new LanguageListItemModel(l, false));    
+                        StudyLanguages.Add(new LanguageListItemModel(l, false));
             }
             NotifyPropertyChanged("StudyLanguages");
         }
