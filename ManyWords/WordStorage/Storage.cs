@@ -153,17 +153,22 @@ namespace ManyWords.WordStorage
 
             w.Spelling = spelling;
 
-            //remove old translations
+
+            var motherLanguage = App.LanguagesListModel.MotherLanguage.Code;
+
+            //remove old translations            
             foreach (Translation t in w.Translations)
             {
-                wordsDB.Translations.DeleteOnSubmit(t);                
+                if (t.Language == motherLanguage)
+                {
+                    wordsDB.Translations.DeleteOnSubmit(t);
+                }
             }
-            w.Translations.Clear();
-
+            
             // add new translations            
             foreach (string s in translation)
             {                
-                Translation tr = new Translation { Spelling = s, Word = w };
+                Translation tr = new Translation { Spelling = s, Word = w, Language = motherLanguage };
                 w.Translations.Add(tr);
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
@@ -177,6 +182,8 @@ namespace ManyWords.WordStorage
             }
 
             wordsDB.SubmitChanges();
+
+            wordsDB.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, w);
             
             if (audio != null)
                 SaveAudio(w, audio);

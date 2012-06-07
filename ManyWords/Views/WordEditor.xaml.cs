@@ -59,7 +59,8 @@ namespace ManyWords.Views
 
             txtTranslations.Text = "";
             foreach (WordStorage.Translation t in w.Translations)
-                txtTranslations.Text += t.Spelling + "\n";
+                if (t.Language == App.LanguagesListModel.MotherLanguage.Code)
+                    txtTranslations.Text += t.Spelling + "\n";
 
             var item = App.VocabularyListModel.All.FirstOrDefault(x => x.Vocabulary.ID == w.vocabID);
             if (item != null)
@@ -202,7 +203,7 @@ namespace ManyWords.Views
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
             var wordText = clearWord(txtWord.Text);           
-            var translations = txtTranslations.Text.Split(new char[]{'\n'}, StringSplitOptions.RemoveEmptyEntries );
+            var translations = txtTranslations.Text.Split(new char[]{'\n','\r'}, StringSplitOptions.RemoveEmptyEntries );
             var clear_translations = from string s in translations
                                      where clearWord(s).Length > 0
                                      select clearWord(s);

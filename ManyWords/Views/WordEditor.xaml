@@ -70,8 +70,17 @@
 
 
             <!--Translation-->
-            <TextBlock Grid.Row="1" Text="{Binding Path=AppResources.WordEditor_TranslationTitle, Source={StaticResource LocalizedStrings}}" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
-            <TextBox Grid.Row="2" Name="txtTranslations" TextWrapping="Wrap" HorizontalAlignment="Right" Height="200" Width="456" TextChanged="txtTranslations_TextChanged" KeyDown="txtTranslations_KeyDown" />
+            <TextBlock Grid.Row="1" Text="{Binding Path=AppResources.WordEditor_TranslationTitle, Source={StaticResource LocalizedStrings}}" 
+                       Margin="10,0,0,0" 
+                       VerticalAlignment="Bottom"
+                       TextWrapping="Wrap"/>
+            <TextBox Grid.Row="2" Name="txtTranslations" 
+                     TextWrapping="Wrap" 
+                     AcceptsReturn="True"
+                     HorizontalAlignment="Right" 
+                     Height="200" Width="456"                     
+                     TextChanged="txtTranslations_TextChanged" 
+                     KeyDown="txtTranslations_KeyDown" />
             <Button Grid.Row="2" Name="btnTranslate" Margin="0,0,10,10" HorizontalAlignment="Right" Height="60" VerticalAlignment="Bottom" Width="60" BorderThickness="0" Click="btnTranslate_Click" IsEnabled="True">
                 <Button.Template>
                     <ControlTemplate>
