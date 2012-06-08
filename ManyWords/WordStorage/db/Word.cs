@@ -210,12 +210,14 @@ namespace ManyWords.WordStorage
         {
             NotifyPropertyChanging("Translation");
             entity.Word = this;
+            NotifyPropertyChanged("Translation");
         }
 
         private void detach_translation(Translation entity)
         {
             NotifyPropertyChanging("Translation");
             entity.Word = null;
+            NotifyPropertyChanged("Translation");
         }
     }
 }

@@ -41,8 +41,18 @@ namespace ManyWords.Model
         public WordListItemModel(Word w, TextToSpeech tts)
         {
             this.word = w;
+            w.PropertyChanged += new PropertyChangedEventHandler(w_PropertyChanged);
             this.translation = w.getTranslation(App.LanguagesListModel.MotherLanguage.Code);
             playCmd = new PlaySound(word, tts);
+        }
+
+        void w_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Translation")
+            {
+                this.translation = word.getTranslation(App.LanguagesListModel.MotherLanguage.Code);
+                NotifyPropertyChanged("Translation");
+            }
         }
 
         private Word word;
