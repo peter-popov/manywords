@@ -31,6 +31,8 @@ namespace ManyWords.Views
             if (editedWordItem != null)
             {
                 editedWordItem = null;
+                if (wordsModel != null)
+                    wordsModel.Filter(txtSearch.Text);
             }
             else
             {
