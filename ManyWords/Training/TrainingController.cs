@@ -57,15 +57,15 @@ namespace ManyWords.Training
         }
 
 
-        public void StartNewTraining()
+        public void StartNewTraining(Vocabulary vocabulary)
         {
             System.Diagnostics.Debug.WriteLine("Starting new training...");
             DateTime from = DateTime.Now;
-                
-            WordsSelector ws = new WordsSelector(App.WordStorage);
+
+            WordsSelector ws = new WordsSelector(App.WordStorage, vocabulary);
             words.AddRange(ws.SelectWordsForTraining(10));
 
-            System.Diagnostics.Debug.WriteLine("Trainign finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
+            System.Diagnostics.Debug.WriteLine("Trainign created in {0}ms", (DateTime.Now - from).TotalMilliseconds);
             
             this.NewWordsSeenCount = 0;
             this.CorrectAnswersCount = 0;

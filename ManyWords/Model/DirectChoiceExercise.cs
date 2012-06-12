@@ -14,7 +14,7 @@ namespace ManyWords.Model
             Question = new ChoiceQuestion { Text = word.Spelling };
 
             var correctTranslation = selectCorectTranslation(word);
-            var wordSelector = new WordsSelector(App.WordStorage);
+            var wordSelector = new WordsSelector(App.WordStorage, null);
             var translations = wordSelector.SelectTranslations(word, correctTranslation, 3)
                                            .Select(x => new ChoiceAnswer { Text = x.Spelling, IsCorrect = false })
                                            .ToList();

@@ -58,11 +58,19 @@ namespace ManyWords.Views
             trainingController = new TrainingController(exercises);
         }
 
-
+        WordStorage.Vocabulary vocabulary = null;
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-
+            //vocabulary_id
+            if (NavigationContext.QueryString.ContainsKey("vocabulary_id"))
+            {
+                int id;
+                if (int.TryParse(NavigationContext.QueryString["vocabulary_id"], out id))
+                {
+                    vocabulary = App.WordStorage.FindVocabulary(id);
+                }
+            }
             base.OnNavigatedTo(e);
         }
 
@@ -90,7 +98,7 @@ namespace ManyWords.Views
 
         private void LoadWords(object sender, DoWorkEventArgs e)
         {
-            trainingController.StartNewTraining();        
+            trainingController.StartNewTraining(vocabulary);        
         }
 
         void WordsLoadingCompleted(object sender, RunWorkerCompletedEventArgs e)

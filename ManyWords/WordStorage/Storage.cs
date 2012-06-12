@@ -104,6 +104,13 @@ namespace ManyWords.WordStorage
             }
         }
 
+        public Vocabulary FindVocabulary(int id)
+        {
+            return (from Vocabulary v in wordsDB.Vocabularies
+                    where v.ID == id
+                    select v).FirstOrDefault();
+        }
+
         public Word Find(int id)
         {
             return (from Word w in wordsDB.Words

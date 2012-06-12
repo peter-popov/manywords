@@ -8,21 +8,38 @@ using ManyWords.WordStorage;
 using System.Collections.ObjectModel;
 
 namespace ManyWords.Model
-{
+{    
     /// <summary>
     /// 
     /// </summary>
-    public class VocabularyListItemModel : INotifyPropertyChanged
+    public class VocabularyListItemModel : INotifyPropertyChanged, ICommand
     {
-        public Vocabulary Vocabulary{ get; private set; }
+        #region ICommand interface
+        public event EventHandler CanExecuteChanged;
 
-        public VocabularyListItemModel(Vocabulary v)
+        public bool CanExecute(object parameter)
         {
-            this.Vocabulary = v;            
-            v.PropertyChanged += OnSourceVocabularyChanged;
+            return true;
         }
 
+        public void Execute(object parameter)
+        {
+            parentModel.Fire(this);
+        }
+        #endregion
 
+        public Vocabulary Vocabulary{ get; private set; }
+
+        public ICommand Train { get { return this; } }
+
+        VocabularyViewModel parentModel;
+        public VocabularyListItemModel(Vocabulary v,  VocabularyViewModel model)
+        {
+            this.Vocabulary = v;   
+            parentModel = model;
+            v.PropertyChanged += OnSourceVocabularyChanged;
+        }
+        
         public string Text
         {
             get
@@ -113,13 +130,21 @@ namespace ManyWords.Model
 
             foreach (var v in res)
             {
-                var item = new VocabularyListItemModel(v);
+                var item = new VocabularyListItemModel(v, this);
                 All.Add(item);
                 if (!v.IsPreloaded) User.Add(item);
             }
             
             NotifyPropertyChanged("All");
             NotifyPropertyChanged("User");        
+        }
+
+        public event EventHandler LearnClicked;
+
+        public void Fire(VocabularyListItemModel item)
+        {
+            if (LearnClicked != null)
+                LearnClicked(item, new EventArgs());
         }
 
 

@@ -10,12 +10,14 @@ namespace ManyWords.WordStorage
         private static Random rnd = new Random((int)DateTime.Now.Ticks);
         private string languageStudy;
         private string languageMother;
+        private Vocabulary vocabulary;
 
-        public WordsSelector(Storage s)
+        public WordsSelector(Storage s, Vocabulary vocabulary)
         {
             this.storage = s;
+            this.vocabulary = vocabulary;
             languageStudy = App.LanguagesListModel.StudyLanguage.Code;
-            languageMother = App.LanguagesListModel.MotherLanguage.Code;
+            languageMother = App.LanguagesListModel.MotherLanguage.Code;            
         }
 
 
@@ -41,6 +43,14 @@ namespace ManyWords.WordStorage
             return result;
         }
 
+        private IEnumerable<Word> getWords()
+        {
+            if (vocabulary != null)
+                return vocabulary.Words;
+            else
+                return storage.Words;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,7 +59,7 @@ namespace ManyWords.WordStorage
         public IEnumerable<Word> SelectWordsForTraining(int count)
         {
             //select words in study language with translation to mother language avaliable
-            var possibleWords = from Word w in storage.wordsDB.Words
+            var possibleWords = from Word w in getWords()
                                 where (w.State == State.New || w.State == State.Learning) &&
                                        w.Vocabulary.Language == languageStudy &&
                                        w.Translations.Any(x => x.Language == languageMother)

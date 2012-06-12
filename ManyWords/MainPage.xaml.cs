@@ -1,22 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using System.Windows.Data;
-using System.Globalization;
-using System.Windows.Media.Imaging;
-using ManyWords.Translator;
 
 namespace ManyWords
 {
@@ -29,6 +14,7 @@ namespace ManyWords
             InitializeComponent();
             
             lstVocabulary.DataContext = App.VocabularyListModel;
+            
             App.LanguagesListModel.PropertyChanged += App.VocabularyListModel.OnLanguageModelPropertyChanged;            
         }
 
@@ -43,7 +29,7 @@ namespace ManyWords
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            App.VocabularyListModel.LearnClicked += VocabularyTraining_Click;
         }
 
         private void AddWord_Click(object sender, EventArgs e)
@@ -64,6 +50,16 @@ namespace ManyWords
         private void StartTraining_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/TrainingView.xaml", UriKind.Relative));
+        }
+
+        private void VocabularyTraining_Click(object sender, EventArgs e)
+        {
+            var vocabularyItem = sender as Model.VocabularyListItemModel;
+            if (vocabularyItem != null)
+            {
+                var uri = string.Format("/Views/TrainingView.xaml?vocabulary_id={0}", vocabularyItem.Vocabulary.ID);
+                NavigationService.Navigate(new Uri(uri, UriKind.Relative));
+            }
         }
 
         private void languagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
