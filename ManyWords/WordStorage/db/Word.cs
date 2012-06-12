@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
@@ -35,7 +36,8 @@ namespace ManyWords.WordStorage
     /// <summary>
     /// 
     /// </summary>
-    //[Index(Columns = "Spelling ASC, Added ASC")]
+    [Index(Columns = "vocabID", Name = "WordVocabularyIndex")]    
+    [Index(Columns = "Spelling", Name = "WordIndex")]
     [Table(Name = "Words")]
     public class Word : NotifyPropertyMembers
     {

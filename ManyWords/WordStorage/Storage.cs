@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Windows;
+using Microsoft.Phone.Data.Linq;
 
 namespace ManyWords.WordStorage
 {
@@ -21,7 +22,10 @@ namespace ManyWords.WordStorage
                 System.Diagnostics.Debug.WriteLine("Copying reference database...");
                 DateTime from = DateTime.Now;
                 MoveReferenceDatabase();
-                System.Diagnostics.Debug.WriteLine("Finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
+                System.Diagnostics.Debug.WriteLine("Move finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
+                from = DateTime.Now;
+                UpdateReferenceDatabase();
+                System.Diagnostics.Debug.WriteLine("Update finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
                 
                 appSettings.Add("db_copy", "1");
                 appSettings.Save();
@@ -34,9 +38,7 @@ namespace ManyWords.WordStorage
                 //Create the database
                 wordsDB.CreateDatabase();
             }
-        }
-
-        
+        }        
 
         public static void MoveReferenceDatabase()
         {
@@ -60,6 +62,29 @@ namespace ManyWords.WordStorage
                     }
                 }
             }
+        }
+
+        public static void UpdateReferenceDatabase()
+        {
+            using (var db = new WordsDB(WordsDB.DBConnectionString) )
+            {
+                if (!db.DatabaseExists()) return;
+                DatabaseSchemaUpdater dbUpdater = db.CreateDatabaseSchemaUpdater();
+                if (dbUpdater.DatabaseSchemaVersion == 0)
+                {
+                    dbUpdater.AddIndex<Word>("WordIndex");
+                    dbUpdater.AddIndex<Word>("WordVocabularyIndex");
+                    
+                    dbUpdater.AddIndex<Translation>("TranslationIndex");
+                    dbUpdater.AddIndex<Translation>("TranslationWordIdIndex");
+                    dbUpdater.AddIndex<Translation>("TranslationLanguageIndex");                    
+
+                    dbUpdater.DatabaseSchemaVersion = 1;
+                    dbUpdater.Execute();
+                }
+
+                System.Diagnostics.Debug.WriteLine("Database schema version is {0}", dbUpdater.DatabaseSchemaVersion);                                
+            }            
         }
        
         public IEnumerable<Word> Words
@@ -89,7 +114,7 @@ namespace ManyWords.WordStorage
         public Word Find(string spelling)
         {
             return (from Word w in wordsDB.Words
-                    where w.Spelling.ToLower().Trim() == spelling.ToLower().Trim()
+                    where w.Spelling == spelling.ToLower().Trim()
                     select w).FirstOrDefault();
         }
 

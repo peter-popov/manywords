@@ -177,7 +177,9 @@ namespace ManyWords.Model
         private IEnumerable<WordListItemModel> query(string language, string filter)
         {
             Regex re = new Regex(@"\b" + filter, RegexOptions.IgnoreCase);
-            
+
+           
+
             return from Word w in storage.Words
                    where w.Vocabulary.Language == language
                        && re.IsMatch(w.Spelling)
@@ -204,15 +206,6 @@ namespace ManyWords.Model
                 NotifyPropertyChanged("All");
                 NotifyPropertyChanged("Learning");
                 NotifyPropertyChanged("Learned");
-            }
-        }
-
-        public void UpdateItem(WordListItemModel item)
-        {
-            Word w = storage.Find(item.Word.WordID);
-            if (w != null)
-            {
-                item.Word = w;
             }
         }
 

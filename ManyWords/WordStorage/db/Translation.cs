@@ -2,11 +2,13 @@
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-//using Microsoft.Phone.Data.Linq.Mapping;
+using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace ManyWords.WordStorage
 {
-    //[Index(Columns = "Spelling ASC")]
+    [Index(Columns = "Spelling", Name = "TranslationIndex")]
+    [Index(Columns = "wordID", Name = "TranslationWordIdIndex")]
+    [Index(Columns = "Language", Name = "TranslationLanguageIndex")]
     [Table(Name = "Translations")]
     public class Translation : NotifyPropertyMembers
     {

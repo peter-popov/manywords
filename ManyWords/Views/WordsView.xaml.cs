@@ -24,10 +24,12 @@ namespace ManyWords.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo...");
+            DateTime from = DateTime.Now;
+
             base.OnNavigatedTo(e);
             if (editedWordItem != null)
             {
-                wordsModel.UpdateItem(editedWordItem);
                 editedWordItem = null;
             }
             else
@@ -41,6 +43,7 @@ namespace ManyWords.Views
                 wordsModel = useVocabulary == null ? new Model.WordsViewModel(App.TextToSpeech) : new Model.WordsViewModel(App.TextToSpeech, useVocabulary);
                 DataContext = wordsModel;
             }
+            System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
         }
 
         private void Edit_MenuItem_Click(object sender, RoutedEventArgs e)
