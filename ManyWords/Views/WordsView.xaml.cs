@@ -16,17 +16,18 @@ namespace ManyWords.Views
 
         Model.WordListItemModel editedWordItem = null;
 
+        DateTime created = DateTime.Now;
+
         public WordsView()
         {
             InitializeComponent();
-
+            this.Loaded += PhoneApplicationPage_Loaded;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo...");
-            DateTime from = DateTime.Now;
-
+            
             base.OnNavigatedTo(e);
             if (editedWordItem != null)
             {
@@ -45,7 +46,7 @@ namespace ManyWords.Views
                 wordsModel = useVocabulary == null ? new Model.WordsViewModel(App.TextToSpeech) : new Model.WordsViewModel(App.TextToSpeech, useVocabulary);
                 DataContext = wordsModel;
             }
-            System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo finished in {0}ms", (DateTime.Now - from).TotalMilliseconds);
+            System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo finished in {0}ms", (DateTime.Now - created).TotalMilliseconds);
         }
 
         private void Edit_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -88,19 +89,22 @@ namespace ManyWords.Views
 
         private void txtSearch_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
+            if (wordsModel != null && txtSearch.Text.Trim().Length > 0)
+                wordsModel.Filter(txtSearch.Text.Trim());
+        }       
 
-        }
-
-        private void txtSearch_TextInputUpdate(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (wordsModel != null && txtSearch.Text.Trim().Length > 0)
+                wordsModel.Filter(txtSearch.Text.Trim());
         }
 
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (wordsModel != null)
-                wordsModel.Filter(txtSearch.Text);
+            System.Diagnostics.Debug.WriteLine("WordsView page loaded in {0}ms", (DateTime.Now - created).TotalMilliseconds);
         }
+
+       
     }
 
 

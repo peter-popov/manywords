@@ -113,5 +113,11 @@ namespace ManyWords
                 }
             }
         }
+
+
+        private void PhoneApplicationPage_LayoutUpdated(object sender, EventArgs e)
+        {
+
+        }
     }
 }

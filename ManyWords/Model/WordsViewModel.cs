@@ -145,16 +145,17 @@ namespace ManyWords.Model
         {
             get
             {
-                if (usedVocabulary == null)
-                {
-                    return query(App.LanguagesListModel.StudyLanguage.Code, filter);
-                }
+                if (filter.Trim().Length > 0)
+                    if (usedVocabulary == null)
+                        return query(App.LanguagesListModel.StudyLanguage.Code, filter);
+                    else
+                        return query(usedVocabulary, filter);
                 else
-                {
-                    return query(usedVocabulary, filter);
-                }
+                    if (usedVocabulary == null)
+                        return query(App.LanguagesListModel.StudyLanguage.Code);
+                    else
+                        return query(usedVocabulary);
             }
-
         }
 
         public IEnumerable<WordListItemModel> Learning
@@ -173,16 +174,28 @@ namespace ManyWords.Model
             }
         }
 
+        private IEnumerable<WordListItemModel> query(string language)
+        {
+            return from Word w in storage.Words
+                   where w.Vocabulary.Language == language
+                   orderby w.Spelling ascending
+                   select new WordListItemModel(w, tts);
+        }
+
+        private IEnumerable<WordListItemModel> query(Vocabulary vocab)
+        {
+            return from Word w in storage.Words
+                   where w.Vocabulary.ID == vocab.ID
+                   orderby w.Spelling ascending
+                   select new WordListItemModel(w, tts);
+        }
 
         private IEnumerable<WordListItemModel> query(string language, string filter)
         {
             Regex re = new Regex(@"\b" + filter, RegexOptions.IgnoreCase);
 
-           
-
             return from Word w in storage.Words
-                   where w.Vocabulary.Language == language
-                       && re.IsMatch(w.Spelling)
+                   where w.Vocabulary.Language == language && re.IsMatch(w.Spelling)
                    orderby w.Spelling ascending
                    select new WordListItemModel(w, tts);
         }
@@ -191,8 +204,7 @@ namespace ManyWords.Model
         {           
             Regex re = new Regex( @"\b" + filter, RegexOptions.IgnoreCase );
             return from Word w in storage.Words
-                   where w.Vocabulary.ID == vocab.ID
-                      && re.IsMatch(w.Spelling)
+                   where w.Vocabulary.ID == vocab.ID && re.IsMatch(w.Spelling)
                    orderby w.Spelling ascending
                    select new WordListItemModel(w, tts);
         }
