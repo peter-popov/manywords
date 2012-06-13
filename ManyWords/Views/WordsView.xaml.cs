@@ -15,8 +15,8 @@ namespace ManyWords.Views
         private Model.WordsViewModel wordsModel;
 
         Model.WordListItemModel editedWordItem = null;
-
-        DateTime created = DateTime.Now;
+        
+        bool hasLoaded = false;
 
         public WordsView()
         {
@@ -27,7 +27,6 @@ namespace ManyWords.Views
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo...");
-            
             base.OnNavigatedTo(e);
             if (editedWordItem != null)
             {
@@ -40,13 +39,15 @@ namespace ManyWords.Views
                 WordStorage.Vocabulary useVocabulary = null; 
                 if (NavigationContext.QueryString.ContainsKey("vocabulary"))
                 {
-                    int id = int.Parse( NavigationContext.QueryString["vocabulary"] );
-                    useVocabulary = App.WordStorage.wordsDB.Vocabularies.Where(x => x.ID == id).FirstOrDefault();
+                    int id = 0;
+                    if ( int.TryParse(NavigationContext.QueryString["vocabulary"], out id) )
+                        useVocabulary = App.WordStorage.FindVocabulary(id);
                 }
-                wordsModel = useVocabulary == null ? new Model.WordsViewModel(App.TextToSpeech) : new Model.WordsViewModel(App.TextToSpeech, useVocabulary);
-                DataContext = wordsModel;
+                wordsModel = useVocabulary == null ? new Model.WordsViewModel(App.TextToSpeech) : new Model.WordsViewModel(App.TextToSpeech, useVocabulary);                
             }
-            System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo finished in {0}ms", (DateTime.Now - created).TotalMilliseconds);
+            performanceProgressBar.Visibility = Visibility.Visible;
+            performanceProgressBar.IsIndeterminate = true;
+            hasLoaded = false;
         }
 
         private void Edit_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -90,21 +91,33 @@ namespace ManyWords.Views
         private void txtSearch_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             if (wordsModel != null && txtSearch.Text.Trim().Length > 0)
-                wordsModel.Filter(txtSearch.Text.Trim());
+            {
+                wordsModel.Filter(txtSearch.Text.Trim());                               
+            }
         }       
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (wordsModel != null && txtSearch.Text.Trim().Length > 0)
-                wordsModel.Filter(txtSearch.Text.Trim());
+            {
+                wordsModel.Filter(txtSearch.Text.Trim());                       
+            }
         }
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("WordsView page loaded in {0}ms", (DateTime.Now - created).TotalMilliseconds);
+            DataContext = wordsModel;
+            hasLoaded = true;
         }
 
-       
+        private void allList_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (hasLoaded)
+            {
+                performanceProgressBar.Visibility = Visibility.Collapsed;
+                performanceProgressBar.IsIndeterminate = false;
+            }
+        }       
     }
 
 
