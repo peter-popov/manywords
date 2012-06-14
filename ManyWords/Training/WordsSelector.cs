@@ -78,7 +78,9 @@ namespace ManyWords.WordStorage
             var res = from Translation t in storage.wordsDB.Translations
                       where t.Language == languageMother && 
                             t.Spelling != main.Spelling &&
-                            t.wordID != w.WordID && (((t.ID + offset) ^ mask) % 10 > 5)                                   
+                            t.wordID != w.WordID && 
+                            //(t.Word.PartOfSpeech == w.PartOfSpeech || t.Word.PartOfSpeech == null) &&
+                            (((t.ID + offset) ^ mask) % 10 > 5)                                   
                       select t;
 
             return res.Take(count);

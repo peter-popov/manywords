@@ -87,28 +87,13 @@ namespace WordsDatabase
             {                
                 vocabulary = "default("+languageFrom.Item1+")";
             }
-            /*else if ( vocabulary != null )
-            {
-                var res = (from Vocabulary v in database.Vocabularies
-                          where (v.Description == vocabulary)
-                          select v).FirstOrDefault();
-                if (res != null)
-                {
-                    return res;
-                }
-
-                if (languageFrom == null )
-                {
-                    throw new ArgumentException("Target or source languages are not specified");
-                }
-            }*/
-
+            //
             // Create vocabulary and vocabulary info
             var newVocabulary = new Vocabulary { Description = vocabulary, 
                                                  IsPreloaded = true, 
                                                  IsUsed = true, 
                                                  Language = languageFrom.Item1 };
-
+            //
             foreach( var lng in languagesTo)
             {
                 var targetLanguage = new VocabularyTargetLanguage { Language = lng.Item1 };
