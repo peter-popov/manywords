@@ -80,7 +80,8 @@
             <local:SpellingTrainingControll local:TiltEffect.IsTiltEnabled="True" x:Name="spellingControl" Visibility="Collapsed" Grid.Row="0"/>
 
             <!--Statistics-->
-            <StackPanel x:Name="ctlStatistic" Grid.Row="0" VerticalAlignment="Center" Orientation="Vertical" Visibility="Collapsed">
+            <StackPanel x:Name="ctlStatistic" Grid.Row="0" VerticalAlignment="Center" Orientation="Vertical" 
+                        Visibility="Collapsed">
                 <TextBlock Text="Correct answers:" Margin="10,30,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                 <TextBlock x:Name="txtAnswers" Margin="0,20,0,0" Text="5 of 8" 
                            HorizontalAlignment="Center"                           
@@ -91,6 +92,8 @@
                            HorizontalAlignment="Center" 
                            Foreground="{StaticResource PhoneAccentBrush}"
                            FontSize="48" FontWeight="Bold"/>
+                <Button x:Name="newTraining" 
+                        Content="{Binding Path=AppResources.TrainingView_NewButton, Source={StaticResource LocalizedStrings}}" Click="newTraining_Click" />
             </StackPanel>
 
             <StackPanel Grid.Row ="0" x:Name="progressPanel" Orientation="Vertical" VerticalAlignment="Center">
@@ -103,7 +106,6 @@
         
         <my:AdControl AdUnitId="Image480_80" Grid.Row="2" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />
     </Grid>
-
 
 
 </phone:PhoneApplicationPage>

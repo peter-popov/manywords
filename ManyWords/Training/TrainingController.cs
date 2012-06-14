@@ -63,6 +63,7 @@ namespace ManyWords.Training
             DateTime from = DateTime.Now;
 
             WordsSelector ws = new WordsSelector(App.WordStorage, vocabulary);
+            words.Clear();
             words.AddRange(ws.SelectWordsForTraining(10));
 
             System.Diagnostics.Debug.WriteLine("Trainign created in {0}ms", (DateTime.Now - from).TotalMilliseconds);

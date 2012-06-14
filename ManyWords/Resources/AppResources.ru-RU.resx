@@ -168,6 +168,9 @@
   <data name="SpellingCheck_Hint" xml:space="preserve">
     <value>Введите перевод для слова выше</value>
   </data>
+  <data name="TrainingView_NewButton" xml:space="preserve">
+    <value>продолжить</value>
+  </data>
   <data name="TrainingView_Progress" xml:space="preserve">
     <value>Загружаем слова...</value>
   </data>

@@ -48,9 +48,9 @@ namespace ManyWords.Views
             rectHidden.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-        private void txtInput_TextInput(object sender, TextCompositionEventArgs e)
-        {           
-            btnCheck.Focus();
+
+        private void Check()
+        {
             //TODO: Yes, it's clumsy, but...
             //Try to signal selected answer to the datacontext            
             var model = this.DataContext as Model.SpellingExercise;
@@ -61,7 +61,7 @@ namespace ManyWords.Views
 
             if (model.Result == Model.ExerciseResult.OK)
             {
-                VisualStateManager.GoToState(iconResult, "Correct", true); 
+                VisualStateManager.GoToState(iconResult, "Correct", true);
             }
             else
             {
@@ -69,13 +69,20 @@ namespace ManyWords.Views
                 //
                 // Show expected result and highlight problematic parts
                 showDiff(txtInput.Text.Trim(), model.Word.Trim());
-                VisualStateManager.GoToState(iconResult, "Wrong", true); 
+                VisualStateManager.GoToState(iconResult, "Wrong", true);
             }
 
             txtTip.Text = AppResources.SpellingCheck_ContinueHint;
             rectHidden.Visibility = System.Windows.Visibility.Visible;
-            btnCheck.Visibility = Visibility.Collapsed;
+            btnCheck.Visibility = Visibility.Collapsed;        
         }
+
+
+        private void txtInput_TextInput(object sender, TextCompositionEventArgs e)
+        {           
+            btnCheck.Focus();
+            Check();
+        }   
 
         private void showCorrect(string text, bool correct = true)
         {
@@ -159,16 +166,7 @@ namespace ManyWords.Views
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Yes, it's clumsy, but...
-            //Try to signal selected answer to the datacontext
-            var model = this.DataContext as Model.SpellingExercise;
-            if (model != null)
-            {
-                model.SubmitAnswer(txtInput.Text);
-            }
-            txtTip.Text = AppResources.SpellingCheck_ContinueHint;
-            rectHidden.Visibility = System.Windows.Visibility.Visible;
-            btnCheck.Visibility = Visibility.Collapsed;
+            Check();
         }
     }
 }

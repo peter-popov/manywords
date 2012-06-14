@@ -74,26 +74,37 @@ namespace ManyWords.Views
             base.OnNavigatedTo(e);
         }
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+
+        private void CheckResult()
         {
             if (trainingController != null)
             {
                 trainingController.CheckResult();
                 App.WordStorage.wordsDB.SubmitChanges();
-                App.VocabularyListModel.Update();
-            }
+            }        
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            CheckResult();
+            App.VocabularyListModel.Update();
             base.OnNavigatedFrom(e);
         }
 
-
-        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        private void Start()
         {
             performanceProgressBar.IsIndeterminate = true;
             progressPanel.Visibility = System.Windows.Visibility.Visible;
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += LoadWords;
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(WordsLoadingCompleted);
-            bw.RunWorkerAsync();
+            bw.RunWorkerAsync();        
+        }
+
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Start();
         }
 
         private void LoadWords(object sender, DoWorkEventArgs e)
@@ -143,6 +154,13 @@ namespace ManyWords.Views
         private void ContentPanel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
 
+        }
+
+        private void newTraining_Click(object sender, RoutedEventArgs e)
+        {
+            ctlStatistic.Visibility = System.Windows.Visibility.Collapsed;
+            CheckResult();
+            Start();            
         }
 
 
