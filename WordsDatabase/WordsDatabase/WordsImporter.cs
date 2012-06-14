@@ -70,6 +70,8 @@ namespace WordsDatabase
 
                 foreach (var t in translations)
                 {
+                    if (t.Item2.Trim().Length == 0)
+                        continue;
                     Translation tr = new Translation { Spelling = t.Item2, Language = t.Item1 };
                     item.Translations.Add(tr);
                     database.Translations.InsertOnSubmit(tr);
