@@ -28,11 +28,13 @@ namespace ManyWords.Views
         {
             System.Diagnostics.Debug.WriteLine("WordsView.OnNavigatedTo...");
             base.OnNavigatedTo(e);
+            hasLoaded = false;
             if (editedWordItem != null)
             {
                 editedWordItem = null;
                 if (wordsModel != null)
                     wordsModel.Filter(txtSearch.Text);
+                hasLoaded = true;
             }
             else
             {
@@ -47,7 +49,7 @@ namespace ManyWords.Views
             }
             performanceProgressBar.Visibility = Visibility.Visible;
             performanceProgressBar.IsIndeterminate = true;
-            hasLoaded = false;
+            
         }
 
         private void Edit_MenuItem_Click(object sender, RoutedEventArgs e)
