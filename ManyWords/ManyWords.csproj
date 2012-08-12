@@ -219,9 +219,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar_settings.png" />
-    <Content Include="Images\PanoramaBackground.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\vocabulary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -239,16 +236,12 @@
     <Content Include="Images\Background.png" />
     <Content Include="Images\right.png" />
     <Content Include="Images\Sound_dark_small.png" />
-    <Content Include="Images\Sound_light_small.png" />
     <None Include="Service References\TranslatorService\soap.wsdl" />
     <None Include="Service References\TranslatorService\soap.xsd" />
     <None Include="Service References\TranslatorService\soap1.xsd" />
     <None Include="Service References\TranslatorService\soap2.xsd" />
     <None Include="Service References\TranslatorService\soap3.xsd" />
     <None Include="Service References\TranslatorService\SoapService.wsdl" />
-    <SplashScreen Include="Images\SplashScreenImage.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </SplashScreen>
     <Content Include="Images\Training.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -280,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\TranslatorService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

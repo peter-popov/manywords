@@ -143,7 +143,7 @@ namespace ManyWords
             var mainForeground = Colors.White;
             var mainBackground = Color.FromArgb(255, 25, 117, 150);
 
-            (App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color = accentColor;
+           /* (App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color = accentColor;
             (App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color = mainForeground;
             (App.Current.Resources["PhoneBackgroundBrush"] as SolidColorBrush).Color = mainBackground;
 
@@ -157,7 +157,7 @@ namespace ManyWords
             (App.Current.Resources["PhoneTextBoxForegroundBrush"] as SolidColorBrush).Color = Colors.Black;
             (App.Current.Resources["PhoneTextBoxEditBackgroundBrush"] as SolidColorBrush).Color = Colors.White;
             (App.Current.Resources["PhoneTextBoxEditBorderBrush"] as SolidColorBrush).Color = Colors.White;
-            (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.Gray;
+            (App.Current.Resources["PhoneTextBoxReadOnlyBrush"] as SolidColorBrush).Color = Colors.Gray;*/
         }
 
         // Code to execute when the application is launching (eg, from Start)

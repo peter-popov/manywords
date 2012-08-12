@@ -31,15 +31,17 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Column="0" Fill="{StaticResource PhoneAccentBrush}" 
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                   Width="60" Height="60">
+                                <Rectangle Grid.Column="0" 
+                                           Margin="0,15,0,0"
+                                           Fill="{StaticResource PhoneAccentBrush}" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Width="40" Height="40">
                                     <Rectangle.OpacityMask>
                                         <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
                                 <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"                                                                                                                            
-                                           Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                           Style="{StaticResource PhoneTextExtraLargeStyle}"                                          
                                            VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
@@ -115,8 +117,9 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
+    <!--Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}"-->
 
+    <Grid x:Name="LayoutRoot">
         <controls:Panorama Title="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}">
 
             <controls:Panorama.TitleTemplate>
@@ -125,10 +128,6 @@
                            FontSize="100" Margin="0,50,0,0" />
                 </DataTemplate>
             </controls:Panorama.TitleTemplate>
-
-            <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Images/PanoramaBackground.jpg"/>
-            </controls:Panorama.Background>
 
             <!--**********************************************************-->
             <!--welcome-->
