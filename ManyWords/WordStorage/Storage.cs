@@ -17,7 +17,7 @@ namespace ManyWords.WordStorage
         {
             //If it's a very first run copy database to the isolated storage
             var appSettings = IsolatedStorageSettings.ApplicationSettings;
-            if (!appSettings.Contains("db_copy"))
+            /*if (!appSettings.Contains("db_copy"))
             {
                 System.Diagnostics.Debug.WriteLine("Copying reference database...");
                 DateTime from = DateTime.Now;
@@ -29,7 +29,7 @@ namespace ManyWords.WordStorage
                 
                 appSettings.Add("db_copy", "1");
                 appSettings.Save();
-            }
+            }*/
 
             // Now open database
             wordsDB = new WordsDB(WordsDB.DBConnectionString);
@@ -237,7 +237,7 @@ namespace ManyWords.WordStorage
             
             foreach (string s in translation)
             {
-                Translation tr = new Translation { Spelling = s, Word = item };
+                Translation tr = new Translation { Spelling = s, Word = item, Language = App.LanguagesListModel.MotherLanguage.Code };
                 item.Translations.Add(tr);
                 wordsDB.Translations.InsertOnSubmit(tr);
             }
