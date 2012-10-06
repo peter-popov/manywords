@@ -225,7 +225,7 @@ namespace ManyWords.Views
             NavigationService.GoBack();
         }
 
-        #region helreps
+        #region helpers
         string clearWord(string s)
         {
             return s.Trim(new char[] { ' ', '.', '\\', '/', '\n' });

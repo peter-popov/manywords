@@ -191,12 +191,16 @@
                 <controls:PanoramaItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=AppResources.MainPage_PanoramaTitleVocabularies, Source={StaticResource LocalizedStrings}}"/>
-                        <Button  x:Name ="btnAddVocabulary" Margin="15,0,0,15" views:TiltEffect.IsTiltEnabled="True" Click="btnAddVocabulary_Click">
+                        <Button  x:Name ="btnAddVocabulary" Margin="15,15,0,0" views:TiltEffect.IsTiltEnabled="True" Click="btnAddVocabulary_Click">
                             <Button.Template>
                                 <ControlTemplate>
-                                    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                        <Image Source="/Images/add.png" Width="Auto" Height="Auto" Stretch="Fill" />
-                                    </Border>
+                                    <Rectangle Fill="{StaticResource PhoneAccentBrush}" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Width="60" Height="60">
+                                        <Rectangle.OpacityMask>
+                                            <ImageBrush Stretch="Fill" ImageSource="/Images/add.png"/>
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
