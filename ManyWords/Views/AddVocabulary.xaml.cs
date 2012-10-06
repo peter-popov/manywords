@@ -38,7 +38,9 @@ namespace ManyWords.Views
             Vocabulary v = new Vocabulary
             {
                 Description = txtVocabularyName.Text.Trim(),
-                Language = App.LanguagesListModel.StudyLanguage.Code
+                Language = App.LanguagesListModel.StudyLanguage.Code,
+                IsPreloaded = true,
+                IsUsed = true 
             };
 
             v.TargetLanguages.Add(tl);
