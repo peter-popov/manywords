@@ -50,7 +50,7 @@ namespace ManyWords.Views
 
             exercises.Add(new ExerciseInfo
             {
-                Info = new ApplicabilityInterval { MinLevel = 70, MaxLevel = 100, Increment = 10 },
+                Info = new ApplicabilityInterval { MinLevel = 70, MaxLevel = 101, Increment = 10 },
                 Model = typeof(SpellingExercise),
                 Presenter = spellingControl
             });

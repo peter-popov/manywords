@@ -137,9 +137,10 @@ namespace ManyWords.Training
                 words.Insert(wordIndex + 1 + random.Next(words.Count - wordIndex), currentWord);    
             }
             //
-            // If words learingn lever reaches it maximum it means that word is learned
-            if (currentWord.State == State.Learning && currentWord.Level == MaxLevel)
+            // If words learingn lever reaches its maximum it means that word is learned
+            if (currentWord.State == State.Learning && currentWord.Level >= MaxLevel)
             {
+                currentWord.Level = MaxLevel;
                 currentWord.State = State.Learned;
             }
         }
@@ -161,7 +162,7 @@ namespace ManyWords.Training
             List<ExerciseInfo> res = new List<ExerciseInfo>();
             foreach (ExerciseInfo ex in exercies)
             {
-                if (ex.Info.MinLevel <= level && ex.Info.MaxLevel > level)
+                if (ex.Info.MinLevel <= level && level < ex.Info.MaxLevel )
                 {
                     res.Add(ex);
                 }
