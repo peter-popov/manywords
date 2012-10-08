@@ -104,7 +104,7 @@
 
         </Grid>
         
-        <my:AdControl AdUnitId="Image480_80" Grid.Row="2" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />
+        <my:AdControl AdUnitId="Image480_80" Grid.Row="2" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />        
     </Grid>
 
 
