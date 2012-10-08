@@ -220,6 +220,7 @@
     </Content>
     <Content Include="Images\appbar_settings.png" />
     <Resource Include="Images\Tile.png" />
+    <Resource Include="Images\MarketplaceTile.png" />
     <Content Include="Images\vocabulary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
