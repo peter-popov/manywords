@@ -24,7 +24,7 @@
     <Tokens>
       <PrimaryToken TokenID="ManyWordsToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Images\Background.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Images\Tile.png</BackgroundImageURI>
           <Count>0</Count>
           <Title>ManyWords</Title>
         </TemplateType5>
