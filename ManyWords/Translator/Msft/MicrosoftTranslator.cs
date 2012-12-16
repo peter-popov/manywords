@@ -22,6 +22,7 @@ namespace ManyWords.Translator.Msft
         private List<Language> languages = new List<Language>();
         private LanguageServiceClient translator_proxy = new LanguageServiceClient();
         private string APP_ID = "C45B5EADBD4C0FACC60303653AFE04EA151612D2";
+        
 
         public MicrosoftTranslator()
         {

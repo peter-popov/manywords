@@ -63,7 +63,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,78">
             <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=AppResources.AppName, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
@@ -98,13 +98,15 @@
 
             <StackPanel Grid.Row ="0" x:Name="progressPanel" Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" 
-                   Text="{Binding Path=AppResources.TrainingView_Progress, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSubtleStyle}" />
+                           Text="{Binding Path=AppResources.TrainingView_Progress, Source={StaticResource LocalizedStrings}}" 
+                           Style="{StaticResource PhoneTextSubtleStyle}" />
                 <toolkit:PerformanceProgressBar Margin="0,10,0,0" x:Name="performanceProgressBar"/>
             </StackPanel>
 
         </Grid>
-        
+        <!--
         <my:AdControl AdUnitId="Image480_80" Grid.Row="2" ApplicationId="test_client" Height="80" Name="adControl1" Width="480" />        
+        -->
     </Grid>
 
 

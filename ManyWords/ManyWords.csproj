@@ -203,6 +203,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Words.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Service References\TranslatorService\configuration91.svcinfo" />
     <None Include="Service References\TranslatorService\configuration.svcinfo" />
     <None Include="Service References\TranslatorService\ManyWords.TranslatorService.GetTranslationsResponse.datasource">
@@ -225,9 +228,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SplashScreenImage.jpg" />
-    <Content Include="Words.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <DesignData Include="Model\MultichoiceTrainingViewTestData.xml">
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
